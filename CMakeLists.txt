@@ -1,0 +1,86 @@
+cmake_minimum_required(VERSION 3.12)
+project(ROS2Plugin VERSION 1.0)
+
+## Default build type
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "RelWithDebInfo")
+endif()
+
+# Detect if Caribou is a subproject of SOFA
+if ("${CMAKE_PROJECT_NAME}" STREQUAL "Sofa")
+    set(ROS2Plugin_COMPILED_AS_SOFA_SUBPROJECT 1)
+    message(STATUS "${PROJECT_NAME} is compiled as a subproject to SOFA.")
+elseif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+    set(CMAKE_INSTALL_PREFIX "install")
+endif ()
+
+# If the plugin is compiled within SOFA, add an option to deactivate it, in which case the remaining
+# of this file won't run and therefore will not generate any error if the requirements (python, pybind11)
+# are not found.
+if (ROS2Plugin_COMPILED_AS_SOFA_SUBPROJECT)
+    option(PLUGIN_SOFA_ROS2Plugin "Build the ROS2Plugin." ON)
+    if (NOT PLUGIN_SOFA_ROS2Plugin)
+        return()
+    else()
+        message("Adding plugin ROS2Plugin")
+    endif()
+endif()
+
+# SOFA packages containing our dependencies
+find_package(SofaFramework REQUIRED) # Needed to use SofaCore, SofaHelper and SofaDefaultType
+
+# Config files (tell SOFA this is a plugin)
+set(CONFIG_FILES
+    src/ROS2Plugin/config.h
+    src/ROS2Plugin/initROS2Plugin.cpp
+    )
+# Our nice new SOFA Components
+file(GLOB_RECURSE HEADER_FILES
+    "src/*.h"
+    "src/*.inl"
+)
+
+file(GLOB_RECURSE SOURCE_FILES
+    "src/*.cpp"
+)
+
+# SOFA plugin are basically libraries
+add_library(${PROJECT_NAME} SHARED ${CONFIG_FILES} ${HEADER_FILES} ${SOURCE_FILES})
+
+# Dependencies
+target_link_libraries(${PROJECT_NAME} PUBLIC
+    SofaCore
+    SofaHelper
+    SofaDefaultType
+    )
+
+## Change default install prefix
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+    set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/install CACHE PATH "Install path prefix, prepended onto install directories." FORCE)
+endif()
+
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
+# Compiler options
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED 17)
+if ("${CMAKE_CXX_COMPILER} ${CMAKE_CXX_COMPILER_ARG1}" MATCHES ".*[cC][lL][aA][nN][gG]")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fcolor-diagnostics")
+else()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdiagnostics-color")
+endif()
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
+
+# Create package Config, Version & Target files.
+# Deploy the headers, resources, scenes & examples.
+sofa_generate_package(
+    NAME ${PROJECT_NAME}
+    TARGETS ${PROJECT_NAME}
+    VERSION ${PROJECT_VERSION}
+    INCLUDE_SOURCE_DIR "src"
+    INCLUDE_INSTALL_DIR "ROS2Plugin"
+    RELOCATABLE "plugins"
+    )
+

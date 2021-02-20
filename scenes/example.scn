@@ -1,0 +1,20 @@
+<Node name="root" dt="1e-3" gravity="0 0 0">
+
+    <RequiredPlugin pluginName='SofaBoundaryCondition'/>
+    <RequiredPlugin name="ROS2Plugin"/>
+
+    <EulerImplicitSolver name="ODEsolver" rayleighStiffness="0.1" rayleighMass="0.1" />
+    <CGLinearSolver iterations="100" tolerance="1e-5" threshold="1e-5"/>
+
+    <Node name="Point">
+        <MechanicalObject name="DOFs" template="Vec3d" showObject="true"/>
+        <LinearMovementConstraint
+                template="Vec3d"
+                keyTimes="0 5 10"
+                movements="0 0 0
+                           1 0 0
+                           2 0 0"/>
+    </Node>
+
+    <DummyVec3d name="dummy" input="@Point/DOFs.position" draw="true" />
+</Node>
