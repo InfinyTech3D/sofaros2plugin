@@ -27,6 +27,7 @@ ln -s $SOFA_BUILD_DIRECTORY/ROS2plugin/install $SOFA_BUILD_DIRECTORY/sofa/instal
 If your SOFA installation is not yet in your library path, you can either export it:
 ```
 export SOFA_ROOT=$SOFA_BUILD_DIRECTORY/sofa/install
+export PATH=$PATH:$SOFA_ROOT/bin
 ```
 
 Or inform its path in the CMake call
