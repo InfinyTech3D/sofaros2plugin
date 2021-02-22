@@ -14,7 +14,17 @@
                 movements="0 0 0
                            1 0 0
                            2 0 0"/>
+        <DummyVec3d name="dummy" input="@DOFs.position" draw="true" />
     </Node>
 
-    <DummyVec3d name="dummy" input="@Point/DOFs.position" draw="true" />
+    <Node name="Pose">
+        <MechanicalObject name="DOFs" template="Rigid3d" showObject="true"/>
+        <LinearMovementConstraint
+                template="Rigid3d"
+                keyTimes="0 5 10"
+                movements="0 0 0 0 0 0
+                           0 1 0 0 0 0
+                           0 2 0 0 0 0 "/>
+        <DummyRigid name="dummy" input="@DOFs.position" draw="true" />
+    </Node>
 </Node>

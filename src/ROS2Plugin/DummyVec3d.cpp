@@ -1,4 +1,5 @@
 #include <ROS2Plugin/DummyVec3d.inl>
+#include <sofa/core/ObjectFactory.h>
 
 namespace sofa {
 namespace ros2 {

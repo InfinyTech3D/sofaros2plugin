@@ -1,7 +1,6 @@
 #pragma once
 
 #include <ROS2Plugin/types.h>
-#include <sofa/core/ObjectFactory.h>
 #include <sofa/core/objectmodel/BaseObject.h>
 #include <sofa/core/objectmodel/DataCallback.h>
 #include <sofa/core/visual/VisualParams.h>
@@ -14,16 +13,16 @@ using namespace sofa::defaulttype;
 using core::objectmodel::Data;
 
 using namespace sofa::defaulttype;
-class DummyVec3d : public core::objectmodel::BaseObject {
+class DummyRigid : public core::objectmodel::BaseObject {
    public:
-    SOFA_CLASS(DummyVec3d, core::objectmodel::BaseObject);
-    sofa::Data<Vec3d>               d_input;
-    sofa::Data<Vec3d>               d_output;
+    SOFA_CLASS(DummyRigid, core::objectmodel::BaseObject);
+    sofa::Data<Rigid>               d_input;
+    sofa::Data<Rigid>               d_output;
     core::objectmodel::DataCallback c_callback;
     sofa::Data<bool>                d_draw;
 
-    DummyVec3d();
-    virtual ~DummyVec3d();
+    DummyRigid();
+    virtual ~DummyRigid();
     virtual void init();
     virtual void handleEvent(sofa::core::objectmodel::Event* event);
     virtual void draw(const sofa::core::visual::VisualParams* vparams);

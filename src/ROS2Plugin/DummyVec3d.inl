@@ -1,6 +1,6 @@
 #pragma once
 
-#include "DummyVec3d.h"
+#include <ROS2Plugin/DummyVec3d.h>
 
 namespace sofa {
 namespace ros2 {
@@ -31,7 +31,7 @@ void DummyVec3d::handleEvent(sofa::core::objectmodel::Event *event) {
 
 void DummyVec3d::draw(const sofa::core::visual::VisualParams *vparams) {
     if (d_draw.getValue()) {
-        vparams->drawTool()->drawSphere(d_output.getValue(), 0.1, sofa::defaulttype::Vec4d(1.0, 1.0, 1.0, 1.0));
+        vparams->drawTool()->drawSphere(d_output.getValue(), 0.1, RGBAColor(1.0, 1.0, 1.0, 1.0));
     }
 }
 
