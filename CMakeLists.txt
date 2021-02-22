@@ -1,18 +1,13 @@
 cmake_minimum_required(VERSION 3.12)
 project(ROS2Plugin VERSION 1.0)
 
-## Default build type
-if(NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE "RelWithDebInfo")
-endif()
+# Set install path to local
+set(CMAKE_INSTALL_PREFIX "install")
 
-# Detect if Caribou is a subproject of SOFA
-if ("${CMAKE_PROJECT_NAME}" STREQUAL "Sofa")
-    set(ROS2Plugin_COMPILED_AS_SOFA_SUBPROJECT 1)
-    message(STATUS "${PROJECT_NAME} is compiled as a subproject to SOFA.")
-elseif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+# If no install path is given, set it to local instead of global
+if(NOT CMAKE_INSTALL_PREFIX)
     set(CMAKE_INSTALL_PREFIX "install")
-endif ()
+endif()
 
 # If the plugin is compiled within SOFA, add an option to deactivate it, in which case the remaining
 # of this file won't run and therefore will not generate any error if the requirements (python, pybind11)
@@ -31,7 +26,6 @@ find_package(SofaFramework REQUIRED) # Needed to use SofaCore, SofaHelper and So
 
 # Config files (tell SOFA this is a plugin)
 set(CONFIG_FILES
-    src/ROS2Plugin/config.h
     src/ROS2Plugin/initROS2Plugin.cpp
     )
 # Our nice new SOFA Components
@@ -83,4 +77,3 @@ sofa_generate_package(
     INCLUDE_INSTALL_DIR "ROS2Plugin"
     RELOCATABLE "plugins"
     )
-
