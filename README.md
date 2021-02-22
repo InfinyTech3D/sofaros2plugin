@@ -55,7 +55,7 @@ The usual SOFA project workspace is structured as it follows:
 ├── build                           ~ [alias SOFA_BUILD_DIRECTORY]
 │   ├── sofa
 │   │
-│   │   ... (other out-of-tree plugins)
+│   │   ... (other out-of-tree builds)
 │   │
 │   └── ros2plugin
 ```
