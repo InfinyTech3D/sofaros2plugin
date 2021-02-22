@@ -2,11 +2,8 @@
 
 namespace sofa {
 namespace component {
-namespace controller {
 
-int DummyVec3dClass = core::RegisterObject("Random forces applied to all points")
-        .add<DummyVec3d>();
+int DummyVec3dClass = core::RegisterObject("Random forces applied to all points").add<DummyVec3d>();
 
 }
-}
-}
+}  // namespace sofa
