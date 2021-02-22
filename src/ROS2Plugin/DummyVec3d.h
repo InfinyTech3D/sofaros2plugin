@@ -8,7 +8,7 @@
 #include <sofa/simulation/AnimateBeginEvent.h>
 
 namespace sofa {
-namespace component {
+namespace ros2 {
 
 using namespace sofa::defaulttype;
 using core::objectmodel::Data;
@@ -30,5 +30,5 @@ class DummyVec3d : public core::objectmodel::BaseObject {
     void         update();
 };
 
-}  // end namespace component
+}  // namespace ros2
 }  // end namespace sofa

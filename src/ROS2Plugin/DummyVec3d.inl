@@ -3,7 +3,7 @@
 #include "DummyVec3d.h"
 
 namespace sofa {
-namespace component {
+namespace ros2 {
 
 DummyVec3d::DummyVec3d()
     : d_input(initData(&d_input, sofa::defaulttype::Vec3d(0, 0, 0), "input", "input"))
@@ -35,5 +35,5 @@ void DummyVec3d::draw(const sofa::core::visual::VisualParams *vparams) {
     }
 }
 
-}  // end namespace component
+}  // namespace ros2
 }  // end namespace sofa
