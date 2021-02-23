@@ -19,6 +19,8 @@ endif()
 # SOFA packages containing our dependencies
 find_package(SofaFramework REQUIRED) # Needed to use SofaCore, SofaHelper and SofaDefaultType
 
+find_package(rclcpp REQUIRED)
+find_package(geometry_msgs REQUIRED)
 # Config files (tell SOFA this is a plugin)
 set(CONFIG_FILES
     src/ROS2Plugin/initROS2Plugin.cpp
@@ -37,10 +39,13 @@ file(GLOB_RECURSE SOURCE_FILES
 add_library(${PROJECT_NAME} SHARED ${CONFIG_FILES} ${HEADER_FILES} ${SOURCE_FILES})
 
 # Dependencies
+include_directories(${rclcpp_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} PUBLIC
     SofaCore
     SofaHelper
     SofaDefaultType
+    ${rclcpp_LIBRARIES}
+    ${geometry_msgs_LIBRARIES}
     )
 
 ## Change default install prefix
@@ -62,6 +67,9 @@ else()
 endif()
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
 
+
+
+
 # Create package Config, Version & Target files.
 # Deploy the headers, resources, scenes & examples.
 sofa_generate_package(
@@ -72,3 +80,4 @@ sofa_generate_package(
     INCLUDE_INSTALL_DIR "ROS2Plugin"
     RELOCATABLE "plugins"
     )
+
