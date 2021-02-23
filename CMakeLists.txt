@@ -4,11 +4,6 @@ project(ROS2Plugin VERSION 1.0)
 # Set install path to local
 set(CMAKE_INSTALL_PREFIX "install")
 
-# If no install path is given, set it to local instead of global
-if(NOT CMAKE_INSTALL_PREFIX)
-    set(CMAKE_INSTALL_PREFIX "install")
-endif()
-
 # If the plugin is compiled within SOFA, add an option to deactivate it, in which case the remaining
 # of this file won't run and therefore will not generate any error if the requirements (python, pybind11)
 # are not found.
