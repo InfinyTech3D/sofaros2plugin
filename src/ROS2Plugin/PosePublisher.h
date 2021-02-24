@@ -1,7 +1,8 @@
 #pragma once
 
 #include <ROS2Plugin/types.h>
-#include <ROS2Plugin/ROS2Publisher.h>
+#include <ROS2Plugin/ROS2Context.h>
+#include <ROS2Plugin/ROS2PublisherNode.h>
 #include <sofa/core/objectmodel/BaseObject.h>
 #include <sofa/core/objectmodel/DataCallback.h>
 #include <sofa/core/visual/VisualParams.h>
@@ -22,6 +23,8 @@ namespace sofa {
         public:
             SOFA_CLASS(PosePublisher, core::objectmodel::BaseObject);
 
+            core::objectmodel::SingleLink<PosePublisher, ROS2Context, BaseLink::FLAG_STRONGLINK | BaseLink::FLAG_STOREPATH> l_ros2Context;
+
             sofa::Data<Rigid> d_input;
             core::objectmodel::DataCallback c_callback;
             sofa::Data<std::string> d_NodeName;
@@ -29,7 +32,7 @@ namespace sofa {
             sofa::Data<bool> d_draw;
 
 
-            std::shared_ptr<ROS2Publisher<geometry_msgs::msg::Pose>> m_r2p_ptr;
+            std::shared_ptr<ROS2PublisherNode<geometry_msgs::msg::Pose>> m_r2p_ptr;
 
 
             PosePublisher();

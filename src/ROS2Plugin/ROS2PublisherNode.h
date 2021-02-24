@@ -18,11 +18,11 @@
 namespace sofa {
     namespace ros2 {
         template<class ROS2_MSG>
-        class ROS2Publisher : public rclcpp::Node {
+        class ROS2PublisherNode : public rclcpp::Node {
         public:
-            explicit ROS2Publisher(const std::string &node_name = "DefaultNodeName",
-                                   std::string topic_name = "DefaultTopicName",
-                                   size_t buffer_size = 1) : Node(
+            explicit ROS2PublisherNode(const std::string &node_name = "DefaultNodeName",
+                                       std::string topic_name = "DefaultTopicName",
+                                       size_t buffer_size = 1) : Node(
                     node_name) {
                 m_publisher = this->create_publisher<ROS2_MSG>(topic_name, buffer_size);
             }
