@@ -12,7 +12,7 @@
 #include <thread>
 
 #include "rclcpp/rclcpp.hpp"
-#include "geometry_msgs/msg/pose.hpp"
+#include "geometry_msgs/msg/point.hpp"
 
 
 namespace sofa {
@@ -26,14 +26,14 @@ namespace sofa {
         class Ros2Publisher : public rclcpp::Node {
         public:
             Ros2Publisher() : Node("sofaRos2_publisher") {
-                m_publisher = this->create_publisher<geometry_msgs::msg::Pose>("sofa/pose", 10);
+                m_publisher = this->create_publisher<geometry_msgs::msg::Point>("sofa/point", 10);
             }
 
             void run() {
                 rclcpp::spin(std::make_shared<Ros2Publisher>());
             }
 
-            rclcpp::Publisher<geometry_msgs::msg::Pose>::SharedPtr m_publisher;
+            rclcpp::Publisher<geometry_msgs::msg::Point>::SharedPtr m_publisher;
 
             std::unique_ptr<std::thread> spawn() {
                 return std::make_unique<std::thread>(&Ros2Publisher::run, this);
@@ -42,11 +42,11 @@ namespace sofa {
 
         };
 
-        class PosePublisher : public core::objectmodel::BaseObject {
+        class Vec3dPublisher : public core::objectmodel::BaseObject {
         public:
-            SOFA_CLASS(PosePublisher, core::objectmodel::BaseObject);
+            SOFA_CLASS(Vec3dPublisher, core::objectmodel::BaseObject);
 
-            sofa::Data<Rigid> d_input;
+            sofa::Data<Vec3d> d_input;
             core::objectmodel::DataCallback c_callback;
             sofa::Data<bool> d_draw;
 
@@ -55,9 +55,9 @@ namespace sofa {
             std::unique_ptr<std::thread> m_thread;
 
 
-            PosePublisher();
+            Vec3dPublisher();
 
-            virtual ~PosePublisher();
+            virtual ~Vec3dPublisher();
 
             virtual void init();
 

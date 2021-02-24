@@ -11,7 +11,6 @@ namespace sofa {
                   d_draw(initData(&d_draw, false, "draw", "If true, position is drawn on screen")) {
             this->f_listening.setValue(true);
             m_thread.reset(nullptr);
-            rclcpp::init(0, nullptr);
         }
 
         PosePublisher::~PosePublisher() {
