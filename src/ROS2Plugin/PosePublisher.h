@@ -26,7 +26,7 @@ namespace sofa {
         class Ros2Publisher : public rclcpp::Node {
         public:
             Ros2Publisher() : Node("sofaRos2_publisher") {
-                publisher = this->create_publisher<geometry_msgs::msg::Pose>("sofa/pose", 10);
+                m_publisher = this->create_publisher<geometry_msgs::msg::Pose>("sofa/pose", 10);
             }
 
             void run() {
@@ -34,7 +34,7 @@ namespace sofa {
                 rclcpp::shutdown();
             }
 
-            rclcpp::Publisher<geometry_msgs::msg::Pose>::SharedPtr publisher;
+            rclcpp::Publisher<geometry_msgs::msg::Pose>::SharedPtr m_publisher;
 
             std::unique_ptr<std::thread> spawn() {
                 return std::make_unique<std::thread>(&Ros2Publisher::run, this);
@@ -43,12 +43,11 @@ namespace sofa {
 
         };
 
-        class DummyRigid : public core::objectmodel::BaseObject {
+        class PosePublisher : public core::objectmodel::BaseObject {
         public:
-            SOFA_CLASS(DummyRigid, core::objectmodel::BaseObject);
+            SOFA_CLASS(PosePublisher, core::objectmodel::BaseObject);
 
             sofa::Data<Rigid> d_input;
-            sofa::Data<Rigid> d_output;
             core::objectmodel::DataCallback c_callback;
             sofa::Data<bool> d_draw;
 
@@ -57,13 +56,11 @@ namespace sofa {
             std::unique_ptr<std::thread> m_thread;
 
 
-            DummyRigid();
+            PosePublisher();
 
-            virtual ~DummyRigid();
+            virtual ~PosePublisher();
 
             virtual void init();
-
-            virtual void handleEvent(sofa::core::objectmodel::Event *event);
 
             virtual void draw(const sofa::core::visual::VisualParams *vparams);
 

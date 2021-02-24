@@ -25,6 +25,6 @@
                 movements="0 0 0 0 0 0
                            0 1 0 0 0 0
                            0 2 0 0 0 0 "/>
-        <DummyRigid name="dummy" input="@DOFs.position" draw="true" />
+        <PosePublisher name="dummy" input="@DOFs.position" draw="true" />
     </Node>
 </Node>
