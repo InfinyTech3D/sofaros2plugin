@@ -17,9 +17,13 @@ namespace sofa {
         public:
             SOFA_CLASS(ROS2Context, core::objectmodel::BaseObject);
 
-            ROS2Context() { rclcpp::init(0, nullptr); };
+            ROS2Context() {};
 
-            virtual ~ROS2Context() { rclcpp::shutdown(); };
+            virtual ~ROS2Context() {};
+
+            virtual void init() { rclcpp::init(0, nullptr); }
+
+            virtual void cleanup() { rclcpp::shutdown(); }
         };
 
     }  // namespace ros2
