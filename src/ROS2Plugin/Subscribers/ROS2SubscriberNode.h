@@ -8,6 +8,8 @@ namespace ros2 {
 /**
  * ROS2 Subscriber node which is deployed in the ROS2Context
  *
+ * TODO: Experiment different callback strategies without copy when heavier messages (e.g point-clouds) are used
+ *
  * @tparam ROS2_MSG
  */
 template <class ROS2_MSG>

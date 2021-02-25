@@ -15,6 +15,9 @@ namespace ros2 {
  *
  * TODO: an automatic SOFA type deduction would benefit scene readability and prevent user-level bugs.
  *
+ * Troubleshoot:
+ *      - toROS() message conversions should be implemented for any new message types
+ *
  * @tparam DataTypes SOFA data type should be informed by the child class implementation
  * @tparam ROS2_MSG ROS message type should be informed by the child class implementation
  */
