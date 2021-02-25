@@ -5,6 +5,11 @@
 
 namespace sofa {
 namespace ros2 {
+/**
+ * ROS2 Subscriber node which is deployed in the ROS2Context
+ *
+ * @tparam ROS2_MSG
+ */
 template <class ROS2_MSG>
 class ROS2SubscriberNode : public rclcpp::Node {
    public:

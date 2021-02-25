@@ -9,6 +9,17 @@
 
 namespace sofa {
 namespace ros2 {
+
+/**
+ * Base class for ROS2Plugin subscribers.
+ * When inheriting from this component, the Subscriber Node insertion into the ROS2 context is managed automatically.
+ * Only non-templated child classes have been tested for the moment.
+ *
+ * TODO: an automatic SOFA type deduction would benefit scene readability and prevent user-level bugs.
+ *
+ * @tparam DataTypes SOFA data type should be informed by the child class implementation
+ * @tparam ROS2_MSG ROS message type should be informed by the child class implementation
+ */
 template <class DataTypes, class ROS2_MSG>
 class ROS2SubscriberBase : public core::objectmodel::BaseObject {
    public:
