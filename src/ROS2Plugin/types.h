@@ -13,18 +13,17 @@ namespace sofa {
 namespace ros2 {
 
 /** SOFA Types */
-typedef defaulttype::Vec3Types                           Vec3Types;
-typedef Vec3Types::Coord                                 Vec3d;
+typedef defaulttype::Vec3Types::Coord                    Vec3d;
 typedef defaulttype::Quat                                Quat;
-typedef sofa::defaulttype::Rigid3dTypes                  Rigid3dTypes;
-typedef Rigid3dTypes::Coord                              Rigid;
+typedef sofa::defaulttype::Rigid3dTypes::Coord           Rigid;
 typedef sofa::defaulttype::SolidTypes<double>::Transform Transform;
 
 typedef sofa::helper::types::RGBAColor RGBAColor;
 
 /** ROS2 Types */
-typedef geometry_msgs::msg::Point PointMsg;
-typedef geometry_msgs::msg::Pose  PoseMsg;
+typedef geometry_msgs::msg::Point      PointMsg;
+typedef geometry_msgs::msg::Quaternion QuatMsg;
+typedef geometry_msgs::msg::Pose       PoseMsg;
 
 }  // namespace ros2
 

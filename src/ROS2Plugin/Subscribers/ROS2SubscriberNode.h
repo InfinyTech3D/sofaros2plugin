@@ -21,14 +21,14 @@ class ROS2SubscriberNode : public rclcpp::Node {
             this->create_subscription<ROS2_MSG>(topic_name, buffer_size, std::bind(&ROS2SubscriberNode::callback, this, std::placeholders::_1));
     }
 
-    ROS2_MSG get() const { return m_message; }
+    ROS2_MSG get() const { return ROS2_MSG(*m_msg_ptr); /* could this copy be avoided ? */ }
 
    protected:
-    virtual void callback(const typename ROS2_MSG::SharedPtr msg) { m_message = ROS2_MSG(*msg); }
+    virtual void callback(const typename ROS2_MSG::SharedPtr msg) { m_msg_ptr = msg; }
 
    private:
     typename rclcpp::Subscription<ROS2_MSG>::SharedPtr m_subscription;
-    ROS2_MSG                                           m_message;
+    typename ROS2_MSG::SharedPtr                       m_msg_ptr;
 };
 }  // namespace ros2
 }  // namespace sofa
