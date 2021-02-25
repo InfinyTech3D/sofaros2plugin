@@ -21,7 +21,7 @@ class ROS2SubscriberNode : public rclcpp::Node {
 
    private:
     typename rclcpp::Subscription<ROS2_MSG>::SharedPtr m_subscription;
-    ROS2_MSG                       m_message;
+    ROS2_MSG                                           m_message;
 };
 }  // namespace ros2
 }  // namespace sofa

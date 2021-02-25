@@ -1,6 +1,6 @@
 #pragma once
 
-#include <ROS2Plugin/ROS2PosePublisher.h>
+#include <ROS2Plugin/Publishers/ROS2PosePublisher.h>
 
 namespace sofa {
 namespace ros2 {

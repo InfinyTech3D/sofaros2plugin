@@ -1,6 +1,6 @@
 #pragma once
 
-#include <ROS2Plugin/ROS2PointSubscriber.h>
+#include <ROS2Plugin/Subscribers/ROS2PointSubscriber.h>
 
 namespace sofa {
 namespace ros2 {

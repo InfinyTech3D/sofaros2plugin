@@ -1,7 +1,7 @@
 #pragma once
 
+#include <ROS2Plugin/Publishers/ROS2PublisherBase.h>
 #include <ROS2Plugin/ROS2Context.h>
-#include <ROS2Plugin/ROS2PublisherBase.h>
 #include <ROS2Plugin/toolbox.h>
 #include <ROS2Plugin/types.h>
 #include <sofa/core/visual/VisualParams.h>

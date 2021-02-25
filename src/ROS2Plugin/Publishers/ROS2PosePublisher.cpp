@@ -1,6 +1,6 @@
 #include <sofa/core/ObjectFactory.h>
 
-#include <ROS2Plugin/ROS2PosePublisher.inl>
+#include <ROS2Plugin/Publishers/ROS2PosePublisher.inl>
 
 namespace sofa {
 namespace ros2 {

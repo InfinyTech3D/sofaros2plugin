@@ -1,6 +1,6 @@
 #pragma once
 #include <ROS2Plugin/ROS2Context.h>
-#include <ROS2Plugin/ROS2SubscriberNode.h>
+#include <ROS2Plugin/Subscribers/ROS2SubscriberNode.h>
 #include <ROS2Plugin/toolbox.h>
 #include <ROS2Plugin/types.h>
 #include <sofa/core/objectmodel/BaseObject.h>
@@ -17,9 +17,9 @@ class ROS2SubscriberBase : public core::objectmodel::BaseObject {
     core::objectmodel::SingleLink<ROS2SubscriberBase<DataTypes, ROS2_MSG>, ROS2Context, BaseLink::FLAG_STRONGLINK | BaseLink::FLAG_STOREPATH>
         l_ros2Context;
 
-    sofa::Data<DataTypes>           d_output;
-    sofa::Data<std::string>         d_NodeName;
-    sofa::Data<std::string>         d_TopicName;
+    sofa::Data<DataTypes>   d_output;
+    sofa::Data<std::string> d_NodeName;
+    sofa::Data<std::string> d_TopicName;
 
     std::shared_ptr<ROS2SubscriberNode<ROS2_MSG>> m_ros2node;
 
@@ -39,7 +39,7 @@ class ROS2SubscriberBase : public core::objectmodel::BaseObject {
     }
 
     virtual void handleEvent(sofa::core::objectmodel::Event* event) {
-        if (dynamic_cast<sofa::simulation::AnimateBeginEvent *>(event)) {
+        if (dynamic_cast<sofa::simulation::AnimateBeginEvent*>(event)) {
             auto msg = m_ros2node->get();
             d_output.setValue(toSofa(msg));
         }
