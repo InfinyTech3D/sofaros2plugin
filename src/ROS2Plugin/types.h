@@ -2,17 +2,29 @@
 
 #include <sofa/defaulttype/RigidTypes.h>
 #include <sofa/defaulttype/SolidTypes.h>
+#include <sofa/defaulttype/VecTypes.h>
+
+#include "geometry_msgs/msg/point.hpp"
+#include "geometry_msgs/msg/pose.hpp"
+#include "rclcpp/rclcpp.hpp"
 
 namespace sofa {
 
 namespace ros2 {
 
-typedef sofa::defaulttype::Vec3d                         Vec3d;
+/** SOFA Types */
+typedef defaulttype::Vec3Types                           Vec3Types;
+typedef Vec3Types::Coord                                 Vec3d;
 typedef defaulttype::Quat                                Quat;
-typedef sofa::defaulttype::Rigid3dTypes::Coord           Rigid;
+typedef sofa::defaulttype::Rigid3dTypes                  Rigid3dTypes;
+typedef Rigid3dTypes::Coord                              Rigid;
 typedef sofa::defaulttype::SolidTypes<double>::Transform Transform;
 
 typedef sofa::helper::types::RGBAColor RGBAColor;
+
+/** ROS2 Types */
+typedef geometry_msgs::msg::Point PointMsg;
+typedef geometry_msgs::msg::Pose  PoseMsg;
 
 }  // namespace ros2
 
