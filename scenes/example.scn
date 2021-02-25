@@ -38,5 +38,9 @@
                        nodeName="pose_publisher"
                        topicName="sofa/pose"
                        input="@../Pose/DOFs.position"/>
+        <ROS2PoseSubscriber name="pose_sub"
+                           ros2Context="@ros2Context"
+                           nodeName="pose_subscriber"
+                           topicName="sofa/pose"/>
     </Node>
 </Node>
