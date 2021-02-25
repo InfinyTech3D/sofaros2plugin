@@ -72,12 +72,12 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
 
 # Create package Config, Version & Target files.
 # Deploy the headers, resources, scenes & examples.
-sofa_generate_package(
-    NAME ${PROJECT_NAME}
-    TARGETS ${PROJECT_NAME}
-    VERSION ${PROJECT_VERSION}
-    INCLUDE_SOURCE_DIR "src"
-    INCLUDE_INSTALL_DIR "ROS2Plugin"
-    RELOCATABLE "plugins"
-    )
+sofa_create_package_with_targets(
+        PACKAGE_NAME ${PROJECT_NAME}
+        PACKAGE_VERSION 0.1
+        TARGETS ${PROJECT_NAME} AUTO_SET_TARGET_PROPERTIES
+        INCLUDE_SOURCE_DIR "src"
+        INCLUDE_INSTALL_DIR ${PROJECT_NAME}
+        RELOCATABLE "plugins"
+)
 
