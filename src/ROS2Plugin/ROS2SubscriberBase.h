@@ -41,7 +41,6 @@ class ROS2SubscriberBase : public core::objectmodel::BaseObject {
     virtual void handleEvent(sofa::core::objectmodel::Event* event) {
         if (dynamic_cast<sofa::simulation::AnimateBeginEvent *>(event)) {
             auto msg = m_ros2node->get();
-            msg_info("ROS2SubscriberBase") << "Received message: " << toSofa(msg);
             d_output.setValue(toSofa(msg));
         }
     }

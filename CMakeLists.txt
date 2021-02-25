@@ -67,9 +67,6 @@ else()
 endif()
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
 
-
-
-
 # Create package Config, Version & Target files.
 # Deploy the headers, resources, scenes & examples.
 sofa_create_package_with_targets(
