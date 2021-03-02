@@ -4,7 +4,6 @@
 #include <ROS2Plugin/Subscribers/ROS2SubscriberBase.h>
 #include <ROS2Plugin/toolbox.h>
 #include <ROS2Plugin/types.h>
-#include <sofa/core/visual/VisualParams.h>
 
 namespace sofa {
 namespace ros2 {
@@ -14,12 +13,7 @@ class ROS2PointSubscriber : public ROS2SubscriberBase<Vec3d, PointMsg> {
     using ROS2Type = PointMsg;
 
     SOFA_CLASS(ROS2PointSubscriber, SOFA_TEMPLATE2(ROS2SubscriberBase, SofaType, ROS2Type));
-
-    Data<bool> d_draw;
-
-    explicit ROS2PointSubscriber();
-
-    virtual void draw(const sofa::core::visual::VisualParams *vparams);
+    explicit ROS2PointSubscriber() : ROS2SubscriberBase(){};
 };
 
 }  // namespace ros2

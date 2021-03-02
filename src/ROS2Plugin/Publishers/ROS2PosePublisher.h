@@ -14,12 +14,7 @@ class ROS2PosePublisher : public ROS2PublisherBase<Rigid, PoseMsg> {
     using ROS2Type = PoseMsg;
 
     SOFA_CLASS(ROS2PosePublisher, SOFA_TEMPLATE2(ROS2PublisherBase, SofaType, ROS2Type));
-
-    Data<bool> d_draw;
-
-    explicit ROS2PosePublisher();
-
-    virtual void draw(const sofa::core::visual::VisualParams *vparams);
+    explicit ROS2PosePublisher() : ROS2PublisherBase(){};
 };
 
 }  // namespace ros2

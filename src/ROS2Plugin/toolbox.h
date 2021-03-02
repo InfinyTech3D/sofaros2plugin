@@ -1,9 +1,10 @@
 #pragma once
 #include <ROS2Plugin/types.h>
+#include <sofa/core/visual/VisualParams.h>
 
 namespace sofa {
 namespace ros2 {
-
+namespace toolbox {
 /** ROS2 messages -> SOFA types */
 inline Vec3d toSofa(const PointMsg& point) { return Vec3d(point.x, point.y, point.z); }
 
@@ -36,5 +37,10 @@ inline PoseMsg toROS(const Rigid& rigid) {
     return pose;
 }
 
+/** Drawing */
+inline void draw(const sofa::core::visual::VisualParams* vparams, const Vec3d& vec3d, double scale, RGBAColor color = RGBAColor(1, 1, 1, 1)) { vparams->drawTool()->drawSphere(vec3d, scale, color); }
+
+inline void draw(const sofa::core::visual::VisualParams* vparams, const Rigid& pose, double scale) { vparams->drawTool()->drawFrame(pose.getCenter(), pose.getOrientation(), scale * Vec3d(1, 1, 1)); }
+}  // namespace toolbox
 }  // namespace ros2
 }  // namespace sofa

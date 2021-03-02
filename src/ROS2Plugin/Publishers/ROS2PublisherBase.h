@@ -17,6 +17,7 @@ namespace ros2 {
  *
  * Troubleshoot:
  *      - toROS() message conversions should be implemented for any new message types
+ *      - draw() needs to be defined for the corresponding SofaType
  *
  * @tparam DataTypes SOFA data type should be informed by the child class implementation
  * @tparam ROS2_MSG ROS message type should be informed by the child class implementation
@@ -33,6 +34,8 @@ class ROS2PublisherBase : public core::objectmodel::BaseObject {
     core::objectmodel::DataCallback c_callback;
     sofa::Data<std::string>         d_NodeName;
     sofa::Data<std::string>         d_TopicName;
+    Data<double> d_drawScale;
+    Data<bool> d_draw;
 
     std::shared_ptr<ROS2PublisherNode<ROS2_MSG>> m_ros2node;
 
@@ -40,7 +43,9 @@ class ROS2PublisherBase : public core::objectmodel::BaseObject {
         : l_ros2Context(initLink("ros2Context", "ROS2 context link"))
         , d_input(initData(&d_input, DataTypes(), "input", "input"))
         , d_NodeName(initData(&d_NodeName, std::string("DefaultNodeName"), "nodeName", "Name of the ROS2 node"))
-        , d_TopicName(initData(&d_TopicName, std::string("DefaultTopicName"), "topicName", "Name of the ROS2 topic in which to publish")) {
+        , d_TopicName(initData(&d_TopicName, std::string("DefaultTopicName"), "topicName", "Name of the ROS2 topic in which to publish"))
+        , d_drawScale(initData(&d_drawScale, 0.1, "drawScale", "Scale imposed to draw function in SOFA"))
+        , d_draw(initData(&d_draw, false, "draw", "If true, position is drawn on screen")) {
         this->f_listening.setValue(true);
     }
 
@@ -55,8 +60,15 @@ class ROS2PublisherBase : public core::objectmodel::BaseObject {
 
     virtual void update() {
         DataTypes input = d_input.getValue();
-        ROS2_MSG  msg   = toROS(input);
+        ROS2_MSG  msg   = toolbox::toROS(input);
         m_ros2node->publish(msg);
+    }
+
+    virtual void draw(const sofa::core::visual::VisualParams *vparams) {
+        if (d_draw.getValue()) {
+            const auto &input = d_input.getValue();
+            toolbox::draw(vparams, input, d_drawScale.getValue());
+        }
     }
 };
 

@@ -6,6 +6,7 @@
 #include <sofa/core/objectmodel/BaseObject.h>
 #include <sofa/core/objectmodel/DataCallback.h>
 #include <sofa/simulation/AnimateBeginEvent.h>
+#include <sofa/core/visual/VisualParams.h>
 
 namespace sofa {
 namespace ros2 {
@@ -18,7 +19,8 @@ namespace ros2 {
  * TODO: an automatic SOFA type deduction would benefit scene readability and prevent user-level bugs.
  *
  * Troubleshoot:
- *      - toSofa() message conversions should be implemented for any new message types
+ *      - toSofa() message conversions should be implemented for any new message
+ *      - draw() needs to be defined for the corresponding SofaType
  *
  * @tparam DataTypes SOFA data type should be informed by the child class implementation
  * @tparam ROS2_MSG ROS message type should be informed by the child class implementation
@@ -28,12 +30,13 @@ class ROS2SubscriberBase : public core::objectmodel::BaseObject {
    public:
     SOFA_CLASS(SOFA_TEMPLATE2(ROS2SubscriberBase, DataTypes, ROS2_MSG), core::objectmodel::BaseObject);
 
-    core::objectmodel::SingleLink<ROS2SubscriberBase<DataTypes, ROS2_MSG>, ROS2Context, BaseLink::FLAG_STRONGLINK | BaseLink::FLAG_STOREPATH>
-        l_ros2Context;
+    core::objectmodel::SingleLink<ROS2SubscriberBase<DataTypes, ROS2_MSG>, ROS2Context, BaseLink::FLAG_STRONGLINK | BaseLink::FLAG_STOREPATH> l_ros2Context;
 
-    sofa::Data<DataTypes>   d_output;
+    sofa::Data<DataTypes> d_output;
     sofa::Data<std::string> d_NodeName;
     sofa::Data<std::string> d_TopicName;
+    Data<double> d_drawScale;
+    Data<bool> d_draw;
 
     std::shared_ptr<ROS2SubscriberNode<ROS2_MSG>> m_ros2node;
 
@@ -41,7 +44,9 @@ class ROS2SubscriberBase : public core::objectmodel::BaseObject {
         : l_ros2Context(initLink("ros2Context", "ROS2 context link"))
         , d_output(initData(&d_output, DataTypes(), "output", "output"))
         , d_NodeName(initData(&d_NodeName, std::string("DefaultNodeName"), "nodeName", "Name of the ROS2 node"))
-        , d_TopicName(initData(&d_TopicName, std::string("DefaultTopicName"), "topicName", "Name of the ROS2 topic in which to publish")) {
+        , d_TopicName(initData(&d_TopicName, std::string("DefaultTopicName"), "topicName", "Name of the ROS2 topic in which to publish"))
+        , d_drawScale(initData(&d_drawScale, 0.1, "drawScale", "Scale imposed to draw function in SOFA"))
+        , d_draw(initData(&d_draw, false, "draw", "If true, position is drawn on screen")) {
         this->f_listening.setValue(true);
     }
 
@@ -52,10 +57,17 @@ class ROS2SubscriberBase : public core::objectmodel::BaseObject {
         l_ros2Context->addNode(m_ros2node);
     }
 
-    virtual void handleEvent(sofa::core::objectmodel::Event* event) {
-        if (dynamic_cast<sofa::simulation::AnimateBeginEvent*>(event)) {
+    virtual void handleEvent(sofa::core::objectmodel::Event *event) {
+        if (dynamic_cast<sofa::simulation::AnimateBeginEvent *>(event)) {
             auto msg = m_ros2node->get();
-            d_output.setValue(toSofa(msg));
+            d_output.setValue(toolbox::toSofa(msg));
+        }
+    }
+
+    virtual void draw(const sofa::core::visual::VisualParams *vparams) {
+        if (d_draw.getValue()) {
+            const auto &output = d_output.getValue();
+            toolbox::draw(vparams, output, d_drawScale.getValue());
         }
     }
 };
