@@ -28,7 +28,8 @@ namespace ros2 {
 template <class DataTypes, class ROS2_MSG>
 class ROS2Subscriber : public core::objectmodel::BaseObject {
    public:
-    SOFA_CLASS(SOFA_TEMPLATE2(ROS2Subscriber, DataTypes, ROS2_MSG), core::objectmodel::BaseObject);
+    using Inherit  = core::objectmodel::BaseObject;
+    SOFA_CLASS(SOFA_TEMPLATE2(ROS2Subscriber, DataTypes, ROS2_MSG), Inherit);
 
     core::objectmodel::SingleLink<ROS2Subscriber<DataTypes, ROS2_MSG>, ROS2Context, BaseLink::FLAG_STRONGLINK | BaseLink::FLAG_STOREPATH> l_ros2Context;
 
@@ -44,12 +45,12 @@ class ROS2Subscriber : public core::objectmodel::BaseObject {
     virtual ~ROS2Subscriber() = default;
 
     virtual void init() override;
-    virtual void handleEvent(sofa::core::objectmodel::Event *event) override;
-    virtual void draw(const sofa::core::visual::VisualParams *vparams) override;
+    virtual void handleEvent(sofa::core::objectmodel::Event* event) override;
+    virtual void draw(const sofa::core::visual::VisualParams* vparams) override;
 
     [[nodiscard]] std::string getTemplateName() const override { return templateName(this); }
-
-    static std::string templateName(const ROS2Subscriber<DataTypes, ROS2_MSG> * = nullptr) { return "Unknown"; }
+    static std::string templateName(const ROS2Subscriber<DataTypes, ROS2_MSG>* = nullptr) { return "Unknown"; }
+    static bool canCreate(ROS2Subscriber<DataTypes, ROS2_MSG>* o, core::objectmodel::BaseContext* context, core::objectmodel::BaseObjectDescription* arg);
 };
 
 }  // namespace ros2

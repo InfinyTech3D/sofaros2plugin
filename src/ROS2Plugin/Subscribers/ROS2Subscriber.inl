@@ -41,5 +41,27 @@ void ROS2Subscriber<DataTypes, ROS2_MSG>::draw(const sofa::core::visual::VisualP
     }
 }
 
+template <class DataTypes, class ROS2_MSG>
+bool ROS2Subscriber<DataTypes, ROS2_MSG>::canCreate(ROS2Subscriber<DataTypes, ROS2_MSG> *o, core::objectmodel::BaseContext *context, core::objectmodel::BaseObjectDescription *arg)
+{
+    // Automatically locate context if it does not exist
+    std::string context_path = arg->getAttribute("ros2Context", "");
+    if (context_path.empty()) {
+        // Try to find a ROS2Context component
+        const auto context_candidates = context->getObjects<ROS2Context>(core::objectmodel::BaseContext::SearchDirection::Local);
+        if (context_candidates.size() == 0) {
+            arg->logError("No ROS2Context was found! Please create one in order to use ROS2Subscriber component.");
+            return false;
+        }
+        context_path = context_candidates[0]->getPathName();
+        // If a context was found, link it to this component
+        if (Inherit::canCreate(o, context, arg)) {
+            arg->setAttribute("ros2Context", "@" + context_path);
+            return true;
+        }
+    }
+    return Inherit::canCreate(o, context, arg);
+}
+
 }  // namespace ros2
 }  // end namespace sofa
