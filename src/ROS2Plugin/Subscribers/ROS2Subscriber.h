@@ -1,4 +1,5 @@
 #pragma once
+#include <ROS2Plugin/ROS2BaseObject.h>
 #include <ROS2Plugin/ROS2Context.h>
 #include <ROS2Plugin/Subscribers/ROS2SubscriberNode.h>
 #include <ROS2Plugin/toolbox.h>
@@ -26,31 +27,25 @@ namespace ros2 {
  * @tparam ROS2_MSG ROS message type should be informed by the child class implementation
  */
 template <class DataTypes, class ROS2_MSG>
-class ROS2Subscriber : public core::objectmodel::BaseObject {
+class ROS2Subscriber : public ROS2BaseObject<DataTypes, ROS2_MSG> {
    public:
-    using Inherit  = core::objectmodel::BaseObject;
-    SOFA_CLASS(SOFA_TEMPLATE2(ROS2Subscriber, DataTypes, ROS2_MSG), Inherit);
-
-    core::objectmodel::SingleLink<ROS2Subscriber<DataTypes, ROS2_MSG>, ROS2Context, BaseLink::FLAG_STRONGLINK | BaseLink::FLAG_STOREPATH> l_ros2Context;
+    SOFA_CLASS(SOFA_TEMPLATE2(ROS2Subscriber, DataTypes, ROS2_MSG), SOFA_TEMPLATE2(ROS2BaseObject, DataTypes, ROS2_MSG));
 
     sofa::Data<DataTypes> d_output;
-    sofa::Data<std::string> d_NodeName;
-    sofa::Data<std::string> d_TopicName;
     Data<double> d_drawScale;
     Data<bool> d_draw;
 
-    std::shared_ptr<ROS2SubscriberNode<ROS2_MSG>> m_ros2node;
 
     explicit ROS2Subscriber();
     virtual ~ROS2Subscriber() = default;
+
+    std::shared_ptr<ROS2SubscriberNode<ROS2_MSG>> m_ros2node;
 
     virtual void init() override;
     virtual void handleEvent(sofa::core::objectmodel::Event* event) override;
     virtual void draw(const sofa::core::visual::VisualParams* vparams) override;
 
-    [[nodiscard]] std::string getTemplateName() const override { return templateName(this); }
     static std::string templateName(const ROS2Subscriber<DataTypes, ROS2_MSG>* = nullptr) { return "Unknown"; }
-    static bool canCreate(ROS2Subscriber<DataTypes, ROS2_MSG>* o, core::objectmodel::BaseContext* context, core::objectmodel::BaseObjectDescription* arg);
 };
 
 }  // namespace ros2
