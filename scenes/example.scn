@@ -28,25 +28,27 @@
 
     <Node name="ROS2">
         <ROS2Context name="ros2Context"/>
-        <ROS2PointPublisher name="point_pub"
-                            ros2Context="@ros2Context"
-                            nodeName="point_publisher"
-                            topicName="sofa/point"
-                            input="@../Point/DOFs.position"/>
+        <ROS2Publisher name="point_pub"
+                       template="Vec3d"
+                       ros2Context="@ros2Context"
+                       nodeName="point_publisher"
+                       topicName="sofa/point"
+                       input="@../Point/DOFs.position"/>
         <ROS2Subscriber name="point_sub"
                         template="Vec3d"
-                            ros2Context="@ros2Context"
-                            nodeName="point_subscriber"
-                            topicName="sofa/point"/>
-        <ROS2PosePublisher name="pose_pub"
+                        ros2Context="@ros2Context"
+                        nodeName="point_subscriber"
+                        topicName="sofa/point"/>
+        <ROS2Publisher name="pose_pub"
+                       template="Rigid3d"
                        ros2Context="@ros2Context"
                        nodeName="pose_publisher"
                        topicName="sofa/pose"
                        input="@../Pose/DOFs.position"/>
         <ROS2Subscriber name="pose_sub"
                         template="Rigid3d"
-                           ros2Context="@ros2Context"
-                           nodeName="pose_subscriber"
-                           topicName="sofa/pose"/>
+                        ros2Context="@ros2Context"
+                        nodeName="pose_subscriber"
+                        topicName="sofa/pose"/>
     </Node>
 </Node>
