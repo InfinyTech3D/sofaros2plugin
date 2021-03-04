@@ -33,7 +33,8 @@
                             nodeName="point_publisher"
                             topicName="sofa/point"
                             input="@../Point/DOFs.position"/>
-        <ROS2PointSubscriber name="point_sub"
+        <ROS2Subscriber name="point_sub"
+                        template="Vec3d"
                             ros2Context="@ros2Context"
                             nodeName="point_subscriber"
                             topicName="sofa/point"/>
@@ -42,7 +43,8 @@
                        nodeName="pose_publisher"
                        topicName="sofa/pose"
                        input="@../Pose/DOFs.position"/>
-        <ROS2PoseSubscriber name="pose_sub"
+        <ROS2Subscriber name="pose_sub"
+                        template="Rigid3d"
                            ros2Context="@ros2Context"
                            nodeName="pose_subscriber"
                            topicName="sofa/pose"/>
