@@ -28,7 +28,7 @@ class ROS2BaseObject : public core::objectmodel::BaseObject {
     virtual void init() = 0;
 
     template <class ROS2NodeType>
-    void createNode(std::shared_ptr<ROS2NodeType> node_ptr)
+    void createNode(std::shared_ptr<ROS2NodeType>& node_ptr)
     {
         node_ptr = std::make_shared<ROS2NodeType>(this->d_NodeName.getValue(), this->d_TopicName.getValue());
         this->l_ros2Context->addNode(node_ptr);
