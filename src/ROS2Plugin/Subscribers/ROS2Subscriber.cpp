@@ -7,6 +7,18 @@ namespace ros2 {
 
 /** Define template names for every specialization */
 template <>
+std::string ROS2Subscriber<double, Float64Msg>::templateName(const ROS2Subscriber<double, Float64Msg> *)
+{
+    return "Float64";
+}
+
+template <>
+std::string ROS2Subscriber<DoubleArray, Float64ArrayMsg>::templateName(const ROS2Subscriber<DoubleArray, Float64ArrayMsg> *)
+{
+    return "Float64Array";
+}
+
+template <>
 std::string ROS2Subscriber<Vec3d, PointMsg>::templateName(const ROS2Subscriber<Vec3d, PointMsg> *)
 {
     return "Vec3d";
@@ -19,6 +31,8 @@ std::string ROS2Subscriber<Rigid, PoseMsg>::templateName(const ROS2Subscriber<Ri
 }
 
 // This will force the compiler to compile the class with some template type
+template class ROS2Subscriber<double, Float64Msg>;
+template class ROS2Subscriber<DoubleArray, Float64ArrayMsg>;
 template class ROS2Subscriber<Vec3d, PointMsg>;
 template class ROS2Subscriber<Rigid, PoseMsg>;
 

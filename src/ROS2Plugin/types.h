@@ -7,23 +7,30 @@
 #include "geometry_msgs/msg/point.hpp"
 #include "geometry_msgs/msg/pose.hpp"
 #include "rclcpp/rclcpp.hpp"
+#include "std_msgs/msg/float64.hpp"
+#include "std_msgs/msg/float64_multi_array.hpp"
 
 namespace sofa {
 
 namespace ros2 {
 
 /** SOFA Types */
-typedef defaulttype::Vec3Types::Coord                    Vec3d;
-typedef defaulttype::Quat                                Quat;
-typedef sofa::defaulttype::Rigid3dTypes::Coord           Rigid;
-typedef sofa::defaulttype::SolidTypes<double>::Transform Transform;
+using DoubleArray = helper::vector<double>;
+
+using Vec3d     = defaulttype::Vec3Types::Coord;
+using Quat      = defaulttype::Quat;
+using Rigid     = sofa::defaulttype::Rigid3dTypes::Coord;
+using Transform = sofa::defaulttype::SolidTypes<double>::Transform;
 
 typedef sofa::helper::types::RGBAColor RGBAColor;
 
 /** ROS2 Types */
-typedef geometry_msgs::msg::Point      PointMsg;
-typedef geometry_msgs::msg::Quaternion QuatMsg;
-typedef geometry_msgs::msg::Pose       PoseMsg;
+using Float64Msg = std_msgs::msg::Float64;
+using PointMsg   = geometry_msgs::msg::Point;
+using QuatMsg    = geometry_msgs::msg::Quaternion;
+using PoseMsg    = geometry_msgs::msg::Pose;
+
+using Float64ArrayMsg = std_msgs::msg::Float64MultiArray;
 
 }  // namespace ros2
 

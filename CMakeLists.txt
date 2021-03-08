@@ -11,47 +11,52 @@ if (ROS2Plugin_COMPILED_AS_SOFA_SUBPROJECT)
     option(PLUGIN_SOFA_ROS2Plugin "Build the ROS2Plugin." ON)
     if (NOT PLUGIN_SOFA_ROS2Plugin)
         return()
-    else()
+    else ()
         message("Adding plugin ROS2Plugin")
-    endif()
-endif()
+    endif ()
+endif ()
 
 # SOFA packages containing our dependencies
 find_package(SofaFramework REQUIRED) # Needed to use SofaCore, SofaHelper and SofaDefaultType
 
 find_package(rclcpp REQUIRED)
+find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 # Config files (tell SOFA this is a plugin)
 set(CONFIG_FILES
-    src/ROS2Plugin/initROS2Plugin.cpp
-    )
+        src/ROS2Plugin/initROS2Plugin.cpp
+        )
 # Our nice new SOFA Components
 file(GLOB_RECURSE HEADER_FILES
-    "src/*.h"
-    "src/*.inl"
-)
+        "src/*.h"
+        "src/*.inl"
+        )
 
 file(GLOB_RECURSE SOURCE_FILES
-    "src/*.cpp"
-)
+        "src/*.cpp"
+        )
 
 # SOFA plugin are basically libraries
 add_library(${PROJECT_NAME} SHARED ${CONFIG_FILES} ${HEADER_FILES} ${SOURCE_FILES})
 
 # Dependencies
 include_directories(${rclcpp_INCLUDE_DIRS})
+include_directories(${std_msgs_INCLUDE_DIRS})
+message(${std_msgs_INCLUDE_DIRS})
+include_directories(${geometry_msgs_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} PUBLIC
-    SofaCore
-    SofaHelper
-    SofaDefaultType
-    ${rclcpp_LIBRARIES}
-    ${geometry_msgs_LIBRARIES}
-    )
+        SofaCore
+        SofaHelper
+        SofaDefaultType
+        ${rclcpp_LIBRARIES}
+        ${std_msgs_LIBRARIES}
+        ${geometry_msgs_LIBRARIES}
+        )
 
 ## Change default install prefix
-if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
     set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/install CACHE PATH "Install path prefix, prepended onto install directories." FORCE)
-endif()
+endif ()
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -62,9 +67,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED 17)
 if ("${CMAKE_CXX_COMPILER} ${CMAKE_CXX_COMPILER_ARG1}" MATCHES ".*[cC][lL][aA][nN][gG]")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fcolor-diagnostics")
-else()
+else ()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdiagnostics-color")
-endif()
+endif ()
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
 
 # Create package Config, Version & Target files.

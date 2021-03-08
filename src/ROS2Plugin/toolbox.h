@@ -6,6 +6,10 @@ namespace sofa {
 namespace ros2 {
 namespace toolbox {
 /** ROS2 messages -> SOFA types */
+inline double toSofa(const Float64Msg& msg) { return msg.data; }
+
+inline DoubleArray toSofa(const Float64ArrayMsg& msg) { return DoubleArray(msg.data.begin(), msg.data.end()); }
+
 inline Vec3d toSofa(const PointMsg& point) { return Vec3d(point.x, point.y, point.z); }
 
 inline Quat toSofa(const QuatMsg& quat) { return Quat(quat.x, quat.y, quat.z, quat.w); }
@@ -13,7 +17,22 @@ inline Quat toSofa(const QuatMsg& quat) { return Quat(quat.x, quat.y, quat.z, qu
 inline Rigid toSofa(const PoseMsg& pose) { return Rigid(toSofa(pose.position), toSofa(pose.orientation)); }
 
 /** SOFA types -> ROS2 messages */
-inline PointMsg toROS(const Vec3d& vec3d) {
+inline Float64Msg toROS(const double& value)
+{
+    auto msg = Float64Msg();
+    msg.data = value;
+    return msg;
+}
+
+inline Float64ArrayMsg toROS(const DoubleArray& array)
+{
+    auto msg = Float64ArrayMsg();
+    msg.data = array;
+    return msg;
+}
+
+inline PointMsg toROS(const Vec3d& vec3d)
+{
     auto point = PointMsg();
     point.x    = vec3d[0];
     point.y    = vec3d[1];
@@ -21,7 +40,8 @@ inline PointMsg toROS(const Vec3d& vec3d) {
     return point;
 }
 
-inline QuatMsg toROS(const Quat& orientation) {
+inline QuatMsg toROS(const Quat& orientation)
+{
     auto quat = QuatMsg();
     quat.x    = orientation[0];
     quat.y    = orientation[1];
@@ -30,7 +50,8 @@ inline QuatMsg toROS(const Quat& orientation) {
     return quat;
 }
 
-inline PoseMsg toROS(const Rigid& rigid) {
+inline PoseMsg toROS(const Rigid& rigid)
+{
     auto pose        = PoseMsg();
     pose.position    = toROS(rigid.getCenter());
     pose.orientation = toROS(rigid.getOrientation());
@@ -38,9 +59,13 @@ inline PoseMsg toROS(const Rigid& rigid) {
 }
 
 /** Drawing */
-inline void draw(const sofa::core::visual::VisualParams* vparams, const Vec3d& vec3d, double scale, RGBAColor color = RGBAColor(1, 1, 1, 1)) { vparams->drawTool()->drawSphere(vec3d, scale, color); }
+inline void draw(const sofa::core::visual::VisualParams*, const double&, const double&) {}
 
-inline void draw(const sofa::core::visual::VisualParams* vparams, const Rigid& pose, double scale) { vparams->drawTool()->drawFrame(pose.getCenter(), pose.getOrientation(), scale * Vec3d(1, 1, 1)); }
+inline void draw(const sofa::core::visual::VisualParams*, const DoubleArray&, const double&) {}
+
+inline void draw(const sofa::core::visual::VisualParams* vparams, const Vec3d& vec3d, const double& scale, RGBAColor color = RGBAColor(1, 1, 1, 1)) { vparams->drawTool()->drawSphere(vec3d, scale, color); }
+
+inline void draw(const sofa::core::visual::VisualParams* vparams, const Rigid& pose, const double& scale) { vparams->drawTool()->drawFrame(pose.getCenter(), pose.getOrientation(), scale * Vec3d(1, 1, 1)); }
 }  // namespace toolbox
 }  // namespace ros2
 }  // namespace sofa
