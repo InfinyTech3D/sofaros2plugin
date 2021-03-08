@@ -5,7 +5,9 @@ namespace ros2 {
 
 template <class DataTypes, class ROS2_MSG>
 ROS2Publisher<DataTypes, ROS2_MSG>::ROS2Publisher()
-    : d_input(initData(&d_input, DataTypes(), "input", "input")), d_drawScale(initData(&d_drawScale, 0.1, "drawScale", "Scale imposed to draw function in SOFA")), d_draw(initData(&d_draw, false, "draw", "If true, position is drawn on screen"))
+    : d_input(initData(&d_input, DataTypes(), "input", "input"))
+    , d_drawScale(initData(&d_drawScale, 0.1, "drawScale", "Scale imposed to draw function in SOFA"))
+    , d_draw(initData(&d_draw, false, "draw", "If true, position is drawn on screen"))
 {
     this->f_listening.setValue(true);
 }
@@ -13,8 +15,7 @@ ROS2Publisher<DataTypes, ROS2_MSG>::ROS2Publisher()
 template <class DataTypes, class ROS2_MSG>
 void ROS2Publisher<DataTypes, ROS2_MSG>::init()
 {
-    m_ros2node = std::make_shared<ROS2PublisherNode<ROS2_MSG>>(this->d_NodeName.getValue(), this->d_TopicName.getValue());
-    this->l_ros2Context->addNode(m_ros2node);
+    this->createNode(m_ros2node);
     c_callback.addInput(&d_input);
     c_callback.addCallback([this] { update(); });
 }

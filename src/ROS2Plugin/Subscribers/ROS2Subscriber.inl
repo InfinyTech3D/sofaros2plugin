@@ -16,8 +16,7 @@ ROS2Subscriber<DataTypes, ROS2_MSG>::ROS2Subscriber()
 template <class DataTypes, class ROS2_MSG>
 void ROS2Subscriber<DataTypes, ROS2_MSG>::init()
 {
-    m_ros2node = std::make_shared<ROS2SubscriberNode<ROS2_MSG>>(this->d_NodeName.getValue(), this->d_TopicName.getValue());
-    this->l_ros2Context->addNode(m_ros2node);
+    this->createNode(m_ros2node);
 }
 
 template <class DataTypes, class ROS2_MSG>

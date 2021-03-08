@@ -10,13 +10,14 @@
 namespace sofa {
 namespace ros2 {
 /**
- * Base class for ROS2Plugin publishers.
- * When inheriting from this component, the Publisher Node insertion into the ROS2 context is managed automatically.
- * Only non-templated child classes have been tested for the moment.
+ * Base template class for ROS2Plugin publishers.
+ * In order to add a new message type, be sure the functions toROS(SOFAType) with the corresponding SOFAType is defined.
+ * Then you may add new template specializations to the ROS2Publisher.cpp file.
  *
  * TODO: an automatic SOFA type deduction would benefit scene readability and prevent user-level bugs.
  *
  * Troubleshoot:
+ *      - init() method should call base class createNode method
  *      - toROS() message conversions should be implemented for any new message types
  *      - draw() needs to be defined for the corresponding SofaType
  *

@@ -13,13 +13,12 @@ namespace sofa {
 namespace ros2 {
 
 /**
- * Base class for ROS2Plugin subscribers.
- * When inheriting from this component, the Subscriber Node insertion into the ROS2 context is managed automatically.
- * Only non-templated child classes have been tested for the moment.
- *
- * TODO: an automatic SOFA type deduction would benefit scene readability and prevent user-level bugs.
+ * Base template class for ROS2Plugin subscribers.
+ * In order to add a new message type, be sure the functions toSofa(ROS2MSG) with the corresponding ROS2MSG is defined.
+ * Then you may add new template specializations to the ROS2Subscriber.cpp file.
  *
  * Troubleshoot:
+ *      - init() method should call base class createNode method
  *      - toSofa() message conversions should be implemented for any new message
  *      - draw() needs to be defined for the corresponding SofaType
  *
