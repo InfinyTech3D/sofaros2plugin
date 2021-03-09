@@ -38,6 +38,8 @@ template class ROS2Publisher<Rigid, PoseMsg>;
 
 // clang-format off
 static int ROS2PublisherClass = sofa::core::RegisterObject("")
+    .add<ROS2Publisher<double, Float64Msg>>()
+    .add<ROS2Publisher<DoubleArray, Float64ArrayMsg>>()
     .add<ROS2Publisher<Vec3d, PointMsg>>()
     .add<ROS2Publisher<Rigid, PoseMsg>>();
 // clang-format on

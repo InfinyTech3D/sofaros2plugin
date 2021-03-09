@@ -46,5 +46,10 @@
                         template="Rigid3d"
                         nodeName="pose_subscriber"
                         topicName="sofa/pose"/>
+        <ROS2Publisher name="double_pub"
+                       template="Float64"
+                       nodeName="double_publisher"
+                       topicName="sofa/double"
+                       input="@../ODEsolver.rayleighStiffness"/>
     </Node>
 </Node>
