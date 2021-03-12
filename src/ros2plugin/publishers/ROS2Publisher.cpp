@@ -11,38 +11,42 @@ std::string ROS2Publisher<double, Float64Msg>::templateName(const ROS2Publisher<
 {
     return "Float64";
 }
+template class ROS2Publisher<double, Float64Msg>;
 
 template <>
 std::string ROS2Publisher<DoubleArray, Float64ArrayMsg>::templateName(const ROS2Publisher<DoubleArray, Float64ArrayMsg> *)
 {
     return "Float64Array";
 }
+template class ROS2Publisher<DoubleArray, Float64ArrayMsg>;
 
 template <>
 std::string ROS2Publisher<Vec3d, PointMsg>::templateName(const ROS2Publisher<Vec3d, PointMsg> *)
 {
     return "Vec3d";
 }
+template class ROS2Publisher<Vec3d, PointMsg>;
 
 template <>
 std::string ROS2Publisher<Rigid, PoseMsg>::templateName(const ROS2Publisher<Rigid, PoseMsg> *)
 {
     return "Rigid3d";
 }
-
-// This will force the compiler to compile the class with some template type
-template class ROS2Publisher<double, Float64Msg>;
-template class ROS2Publisher<DoubleArray, Float64ArrayMsg>;
-template class ROS2Publisher<Vec3d, PointMsg>;
 template class ROS2Publisher<Rigid, PoseMsg>;
 
-// clang-format off
+template <>
+std::string ROS2Publisher<DoubleArray, JointStateMsg>::templateName(const ROS2Publisher<DoubleArray, JointStateMsg> *)
+{
+    return "JointState";
+}
+template class ROS2Publisher<DoubleArray, JointStateMsg>;
+
 static int ROS2PublisherClass = sofa::core::RegisterObject("")
-    .add<ROS2Publisher<double, Float64Msg>>()
-    .add<ROS2Publisher<DoubleArray, Float64ArrayMsg>>()
-    .add<ROS2Publisher<Vec3d, PointMsg>>()
-    .add<ROS2Publisher<Rigid, PoseMsg>>();
-// clang-format on
+                                    .add<ROS2Publisher<double, Float64Msg>>()
+                                    .add<ROS2Publisher<DoubleArray, Float64ArrayMsg>>()
+                                    .add<ROS2Publisher<Vec3d, PointMsg>>()
+                                    .add<ROS2Publisher<Rigid, PoseMsg>>()
+                                    .add<ROS2Publisher<DoubleArray, JointStateMsg>>();
 
 }  // namespace ros2
 }  // namespace sofa

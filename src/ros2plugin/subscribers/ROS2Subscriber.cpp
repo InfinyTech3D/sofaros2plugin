@@ -11,38 +11,42 @@ std::string ROS2Subscriber<double, Float64Msg>::templateName(const ROS2Subscribe
 {
     return "Float64";
 }
+template class ROS2Subscriber<double, Float64Msg>;
 
 template <>
 std::string ROS2Subscriber<DoubleArray, Float64ArrayMsg>::templateName(const ROS2Subscriber<DoubleArray, Float64ArrayMsg> *)
 {
     return "Float64Array";
 }
+template class ROS2Subscriber<DoubleArray, Float64ArrayMsg>;
 
 template <>
 std::string ROS2Subscriber<Vec3d, PointMsg>::templateName(const ROS2Subscriber<Vec3d, PointMsg> *)
 {
     return "Vec3d";
 }
+template class ROS2Subscriber<Vec3d, PointMsg>;
 
 template <>
 std::string ROS2Subscriber<Rigid, PoseMsg>::templateName(const ROS2Subscriber<Rigid, PoseMsg> *)
 {
     return "Rigid3d";
 }
-
-// This will force the compiler to compile the class with some template type
-template class ROS2Subscriber<double, Float64Msg>;
-template class ROS2Subscriber<DoubleArray, Float64ArrayMsg>;
-template class ROS2Subscriber<Vec3d, PointMsg>;
 template class ROS2Subscriber<Rigid, PoseMsg>;
 
-// clang-format off
+template <>
+std::string ROS2Subscriber<DoubleArray, JointStateMsg>::templateName(const ROS2Subscriber<DoubleArray, JointStateMsg> *)
+{
+    return "JointState";
+}
+template class ROS2Subscriber<DoubleArray, JointStateMsg>;
+
 static int ROS2SubscriberClass = sofa::core::RegisterObject("")
-                                             .add<ROS2Subscriber<double, Float64Msg>>()
-                                             .add<ROS2Subscriber<DoubleArray, Float64ArrayMsg>>()
-                                             .add<ROS2Subscriber<Vec3d, PointMsg>>()
-                                             .add<ROS2Subscriber<Rigid, PoseMsg>>();
-// clang-format on
+                                     .add<ROS2Subscriber<double, Float64Msg>>()
+                                     .add<ROS2Subscriber<DoubleArray, Float64ArrayMsg>>()
+                                     .add<ROS2Subscriber<Vec3d, PointMsg>>()
+                                     .add<ROS2Subscriber<Rigid, PoseMsg>>()
+                                     .add<ROS2Subscriber<DoubleArray, JointStateMsg>>();
 
 }  // namespace ros2
 }  // namespace sofa
