@@ -1,8 +1,8 @@
 #pragma once
 
+#include <ros2plugin/common/MessageWrapper.h>
 #include <ros2plugin/common/ROS2BaseObject.h>
 #include <ros2plugin/common/ROS2Context.h>
-#include <ros2plugin/common/conversions.h>
 #include <ros2plugin/common/types.h>
 #include <ros2plugin/publishers/ROS2PublisherNode.h>
 #include <sofa/core/objectmodel/BaseObject.h>

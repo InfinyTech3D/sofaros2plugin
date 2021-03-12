@@ -1,6 +1,5 @@
 #pragma once
 
-#include <ros2plugin/common/conversions.h>
 #include <ros2plugin/common/types.h>
 
 namespace sofa {

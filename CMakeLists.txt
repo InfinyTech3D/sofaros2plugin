@@ -21,6 +21,7 @@ find_package(SofaFramework REQUIRED) # Needed to use SofaCore, SofaHelper and So
 
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 # Config files (tell SOFA this is a plugin)
 set(CONFIG_FILES
@@ -42,7 +43,7 @@ add_library(${PROJECT_NAME} SHARED ${CONFIG_FILES} ${HEADER_FILES} ${SOURCE_FILE
 # Dependencies
 include_directories(${rclcpp_INCLUDE_DIRS})
 include_directories(${std_msgs_INCLUDE_DIRS})
-message(${std_msgs_INCLUDE_DIRS})
+include_directories(${sensor_msgs_INCLUDE_DIRS})
 include_directories(${geometry_msgs_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} PUBLIC
         SofaCore
@@ -50,6 +51,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
         SofaDefaultType
         ${rclcpp_LIBRARIES}
         ${std_msgs_LIBRARIES}
+        ${sensor_msgs_LIBRARIES}
         ${geometry_msgs_LIBRARIES}
         )
 

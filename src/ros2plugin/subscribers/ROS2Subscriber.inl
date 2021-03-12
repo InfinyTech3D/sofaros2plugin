@@ -24,7 +24,7 @@ void ROS2Subscriber<DataTypes, ROS2_MSG>::handleEvent(sofa::core::objectmodel::E
 {
     if (dynamic_cast<sofa::simulation::AnimateBeginEvent *>(event)) {
         auto msg = m_ros2node->get();
-        d_output.setValue(conversions::toSofa(msg));
+        d_output.setValue(MessageWrapper<DataTypes, ROS2_MSG>::toSofa(msg));
     }
 }
 
@@ -33,7 +33,7 @@ void ROS2Subscriber<DataTypes, ROS2_MSG>::draw(const sofa::core::visual::VisualP
 {
     if (d_draw.getValue()) {
         const auto &output = d_output.getValue();
-        conversions::draw(vparams, output, d_drawScale.getValue());
+        MessageWrapper<DataTypes, ROS2_MSG>::draw(vparams, output, d_drawScale.getValue());
     }
 }
 

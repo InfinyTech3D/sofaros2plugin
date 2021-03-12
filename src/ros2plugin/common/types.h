@@ -4,11 +4,12 @@
 #include <sofa/defaulttype/SolidTypes.h>
 #include <sofa/defaulttype/VecTypes.h>
 
-#include "geometry_msgs/msg/point.hpp"
-#include "geometry_msgs/msg/pose.hpp"
-#include "rclcpp/rclcpp.hpp"
-#include "std_msgs/msg/float64.hpp"
-#include "std_msgs/msg/float64_multi_array.hpp"
+#include <geometry_msgs/msg/point.hpp>
+#include <geometry_msgs/msg/pose.hpp>
+#include <rclcpp/rclcpp.hpp>
+#include <sensor_msgs/msg/joint_state.hpp>
+#include <std_msgs/msg/float64.hpp>
+#include <std_msgs/msg/float64_multi_array.hpp>
 
 namespace sofa {
 
@@ -31,6 +32,8 @@ using QuatMsg    = geometry_msgs::msg::Quaternion;
 using PoseMsg    = geometry_msgs::msg::Pose;
 
 using Float64ArrayMsg = std_msgs::msg::Float64MultiArray;
+
+using JointStateMsg = sensor_msgs::msg::JointState;
 
 }  // namespace ros2
 

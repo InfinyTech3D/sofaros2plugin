@@ -1,9 +1,9 @@
 #pragma once
 #include <ros2plugin/common/ROS2BaseObject.h>
 #include <ros2plugin/common/ROS2Context.h>
-#include <ros2plugin/subscribers/ROS2SubscriberNode.h>
-#include <ros2plugin/common/conversions.h>
+#include <ros2plugin/common/MessageWrapper.h>
 #include <ros2plugin/common/types.h>
+#include <ros2plugin/subscribers/ROS2SubscriberNode.h>
 #include <sofa/core/objectmodel/BaseObject.h>
 #include <sofa/core/objectmodel/DataCallback.h>
 #include <sofa/core/visual/VisualParams.h>
@@ -33,7 +33,6 @@ class ROS2Subscriber : public ROS2BaseObject<DataTypes, ROS2_MSG> {
     sofa::Data<DataTypes> d_output;
     Data<double> d_drawScale;
     Data<bool> d_draw;
-
 
     explicit ROS2Subscriber();
     virtual ~ROS2Subscriber() = default;
