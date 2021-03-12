@@ -1,5 +1,5 @@
 #pragma once
-#include <ROS2Plugin/Publishers/ROS2Publisher.h>
+#include <ros2plugin/publishers/ROS2Publisher.h>
 namespace sofa {
 namespace ros2 {
 
@@ -24,7 +24,7 @@ template <class DataTypes, class ROS2_MSG>
 void ROS2Publisher<DataTypes, ROS2_MSG>::update()
 {
     DataTypes input = d_input.getValue();
-    ROS2_MSG msg    = toolbox::toROS(input);
+    ROS2_MSG msg    = conversions::toROS(input);
     m_ros2node->publish(msg);
 }
 
@@ -33,7 +33,7 @@ void ROS2Publisher<DataTypes, ROS2_MSG>::draw(const sofa::core::visual::VisualPa
 {
     if (d_draw.getValue()) {
         const auto &input = d_input.getValue();
-        toolbox::draw(vparams, input, d_drawScale.getValue());
+        conversions::draw(vparams, input, d_drawScale.getValue());
     }
 }
 

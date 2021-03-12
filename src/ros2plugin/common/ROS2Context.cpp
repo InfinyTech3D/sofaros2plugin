@@ -1,4 +1,4 @@
-#include <ROS2Plugin/ROS2Context.h>
+#include <ros2plugin/common/ROS2Context.h>
 #include <sofa/core/ObjectFactory.h>
 
 namespace sofa {

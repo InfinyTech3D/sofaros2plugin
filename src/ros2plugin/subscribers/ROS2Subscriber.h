@@ -1,9 +1,9 @@
 #pragma once
-#include <ROS2Plugin/ROS2BaseObject.h>
-#include <ROS2Plugin/ROS2Context.h>
-#include <ROS2Plugin/Subscribers/ROS2SubscriberNode.h>
-#include <ROS2Plugin/toolbox.h>
-#include <ROS2Plugin/types.h>
+#include <ros2plugin/common/ROS2BaseObject.h>
+#include <ros2plugin/common/ROS2Context.h>
+#include <ros2plugin/subscribers/ROS2SubscriberNode.h>
+#include <ros2plugin/common/conversions.h>
+#include <ros2plugin/common/types.h>
 #include <sofa/core/objectmodel/BaseObject.h>
 #include <sofa/core/objectmodel/DataCallback.h>
 #include <sofa/core/visual/VisualParams.h>
@@ -13,7 +13,7 @@ namespace sofa {
 namespace ros2 {
 
 /**
- * Base template class for ROS2Plugin subscribers.
+ * Base template class for ros2plugin subscribers.
  * In order to add a new message type, be sure the functions toSofa(ROS2MSG) with the corresponding ROS2MSG is defined.
  * Then you may add new template specializations to the ROS2Subscriber.cpp file.
  *

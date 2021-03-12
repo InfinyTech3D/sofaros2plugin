@@ -1,6 +1,6 @@
 #include <sofa/core/ObjectFactory.h>
 
-#include <ROS2Plugin/Subscribers/ROS2Subscriber.inl>
+#include <ros2plugin/subscribers/ROS2Subscriber.inl>
 
 namespace sofa {
 namespace ros2 {

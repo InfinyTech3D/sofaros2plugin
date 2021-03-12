@@ -1,5 +1,5 @@
 #pragma once
-#include <ROS2Plugin/Subscribers/ROS2Subscriber.h>
+#include <ros2plugin/subscribers/ROS2Subscriber.h>
 
 namespace sofa {
 namespace ros2 {
@@ -24,7 +24,7 @@ void ROS2Subscriber<DataTypes, ROS2_MSG>::handleEvent(sofa::core::objectmodel::E
 {
     if (dynamic_cast<sofa::simulation::AnimateBeginEvent *>(event)) {
         auto msg = m_ros2node->get();
-        d_output.setValue(toolbox::toSofa(msg));
+        d_output.setValue(conversions::toSofa(msg));
     }
 }
 
@@ -33,7 +33,7 @@ void ROS2Subscriber<DataTypes, ROS2_MSG>::draw(const sofa::core::visual::VisualP
 {
     if (d_draw.getValue()) {
         const auto &output = d_output.getValue();
-        toolbox::draw(vparams, output, d_drawScale.getValue());
+        conversions::draw(vparams, output, d_drawScale.getValue());
     }
 }
 

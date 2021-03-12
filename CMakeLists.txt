@@ -24,7 +24,7 @@ find_package(std_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 # Config files (tell SOFA this is a plugin)
 set(CONFIG_FILES
-        src/ROS2Plugin/initROS2Plugin.cpp
+        src/ros2plugin/initROS2Plugin.cpp
         )
 # Our nice new SOFA Components
 file(GLOB_RECURSE HEADER_FILES

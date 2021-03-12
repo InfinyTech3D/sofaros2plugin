@@ -1,16 +1,17 @@
 #pragma once
-#include <ROS2Plugin/Publishers/ROS2PublisherNode.h>
-#include <ROS2Plugin/ROS2BaseObject.h>
-#include <ROS2Plugin/ROS2Context.h>
-#include <ROS2Plugin/toolbox.h>
-#include <ROS2Plugin/types.h>
+
+#include <ros2plugin/common/ROS2BaseObject.h>
+#include <ros2plugin/common/ROS2Context.h>
+#include <ros2plugin/common/conversions.h>
+#include <ros2plugin/common/types.h>
+#include <ros2plugin/publishers/ROS2PublisherNode.h>
 #include <sofa/core/objectmodel/BaseObject.h>
 #include <sofa/core/objectmodel/DataCallback.h>
 
 namespace sofa {
 namespace ros2 {
 /**
- * Base template class for ROS2Plugin publishers.
+ * Base template class for ros2plugin publishers.
  * In order to add a new message type, be sure the functions toROS(SOFAType) with the corresponding SOFAType is defined.
  * Then you may add new template specializations to the ROS2Publisher.cpp file.
  *
@@ -37,13 +38,16 @@ class ROS2Publisher : public ROS2BaseObject<DataTypes, ROS2_MSG> {
     std::shared_ptr<ROS2PublisherNode<ROS2_MSG>> m_ros2node;
 
     explicit ROS2Publisher();
+
     virtual ~ROS2Publisher() = default;
 
     virtual void init() override;
-    virtual void update();
-    virtual void draw(const sofa::core::visual::VisualParams* vparams) override;
 
-    static std::string templateName(const ROS2Publisher<DataTypes, ROS2_MSG>* = nullptr) { return "Unknown"; }
+    virtual void update();
+
+    virtual void draw(const sofa::core::visual::VisualParams *vparams) override;
+
+    static std::string templateName(const ROS2Publisher<DataTypes, ROS2_MSG> * = nullptr) { return "Unknown"; }
 };
 
 }  // namespace ros2

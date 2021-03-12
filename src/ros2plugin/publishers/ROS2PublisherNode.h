@@ -1,6 +1,6 @@
 #pragma once
 
-#include <ROS2Plugin/types.h>
+#include <ros2plugin/common/types.h>
 
 namespace sofa {
 namespace ros2 {
