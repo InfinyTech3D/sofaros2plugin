@@ -3,7 +3,6 @@
     <RequiredPlugin pluginName='SofaGeneralEngine'/>
     <RequiredPlugin pluginName='SofaImplicitOdeSolver'/>
     <RequiredPlugin pluginName='SofaBoundaryCondition'/>
-    <RequiredPlugin pluginName="RegistrationConstraint" />
     <RequiredPlugin pluginName="ROS2Plugin"/>
 
     <ROS2Context name="ros2Context"/>
@@ -19,6 +18,7 @@
                     draw="true"/>
 
     <TransformEngine name="TranslationEngine" template="Rigid3d" input_position="@pose_sub.output" translation="0.1 0 0" />
+
 
     <!-- Publish a translated version of this pose -->
     <ROS2Publisher name="pose_pub"
