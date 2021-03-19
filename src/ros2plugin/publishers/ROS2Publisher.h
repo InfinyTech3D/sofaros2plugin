@@ -6,7 +6,7 @@
 #include <ros2plugin/common/types.h>
 #include <ros2plugin/publishers/ROS2PublisherNode.h>
 #include <sofa/core/objectmodel/BaseObject.h>
-#include <sofa/core/objectmodel/DataCallback.h>
+#include <sofa/simulation/AnimateEndEvent.h>
 
 namespace sofa {
 namespace ros2 {
@@ -31,7 +31,6 @@ class ROS2Publisher : public ROS2BaseObject<DataTypes, ROS2_MSG> {
     SOFA_CLASS(SOFA_TEMPLATE2(ROS2Publisher, DataTypes, ROS2_MSG), SOFA_TEMPLATE2(ROS2BaseObject, DataTypes, ROS2_MSG));
 
     sofa::Data<DataTypes> d_input;
-    core::objectmodel::DataCallback c_callback;
     Data<double> d_drawScale;
     Data<bool> d_draw;
 
@@ -43,7 +42,7 @@ class ROS2Publisher : public ROS2BaseObject<DataTypes, ROS2_MSG> {
 
     virtual void init() override;
 
-    virtual void update();
+    virtual void handleEvent(sofa::core::objectmodel::Event* event) override;
 
     virtual void draw(const sofa::core::visual::VisualParams *vparams) override;
 

@@ -16,16 +16,16 @@ template <class DataTypes, class ROS2_MSG>
 void ROS2Publisher<DataTypes, ROS2_MSG>::init()
 {
     this->createNode(m_ros2node);
-    c_callback.addInput(&d_input);
-    c_callback.addCallback([this] { update(); });
 }
 
 template <class DataTypes, class ROS2_MSG>
-void ROS2Publisher<DataTypes, ROS2_MSG>::update()
+void ROS2Publisher<DataTypes, ROS2_MSG>::handleEvent(sofa::core::objectmodel::Event *event)
 {
-    DataTypes input = d_input.getValue();
-    ROS2_MSG msg    = MessageWrapper<DataTypes, ROS2_MSG>::toROS(input);
-    m_ros2node->publish(msg);
+    if (dynamic_cast<sofa::simulation::AnimateEndEvent *>(event)) {
+        DataTypes input = d_input.getValue();
+        ROS2_MSG msg    = MessageWrapper<DataTypes, ROS2_MSG>::toROS(input);
+        m_ros2node->publish(msg);
+    }
 }
 
 template <class DataTypes, class ROS2_MSG>
