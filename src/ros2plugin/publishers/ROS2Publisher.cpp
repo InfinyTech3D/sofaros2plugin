@@ -35,6 +35,13 @@ std::string ROS2Publisher<Rigid, PoseMsg>::templateName(const ROS2Publisher<Rigi
 template class ROS2Publisher<Rigid, PoseMsg>;
 
 template <>
+std::string ROS2Publisher<Rigid, PoseStampedMsg>::templateName(const ROS2Publisher<Rigid, PoseStampedMsg> *)
+{
+    return "PoseStamped";
+}
+template class ROS2Publisher<Rigid, PoseStampedMsg>;
+
+template <>
 std::string ROS2Publisher<DoubleArray, JointStateMsg>::templateName(const ROS2Publisher<DoubleArray, JointStateMsg> *)
 {
     return "JointState";
@@ -46,6 +53,7 @@ static int ROS2PublisherClass = sofa::core::RegisterObject("")
                                     .add<ROS2Publisher<DoubleArray, Float64ArrayMsg>>()
                                     .add<ROS2Publisher<Vec3d, PointMsg>>()
                                     .add<ROS2Publisher<Rigid, PoseMsg>>()
+                                    .add<ROS2Publisher<Rigid, PoseStampedMsg>>()
                                     .add<ROS2Publisher<DoubleArray, JointStateMsg>>();
 
 }  // namespace ros2

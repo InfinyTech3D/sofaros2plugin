@@ -122,6 +122,29 @@ inline PoseMsg MessageWrapper<Rigid, PoseMsg>::toROS(const Rigid& rigid)
 
 /********************************************************************************************************
  *      SOFA         <===>          ROS2
+ *      Rigid                      PoseStampedMsg
+ */
+template <>
+inline void MessageWrapper<Rigid, PoseStampedMsg>::draw(const sofa::core::visual::VisualParams* vparams, const Rigid& pose, const double& scale)
+{
+    MessageWrapper<Rigid, PoseMsg>::draw(vparams, pose, scale);
+}
+template <>
+inline Rigid MessageWrapper<Rigid, PoseStampedMsg>::toSofa(const PoseStampedMsg& msg)
+{
+    return MessageWrapper<Rigid, PoseMsg>::toSofa(msg.pose);
+}
+template <>
+inline PoseStampedMsg MessageWrapper<Rigid, PoseStampedMsg>::toROS(const Rigid& rigid)
+{
+    auto msg   = PoseStampedMsg();
+    msg.pose   = MessageWrapper<Rigid, PoseMsg>::toROS(rigid);
+    msg.header.stamp = rclcpp::Time();
+    return msg;
+}
+
+/********************************************************************************************************
+ *      SOFA         <===>          ROS2
  *    DoubleArray               JointStateMsg
  * Note: At the moment, only position data is transmitted
  * TODO: Integrate another DataType which accounts for velocity and forces (MechanicalStates ?)
@@ -138,7 +161,7 @@ inline JointStateMsg MessageWrapper<DoubleArray, JointStateMsg>::toROS(const Dou
     joint_msg.name.resize(array.size());
     joint_msg.position.resize(array.size());
     for (size_t i = 0; i < array.size(); i++) {
-        joint_msg.name[i]  = "joint_" + std::to_string(i);
+        joint_msg.name[i]     = "joint_" + std::to_string(i);
         joint_msg.position[i] = array[i];
     }
     return joint_msg;

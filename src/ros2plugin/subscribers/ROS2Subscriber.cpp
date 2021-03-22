@@ -35,6 +35,13 @@ std::string ROS2Subscriber<Rigid, PoseMsg>::templateName(const ROS2Subscriber<Ri
 template class ROS2Subscriber<Rigid, PoseMsg>;
 
 template <>
+std::string ROS2Subscriber<Rigid, PoseStampedMsg>::templateName(const ROS2Subscriber<Rigid, PoseStampedMsg> *)
+{
+    return "PoseStamped";
+}
+template class ROS2Subscriber<Rigid, PoseStampedMsg>;
+
+template <>
 std::string ROS2Subscriber<DoubleArray, JointStateMsg>::templateName(const ROS2Subscriber<DoubleArray, JointStateMsg> *)
 {
     return "JointState";
@@ -46,6 +53,7 @@ static int ROS2SubscriberClass = sofa::core::RegisterObject("")
                                      .add<ROS2Subscriber<DoubleArray, Float64ArrayMsg>>()
                                      .add<ROS2Subscriber<Vec3d, PointMsg>>()
                                      .add<ROS2Subscriber<Rigid, PoseMsg>>()
+                                     .add<ROS2Subscriber<Rigid, PoseStampedMsg>>()
                                      .add<ROS2Subscriber<DoubleArray, JointStateMsg>>();
 
 }  // namespace ros2

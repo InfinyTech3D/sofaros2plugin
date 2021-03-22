@@ -6,6 +6,7 @@
 
 #include <geometry_msgs/msg/point.hpp>
 #include <geometry_msgs/msg/pose.hpp>
+#include <geometry_msgs/msg/pose_stamped.hpp>
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/joint_state.hpp>
 #include <std_msgs/msg/float64.hpp>
@@ -30,6 +31,8 @@ using Float64Msg = std_msgs::msg::Float64;
 using PointMsg   = geometry_msgs::msg::Point;
 using QuatMsg    = geometry_msgs::msg::Quaternion;
 using PoseMsg    = geometry_msgs::msg::Pose;
+
+using PoseStampedMsg = geometry_msgs::msg::PoseStamped;
 
 using Float64ArrayMsg = std_msgs::msg::Float64MultiArray;
 

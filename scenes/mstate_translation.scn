@@ -14,7 +14,7 @@
     <ROS2Subscriber name="pose_sub"
                     template="Rigid3d"
                     nodeName="pose_subscriber"
-                    topicName="sofa/in/marker_pose"
+                    topicName="iiwa/in/tcp_pose"
                     draw="true"/>
     <Node name="MarkerPose">
         <MechanicalObject name="DOFs" template="Rigid3d" showObject="true"  position="@../pose_sub.output"/>
@@ -28,7 +28,7 @@
 
     <!-- Publish a translated version of this pose -->
     <ROS2Publisher name="pose_pub"
-                   template="Rigid3d"
+                   template="PoseStamped"
                    nodeName="pose_publisher"
                    topicName="sofa/out/marker_pose"
                    input="@TranslationEngine.output_position"
