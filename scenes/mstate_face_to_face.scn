@@ -22,7 +22,7 @@
     </Node>
 
     <TransformEngine name="TranslationEngine" template="Rigid3d" input_position="@MarkerPose/DOFs.position"
-                     translation="1.0 0 0" rotation="0.0 180.0 0.0"/>
+                     translation="0.15 0 0" rotation="0.0 -90.0 0.0"/>
 
     <Node name="FollowPose">
         <MechanicalObject name="DOFs" template="Rigid3d" showObject="true" showObjectScale="0.01"
