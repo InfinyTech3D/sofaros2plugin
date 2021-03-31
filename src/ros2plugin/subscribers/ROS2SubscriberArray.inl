@@ -10,6 +10,7 @@ ROS2SubscriberArray<DataTypes, ROS2_MSG>::ROS2SubscriberArray() : d_indexes(init
     this->f_listening.setValue(true);
 }
 
+
 template <class DataTypes, class ROS2_MSG>
 void ROS2SubscriberArray<DataTypes, ROS2_MSG>::handleEvent(sofa::core::objectmodel::Event *event)
 {

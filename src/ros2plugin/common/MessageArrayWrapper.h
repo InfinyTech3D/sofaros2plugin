@@ -4,6 +4,7 @@
 #include <sofa/core/visual/VisualParams.h>
 
 #include <algorithm>
+#include <cmath>
 
 namespace sofa {
 namespace ros2 {
@@ -58,6 +59,45 @@ inline PoseArrayMsg MessageArrayWrapper<helper::vector<Rigid>, PoseArrayMsg>::to
 
     return points;
 }
+
+/**  Array Wrapppers  **************************************************************************************************
+ *      SOFA         <===>          ROS2
+ *      helper::vector<Vec3d>       TrackerArrayMsg
+ */
+template <>
+inline void MessageArrayWrapper<helper::vector<Vec3d>, TrackerArrayMsg>::draw(const sofa::core::visual::VisualParams* vparams,
+                                                                           const helper::vector<Vec3d>& vec3d, const double& scale,
+                                                                           const helper::vector<int>& indexes)
+{
+    if (vec3d.size() == 0 || vec3d.size() < (*std::max_element(indexes.begin(), indexes.end()))) return;
+//    for (const auto& idx : indexes) MessageWrapper<Vec3d, PoseMsg>::draw(vparams, vec3d[idx], scale);
+}
+template <>
+inline helper::vector<Vec3d> MessageArrayWrapper<helper::vector<Vec3d>, TrackerArrayMsg>::toSofa(const TrackerArrayMsg& msg,
+                                                                                              const helper::vector<int>& indexes)
+{
+    helper::vector<Vec3d> returnVec;
+    std::map<int, helper::vector<Vec3d> > indexedVectors;
+
+    for(unsigned i=0; i<msg.ids.size();i++)
+    {
+        indexedVectors[(int) log2(msg.ids[i])].push_back(Vec3d(msg.points[i].x,msg.points[i].y,msg.points[i].z));
+    }
+
+    unsigned acc = 0;
+    for(auto i : indexedVectors)
+    {
+        if(std::count(indexes.begin(),indexes.end(),acc))
+        {
+            for (auto j : i.second)
+                returnVec.push_back(j);
+        }
+        acc++;
+    }
+    return returnVec;
+}
+
+
 
 }  // namespace ros2
 }  // namespace sofa

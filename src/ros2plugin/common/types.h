@@ -13,6 +13,8 @@
 #include <sensor_msgs/msg/point_cloud.hpp>
 #include <std_msgs/msg/float64.hpp>
 #include <std_msgs/msg/float64_multi_array.hpp>
+#include <optitrack_msgs/msg/tracker_array.hpp>
+#include <optitrack_msgs/msg/tracker_array.h>
 
 namespace sofa {
 
@@ -41,6 +43,8 @@ using Float64ArrayMsg = std_msgs::msg::Float64MultiArray;
 using JointStateMsg = sensor_msgs::msg::JointState;
 
 using PoseArrayMsg = geometry_msgs::msg::PoseArray;
+
+using TrackerArrayMsg = optitrack_msgs::msg::TrackerArray;
 
 
 }  // namespace ros2

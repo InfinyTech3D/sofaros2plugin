@@ -23,6 +23,7 @@ find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
+find_package(optitrack_msgs REQUIRED)
 # Config files (tell SOFA this is a plugin)
 set(CONFIG_FILES
         src/ros2plugin/initROS2Plugin.cpp
@@ -45,6 +46,7 @@ include_directories(${rclcpp_INCLUDE_DIRS})
 include_directories(${std_msgs_INCLUDE_DIRS})
 include_directories(${sensor_msgs_INCLUDE_DIRS})
 include_directories(${geometry_msgs_INCLUDE_DIRS})
+include_directories(${optitrack_msgs_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} PUBLIC
         SofaCore
         SofaHelper
@@ -53,6 +55,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
         ${std_msgs_LIBRARIES}
         ${sensor_msgs_LIBRARIES}
         ${geometry_msgs_LIBRARIES}
+        ${optitrack_msgs_LIBRARIES}
         )
 
 ## Change default install prefix
