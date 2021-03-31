@@ -207,7 +207,7 @@ inline PoseArrayMsg MessageWrapper<helper::vector<Vec3d>, PoseArrayMsg>::toROS(c
  */
 template <>
 inline void MessageWrapper<helper::vector<Rigid>, PoseArrayMsg>::draw(const sofa::core::visual::VisualParams* vparams,
-                                                                        const helper::vector<Rigid>& vec3d, const double& scale)
+                                                                      const helper::vector<Rigid>& vec3d, const double& scale)
 {
     for (unsigned i = 0; i < vec3d.size(); i++) MessageWrapper<Rigid, PoseMsg>::draw(vparams, vec3d[i], scale);
 }
