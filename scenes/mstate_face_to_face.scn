@@ -5,24 +5,34 @@
     <RequiredPlugin pluginName='SofaBoundaryCondition'/>
     <RequiredPlugin pluginName="ROS2Plugin"/>
 
+    <RequiredPlugin pluginName="ConectPlugin" />
+    <RequiredPlugin pluginName="SofaCUDA" />
+    <RequiredPlugin pluginName="SofaCUDADev" />
+    <RequiredPlugin pluginName="SofaAsyncSolvers" />
+    <RequiredPlugin pluginName="SofaCUDASolvers" />
+    <RequiredPlugin pluginName="RegistrationConstraint" />
+    <RequiredPlugin pluginName="CollisionAlgorithm" />
+    <RequiredPlugin pluginName="SperryPlugin" />
+
     <ROS2Context name="ros2Context"/>
 
     <EulerImplicitSolver name="ODEsolver" rayleighStiffness="0.1" rayleighMass="0.1"/>
     <CGLinearSolver iterations="100" tolerance="1e-5" threshold="1e-5"/>
 
     <!-- Listen to a marker pose to be published -->
-    <ROS2Subscriber name="pose_sub"
+    <ROS2SubscriberArray name="pose_sub"
                     template="PoseArray"
+                    indexes="0"
                     nodeName="pose_subscriber"
                     topicName="/optitrack/rigid_bodies/poses"
-                    draw="true"/>
+                    draw="false"/>
     <Node name="MarkerPose">
-        <MechanicalObject name="DOFs" template="Rigid3d" showObject="true" showObjectScale="0.01"
-                          position="@../pose_sub.output"/>
+        <MechanicalObject name="DOFs" template="Rigid3d" showObject="true" showObjectScale="0.01"/>
+        <EngineToTopology name="EngineToTopology" template="Rigid3d" state="@DOFs" position="@../pose_sub.output" listening="true"/>
     </Node>
 
     <TransformEngine name="TranslationEngine" template="Rigid3d" input_position="@MarkerPose/DOFs.position"
-                     translation="0.15 0 0" rotation="0.0 -90.0 0.0"/>
+                     translation="0.0 0.0 0.10" rotation="0.0 0.0 0.0"/>
 
     <Node name="FollowPose">
         <MechanicalObject name="DOFs" template="Rigid3d" showObject="true" showObjectScale="0.01"
@@ -35,5 +45,5 @@
                    nodeName="pose_publisher"
                    topicName="sofa/out/marker_pose"
                    input="@TranslationEngine.output_position"
-                   draw="true"/>
+                   draw="false"/>
 </Node>
