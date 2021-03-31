@@ -12,9 +12,9 @@
 
     <!-- Listen to a marker pose to be published -->
     <ROS2Subscriber name="pose_sub"
-                    template="Rigid3d"
+                    template="PoseArray"
                     nodeName="pose_subscriber"
-                    topicName="iiwa/in/tcp_pose"
+                    topicName="/optitrack/rigid_bodies/poses"
                     draw="true"/>
     <Node name="MarkerPose">
         <MechanicalObject name="DOFs" template="Rigid3d" showObject="true" showObjectScale="0.01"

@@ -137,8 +137,8 @@ inline Rigid MessageWrapper<Rigid, PoseStampedMsg>::toSofa(const PoseStampedMsg&
 template <>
 inline PoseStampedMsg MessageWrapper<Rigid, PoseStampedMsg>::toROS(const Rigid& rigid)
 {
-    auto msg   = PoseStampedMsg();
-    msg.pose   = MessageWrapper<Rigid, PoseMsg>::toROS(rigid);
+    auto msg         = PoseStampedMsg();
+    msg.pose         = MessageWrapper<Rigid, PoseMsg>::toROS(rigid);
     msg.header.stamp = rclcpp::Time();
     return msg;
 }
@@ -172,16 +172,17 @@ inline JointStateMsg MessageWrapper<DoubleArray, JointStateMsg>::toROS(const Dou
  *      helper::vector<Vec3d>       PointArrayMsg
  */
 template <>
-inline void MessageWrapper<helper::vector<Vec3d>, PoseArrayMsg>::draw(const sofa::core::visual::VisualParams* vparams, const helper::vector<Vec3d>& vec3d, const double& scale)
+inline void MessageWrapper<helper::vector<Vec3d>, PoseArrayMsg>::draw(const sofa::core::visual::VisualParams* vparams,
+                                                                      const helper::vector<Vec3d>& vec3d, const double& scale)
 {
-    for(unsigned i=0; i<vec3d.size(); i++) vparams->drawTool()->drawSphere(vec3d[i], scale, RGBAColor(1, 1, 1, 1));
+    for (unsigned i = 0; i < vec3d.size(); i++) vparams->drawTool()->drawSphere(vec3d[i], scale, RGBAColor(1, 1, 1, 1));
 }
 template <>
 inline helper::vector<Vec3d> MessageWrapper<helper::vector<Vec3d>, PoseArrayMsg>::toSofa(const PoseArrayMsg& points)
 {
     helper::vector<Vec3d> returnVec;
 
-    for(unsigned i=0;i<points.poses.size();i++)
+    for (unsigned i = 0; i < points.poses.size(); i++)
         returnVec.push_back(Vec3d(points.poses[i].position.x, points.poses[i].position.y, points.poses[i].position.z));
 
     return returnVec;
@@ -191,9 +192,7 @@ inline PoseArrayMsg MessageWrapper<helper::vector<Vec3d>, PoseArrayMsg>::toROS(c
 {
     auto points = PoseArrayMsg();
 
-
-    for(unsigned i=0;i<vec3d.size();i++)
-    {
+    for (unsigned i = 0; i < vec3d.size(); i++) {
         PoseArrayMsg::_poses_type::value_type P;
         P.position.set__x(vec3d[i][0]).set__y(vec3d[i][1]).set__z(vec3d[i][2]);
         points.poses.push_back(P);
@@ -202,6 +201,36 @@ inline PoseArrayMsg MessageWrapper<helper::vector<Vec3d>, PoseArrayMsg>::toROS(c
     return points;
 }
 
+/********************************************************************************************************
+ *      SOFA         <===>          ROS2
+ *      helper::vector<Rigid>      PoseArray
+ */
+template <>
+inline void MessageWrapper<helper::vector<Rigid>, PoseArrayMsg>::draw(const sofa::core::visual::VisualParams* vparams,
+                                                                        const helper::vector<Rigid>& vec3d, const double& scale)
+{
+    for (unsigned i = 0; i < vec3d.size(); i++) MessageWrapper<Rigid, PoseMsg>::draw(vparams, vec3d[i], scale);
+}
+template <>
+inline helper::vector<Rigid> MessageWrapper<helper::vector<Rigid>, PoseArrayMsg>::toSofa(const PoseArrayMsg& msg)
+{
+    helper::vector<Rigid> returnVec;
+
+    for (unsigned i = 0; i < msg.poses.size(); i++) returnVec.push_back(MessageWrapper<Rigid, PoseMsg>::toSofa(msg.poses[i]));
+
+    return returnVec;
+}
+template <>
+inline PoseArrayMsg MessageWrapper<helper::vector<Rigid>, PoseArrayMsg>::toROS(const helper::vector<Rigid>& vec3d)
+{
+    auto points = PoseArrayMsg();
+
+    for (unsigned i = 0; i < vec3d.size(); i++) {
+        points.poses.push_back(MessageWrapper<Rigid, PoseMsg>::toROS(vec3d[i]));
+    }
+
+    return points;
+}
 
 }  // namespace ros2
 }  // namespace sofa
