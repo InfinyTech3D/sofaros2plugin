@@ -9,56 +9,56 @@ namespace ros2 {
 template <>
 std::string ROS2Subscriber<double, Float64Msg>::templateName(const ROS2Subscriber<double, Float64Msg> *)
 {
-    return "Float64";
+    return "RosFloat64";
 }
 template class ROS2Subscriber<double, Float64Msg>;
 
 template <>
 std::string ROS2Subscriber<DoubleArray, Float64ArrayMsg>::templateName(const ROS2Subscriber<DoubleArray, Float64ArrayMsg> *)
 {
-    return "Float64Array";
+    return "RosFloat64Array";
 }
 template class ROS2Subscriber<DoubleArray, Float64ArrayMsg>;
 
 template <>
 std::string ROS2Subscriber<Vec3d, PointMsg>::templateName(const ROS2Subscriber<Vec3d, PointMsg> *)
 {
-    return "Vec3d";
+    return "RosVec3d";
 }
 template class ROS2Subscriber<Vec3d, PointMsg>;
 
 template <>
 std::string ROS2Subscriber<Rigid, PoseMsg>::templateName(const ROS2Subscriber<Rigid, PoseMsg> *)
 {
-    return "Rigid";
+    return "RosRigid";
 }
 template class ROS2Subscriber<Rigid, PoseMsg>;
 
 template <>
 std::string ROS2Subscriber<Rigid, PoseStampedMsg>::templateName(const ROS2Subscriber<Rigid, PoseStampedMsg> *)
 {
-    return "PoseStamped";
+    return "RosPoseStamped";
 }
 template class ROS2Subscriber<Rigid, PoseStampedMsg>;
 
 template <>
 std::string ROS2Subscriber<DoubleArray, JointStateMsg>::templateName(const ROS2Subscriber<DoubleArray, JointStateMsg> *)
 {
-    return "JointState";
+    return "RosJointState";
 }
 template class ROS2Subscriber<DoubleArray, JointStateMsg>;
 
 template <>
 std::string ROS2Subscriber<helper::vector<Vec3d>, PoseArrayMsg>::templateName(const ROS2Subscriber<helper::vector<Vec3d>, PoseArrayMsg> *)
 {
-    return "PointArray";
+    return "RosPointArray";
 }
 template class ROS2Subscriber<helper::vector<Vec3d>, PoseArrayMsg>;
 
 template <>
 std::string ROS2Subscriber<helper::vector<Rigid>, PoseArrayMsg>::templateName(const ROS2Subscriber<helper::vector<Rigid>, PoseArrayMsg> *)
 {
-return "PoseArray";
+return "RosPoseArray";
 }
 template class ROS2Subscriber<helper::vector<Rigid>, PoseArrayMsg>;
 

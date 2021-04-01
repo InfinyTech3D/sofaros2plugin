@@ -10,14 +10,14 @@ namespace ros2 {
 template <>
 std::string ROS2SubscriberArray<helper::vector<Rigid>, PoseArrayMsg>::templateName(const ROS2SubscriberArray<helper::vector<Rigid>, PoseArrayMsg> *)
 {
-return "PoseArray";
+return "RosPoseArray";
 }
 template class ROS2SubscriberArray<helper::vector<Rigid>, PoseArrayMsg>;
 
 template <>
 std::string ROS2SubscriberArray<helper::vector<Vec3d>, TrackerArrayMsg>::templateName(const ROS2SubscriberArray<helper::vector<Vec3d>, TrackerArrayMsg> *)
 {
-    return "TrackerArray";
+    return "RosTrackerArray";
 }
 template class ROS2SubscriberArray<helper::vector<Vec3d>, TrackerArrayMsg>;
 

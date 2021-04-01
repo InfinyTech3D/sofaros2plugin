@@ -7,8 +7,10 @@
 
     <ROS2Context name="ros2Context"/>
 
-    <EulerImplicitSolver name="ODEsolver" rayleighStiffness="0.1" rayleighMass="0.1"/>
-    <CGLinearSolver iterations="100" tolerance="1e-5" threshold="1e-5"/>
+    <InvSimuAnimationLoopConstraintO name="animation" epsi="0.001" dx="0.00025" dr="0.00025" printlog2="0"
+                                     dumping="0.001" nRes="2" saveFolder="./results/Auto"/>
+    <InvSimuGenericConstraintSolver tolerance="1e-8" maxIt="200" printLog2="0"/>
+    <!--        <FreeMotionAnimationLoop />-->
 
     <!-- Listen to a marker pose to be published -->
     <ROS2Subscriber name="pose_sub"
