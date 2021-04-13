@@ -51,6 +51,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
         SofaCore
         SofaHelper
         SofaDefaultType
+        SofaSimulationTree
         ${rclcpp_LIBRARIES}
         ${std_msgs_LIBRARIES}
         ${sensor_msgs_LIBRARIES}
