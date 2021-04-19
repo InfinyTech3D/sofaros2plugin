@@ -48,10 +48,7 @@ include_directories(${sensor_msgs_INCLUDE_DIRS})
 include_directories(${geometry_msgs_INCLUDE_DIRS})
 include_directories(${optitrack_msgs_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} PUBLIC
-        SofaCore
-        SofaHelper
-        SofaDefaultType
-        SofaSimulationTree
+        SofaFramework
         ${rclcpp_LIBRARIES}
         ${std_msgs_LIBRARIES}
         ${sensor_msgs_LIBRARIES}
