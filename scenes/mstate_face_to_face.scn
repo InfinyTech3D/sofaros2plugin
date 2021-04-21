@@ -18,7 +18,7 @@
     <!-- Listen to a marker pose to be published -->
     <ROS2SubscriberArray name="pose_sub"
                     template="RosPoseArray"
-                    initialValue="0 0 0 0 0 0 0"
+                    initialValue="0 0 0 0 0 0 1"
                     indexes="0"
                     nodeName="pose_subscriber"
                     topicName="/optitrack/rigid_bodies/poses"
