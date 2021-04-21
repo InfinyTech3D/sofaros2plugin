@@ -4,15 +4,15 @@
 
 #include <functional>
 #include <memory>
+#include <rclcpp/rclcpp.hpp>
+#include <rclcpp/time_source.hpp>
 #include <string>
 #include <thread>
 
-#include <rclcpp/rclcpp.hpp>
-#include <rclcpp/time_source.hpp>
-
-namespace sofa {
-namespace ros2 {
-
+namespace sofa
+{
+namespace ros2
+{
 /**
  * ROS2Context is a SOFA component responsible for managing the ROS context initialization and thread deployment.
  * Only one ROS2Context can be initialized in a single process - so only one per scene.
@@ -33,8 +33,9 @@ namespace ros2 {
     }
  *
  */
-class ROS2Context : public core::objectmodel::BaseObject {
-   public:
+class ROS2Context : public core::objectmodel::BaseObject
+{
+public:
     SOFA_CLASS(ROS2Context, core::objectmodel::BaseObject);
 
     ROS2Context() { rclcpp::init(0, nullptr); };
@@ -43,7 +44,8 @@ class ROS2Context : public core::objectmodel::BaseObject {
 
     void init() override {}
 
-    void bwdInit() override {
+    void bwdInit() override
+    {
         auto thread = std::thread([this] {
             rclcpp::executors::MultiThreadedExecutor executor;
             for (auto node : m_workers) executor.add_node(node);
@@ -56,7 +58,7 @@ class ROS2Context : public core::objectmodel::BaseObject {
 
     void addNode(const std::shared_ptr<rclcpp::Node>& new_node) { m_workers.push_back(new_node); }
 
-   private:
+private:
     std::vector<std::shared_ptr<rclcpp::Node>> m_workers;
 };
 

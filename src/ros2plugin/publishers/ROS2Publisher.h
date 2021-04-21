@@ -8,8 +8,10 @@
 #include <sofa/core/objectmodel/BaseObject.h>
 #include <sofa/simulation/AnimateEndEvent.h>
 
-namespace sofa {
-namespace ros2 {
+namespace sofa
+{
+namespace ros2
+{
 /**
  * Base template class for ros2plugin publishers.
  * In order to add a new message type, be sure the functions toROS(SOFAType) with the corresponding SOFAType is defined.
@@ -26,8 +28,9 @@ namespace ros2 {
  * @tparam ROS2_MSG ROS message type should be informed by the child class implementation
  */
 template <class DataTypes, class ROS2_MSG>
-class ROS2Publisher : public ROS2BaseObject<DataTypes, ROS2_MSG> {
-   public:
+class ROS2Publisher : public ROS2BaseObject<DataTypes, ROS2_MSG>
+{
+public:
     SOFA_CLASS(SOFA_TEMPLATE2(ROS2Publisher, DataTypes, ROS2_MSG), SOFA_TEMPLATE2(ROS2BaseObject, DataTypes, ROS2_MSG));
 
     sofa::Data<DataTypes> d_input;
@@ -44,9 +47,9 @@ class ROS2Publisher : public ROS2BaseObject<DataTypes, ROS2_MSG> {
 
     virtual void handleEvent(sofa::core::objectmodel::Event* event) override;
 
-    virtual void draw(const sofa::core::visual::VisualParams *vparams) override;
+    virtual void draw(const sofa::core::visual::VisualParams* vparams) override;
 
-    static std::string templateName(const ROS2Publisher<DataTypes, ROS2_MSG> * = nullptr) { return "Unknown"; }
+    static std::string templateName(const ROS2Publisher<DataTypes, ROS2_MSG>* = nullptr) { return "Unknown"; }
 };
 
 }  // namespace ros2

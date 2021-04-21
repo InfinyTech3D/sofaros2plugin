@@ -2,9 +2,10 @@
 
 #include <ros2plugin/publishers/ROS2Publisher.inl>
 
-namespace sofa {
-namespace ros2 {
-
+namespace sofa
+{
+namespace ros2
+{
 /** Define template names for every specialization */
 template <>
 std::string ROS2Publisher<double, Float64Msg>::templateName(const ROS2Publisher<double, Float64Msg> *)

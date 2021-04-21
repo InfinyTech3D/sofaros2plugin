@@ -1,8 +1,9 @@
 #pragma once
 #include <ros2plugin/publishers/ROS2Publisher.h>
-namespace sofa {
-namespace ros2 {
-
+namespace sofa
+{
+namespace ros2
+{
 template <class DataTypes, class ROS2_MSG>
 ROS2Publisher<DataTypes, ROS2_MSG>::ROS2Publisher()
     : d_input(initData(&d_input, DataTypes(), "input", "input"))
@@ -21,7 +22,8 @@ void ROS2Publisher<DataTypes, ROS2_MSG>::init()
 template <class DataTypes, class ROS2_MSG>
 void ROS2Publisher<DataTypes, ROS2_MSG>::handleEvent(sofa::core::objectmodel::Event *event)
 {
-    if (dynamic_cast<sofa::simulation::AnimateEndEvent *>(event)) {
+    if (dynamic_cast<sofa::simulation::AnimateEndEvent *>(event))
+    {
         DataTypes input = d_input.getValue();
         ROS2_MSG msg    = MessageWrapper<DataTypes, ROS2_MSG>::toROS(input);
         m_ros2node->publish(msg);
@@ -31,7 +33,8 @@ void ROS2Publisher<DataTypes, ROS2_MSG>::handleEvent(sofa::core::objectmodel::Ev
 template <class DataTypes, class ROS2_MSG>
 void ROS2Publisher<DataTypes, ROS2_MSG>::draw(const sofa::core::visual::VisualParams *vparams)
 {
-    if (d_draw.getValue()) {
+    if (d_draw.getValue())
+    {
         const auto &input = d_input.getValue();
         MessageWrapper<DataTypes, ROS2_MSG>::draw(vparams, input, d_drawScale.getValue());
     }

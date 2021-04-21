@@ -3,12 +3,14 @@
 #include <ros2plugin/common/types.h>
 #include <sofa/core/objectmodel/BaseObject.h>
 
-namespace sofa {
-namespace ros2 {
-
+namespace sofa
+{
+namespace ros2
+{
 template <class DataTypes, class ROS2_MSG>
-class ROS2BaseObject : public core::objectmodel::BaseObject {
-   public:
+class ROS2BaseObject : public core::objectmodel::BaseObject
+{
+public:
     using Inherit = core::objectmodel::BaseObject;
     SOFA_CLASS(SOFA_TEMPLATE2(ROS2BaseObject, DataTypes, ROS2_MSG), Inherit);
 
@@ -32,7 +34,7 @@ class ROS2BaseObject : public core::objectmodel::BaseObject {
     void createNode(std::shared_ptr<ROS2NodeType>& node_ptr)
     {
         node_ptr = std::make_shared<ROS2NodeType>(this->d_NodeName.getValue(), this->d_TopicName.getValue());
-        m_ts     = std::make_shared<rclcpp::TimeSource>(node_ptr);
+        m_ts = std::make_shared<rclcpp::TimeSource>(node_ptr);
         this->l_ros2Context->addNode(node_ptr);
     }
 
@@ -41,16 +43,19 @@ class ROS2BaseObject : public core::objectmodel::BaseObject {
     {
         // Automatically locate context if it does not exist
         std::string context_path = arg->getAttribute("ros2Context", "");
-        if (context_path.empty()) {
+        if (context_path.empty())
+        {
             // Try to find a ROS2Context component
             const auto context_candidates = context->getObjects<ROS2Context>(core::objectmodel::BaseContext::SearchDirection::Local);
-            if (context_candidates.size() == 0) {
+            if (context_candidates.size() == 0)
+            {
                 arg->logError("No ROS2Context was found! Please create one in order to use ROS2Subscriber component.");
                 return false;
             }
             context_path = context_candidates[0]->getPathName();
             // If a context was found, link it to this component
-            if (Inherit::canCreate(o, context, arg)) {
+            if (Inherit::canCreate(o, context, arg))
+            {
                 arg->setAttribute("ros2Context", "@" + context_path);
                 return true;
             }

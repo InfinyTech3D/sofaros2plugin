@@ -9,12 +9,14 @@
 #include <sofa/core/visual/VisualParams.h>
 #include <sofa/simulation/AnimateBeginEvent.h>
 
-namespace sofa {
-namespace ros2 {
-
+namespace sofa
+{
+namespace ros2
+{
 template <class DataTypes, class ROS2_MSG>
-class ROS2SubscriberArray : public ROS2Subscriber<DataTypes, ROS2_MSG> {
-   public:
+class ROS2SubscriberArray : public ROS2Subscriber<DataTypes, ROS2_MSG>
+{
+public:
     SOFA_CLASS(SOFA_TEMPLATE2(ROS2SubscriberArray, DataTypes, ROS2_MSG), SOFA_TEMPLATE2(ROS2Subscriber, DataTypes, ROS2_MSG));
 
     Data<helper::vector<int>> d_indexes;

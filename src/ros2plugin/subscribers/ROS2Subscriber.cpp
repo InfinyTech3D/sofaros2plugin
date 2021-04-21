@@ -2,9 +2,10 @@
 
 #include <ros2plugin/subscribers/ROS2Subscriber.inl>
 
-namespace sofa {
-namespace ros2 {
-
+namespace sofa
+{
+namespace ros2
+{
 /** Define template names for every specialization */
 template <>
 std::string ROS2Subscriber<double, Float64Msg>::templateName(const ROS2Subscriber<double, Float64Msg> *)
@@ -58,7 +59,7 @@ template class ROS2Subscriber<helper::vector<Vec3d>, PoseArrayMsg>;
 template <>
 std::string ROS2Subscriber<helper::vector<Rigid>, PoseArrayMsg>::templateName(const ROS2Subscriber<helper::vector<Rigid>, PoseArrayMsg> *)
 {
-return "RosPoseArray";
+    return "RosPoseArray";
 }
 template class ROS2Subscriber<helper::vector<Rigid>, PoseArrayMsg>;
 

@@ -2,12 +2,14 @@
 #include <ros2plugin/common/types.h>
 #include <sofa/core/visual/VisualParams.h>
 
-namespace sofa {
-namespace ros2 {
-
+namespace sofa
+{
+namespace ros2
+{
 template <class DataTypes, class ROS2_MSG>
-class MessageWrapper {
-   public:
+class MessageWrapper
+{
+public:
     static inline void draw(const sofa::core::visual::VisualParams* /*vparams*/, const DataTypes& /*sofa_type*/, const double& /*scale*/) {}
     static inline DataTypes toSofa(const ROS2_MSG& /*ros_msg*/)
     {
@@ -71,9 +73,9 @@ template <>
 inline PointMsg MessageWrapper<Vec3d, PointMsg>::toROS(const Vec3d& vec3d)
 {
     auto point = PointMsg();
-    point.x    = vec3d[0];
-    point.y    = vec3d[1];
-    point.z    = vec3d[2];
+    point.x = vec3d[0];
+    point.y = vec3d[1];
+    point.z = vec3d[2];
     return point;
 }
 
@@ -90,10 +92,10 @@ template <>
 inline QuatMsg MessageWrapper<Quat, QuatMsg>::toROS(const Quat& orientation)
 {
     auto quat = QuatMsg();
-    quat.x    = orientation[0];
-    quat.y    = orientation[1];
-    quat.z    = orientation[2];
-    quat.w    = orientation[3];
+    quat.x = orientation[0];
+    quat.y = orientation[1];
+    quat.z = orientation[2];
+    quat.w = orientation[3];
     return quat;
 }
 
@@ -114,8 +116,8 @@ inline Rigid MessageWrapper<Rigid, PoseMsg>::toSofa(const PoseMsg& pose)
 template <>
 inline PoseMsg MessageWrapper<Rigid, PoseMsg>::toROS(const Rigid& rigid)
 {
-    auto pose        = PoseMsg();
-    pose.position    = MessageWrapper<Vec3d, PointMsg>::toROS(rigid.getCenter());
+    auto pose = PoseMsg();
+    pose.position = MessageWrapper<Vec3d, PointMsg>::toROS(rigid.getCenter());
     pose.orientation = MessageWrapper<Quat, QuatMsg>::toROS(rigid.getOrientation());
     return pose;
 }
@@ -137,8 +139,8 @@ inline Rigid MessageWrapper<Rigid, PoseStampedMsg>::toSofa(const PoseStampedMsg&
 template <>
 inline PoseStampedMsg MessageWrapper<Rigid, PoseStampedMsg>::toROS(const Rigid& rigid)
 {
-    auto msg         = PoseStampedMsg();
-    msg.pose         = MessageWrapper<Rigid, PoseMsg>::toROS(rigid);
+    auto msg = PoseStampedMsg();
+    msg.pose = MessageWrapper<Rigid, PoseMsg>::toROS(rigid);
     msg.header.stamp = rclcpp::Time();
     return msg;
 }
@@ -160,8 +162,9 @@ inline JointStateMsg MessageWrapper<DoubleArray, JointStateMsg>::toROS(const Dou
     auto joint_msg = JointStateMsg();
     joint_msg.name.resize(array.size());
     joint_msg.position.resize(array.size());
-    for (size_t i = 0; i < array.size(); i++) {
-        joint_msg.name[i]     = "joint_a" + std::to_string(i);
+    for (size_t i = 0; i < array.size(); i++)
+    {
+        joint_msg.name[i] = "joint_a" + std::to_string(i);
         joint_msg.position[i] = array[i];
     }
     joint_msg.header.stamp = rclcpp::Time();
@@ -193,7 +196,8 @@ inline PoseArrayMsg MessageWrapper<helper::vector<Vec3d>, PoseArrayMsg>::toROS(c
 {
     auto points = PoseArrayMsg();
 
-    for (unsigned i = 0; i < vec3d.size(); i++) {
+    for (unsigned i = 0; i < vec3d.size(); i++)
+    {
         PoseArrayMsg::_poses_type::value_type P;
         P.position.set__x(vec3d[i][0]).set__y(vec3d[i][1]).set__z(vec3d[i][2]);
         points.poses.push_back(P);
@@ -226,7 +230,8 @@ inline PoseArrayMsg MessageWrapper<helper::vector<Rigid>, PoseArrayMsg>::toROS(c
 {
     auto points = PoseArrayMsg();
 
-    for (unsigned i = 0; i < vec3d.size(); i++) {
+    for (unsigned i = 0; i < vec3d.size(); i++)
+    {
         points.poses.push_back(MessageWrapper<Rigid, PoseMsg>::toROS(vec3d[i]));
     }
 
