@@ -12,10 +12,12 @@ class ROS2BaseObject : public core::objectmodel::BaseObject {
     using Inherit = core::objectmodel::BaseObject;
     SOFA_CLASS(SOFA_TEMPLATE2(ROS2BaseObject, DataTypes, ROS2_MSG), Inherit);
 
-    core::objectmodel::SingleLink<ROS2BaseObject<DataTypes, ROS2_MSG>, ROS2Context, BaseLink::FLAG_STRONGLINK | BaseLink::FLAG_STOREPATH> l_ros2Context;
+    core::objectmodel::SingleLink<ROS2BaseObject<DataTypes, ROS2_MSG>, ROS2Context, BaseLink::FLAG_STRONGLINK | BaseLink::FLAG_STOREPATH>
+        l_ros2Context;
 
     sofa::Data<std::string> d_NodeName;
     sofa::Data<std::string> d_TopicName;
+    std::shared_ptr<rclcpp::TimeSource> m_ts;
 
     explicit ROS2BaseObject()
         : l_ros2Context(initLink("ros2Context", "ROS2 context link"))
@@ -30,10 +32,12 @@ class ROS2BaseObject : public core::objectmodel::BaseObject {
     void createNode(std::shared_ptr<ROS2NodeType>& node_ptr)
     {
         node_ptr = std::make_shared<ROS2NodeType>(this->d_NodeName.getValue(), this->d_TopicName.getValue());
+        m_ts     = std::make_shared<rclcpp::TimeSource>(node_ptr);
         this->l_ros2Context->addNode(node_ptr);
     }
 
-    static bool canCreate(ROS2BaseObject<DataTypes, ROS2_MSG>* o, core::objectmodel::BaseContext* context, core::objectmodel::BaseObjectDescription* arg)
+    static bool canCreate(ROS2BaseObject<DataTypes, ROS2_MSG>* o, core::objectmodel::BaseContext* context,
+                          core::objectmodel::BaseObjectDescription* arg)
     {
         // Automatically locate context if it does not exist
         std::string context_path = arg->getAttribute("ros2Context", "");

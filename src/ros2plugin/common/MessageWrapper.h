@@ -161,9 +161,10 @@ inline JointStateMsg MessageWrapper<DoubleArray, JointStateMsg>::toROS(const Dou
     joint_msg.name.resize(array.size());
     joint_msg.position.resize(array.size());
     for (size_t i = 0; i < array.size(); i++) {
-        joint_msg.name[i]     = "joint_" + std::to_string(i);
+        joint_msg.name[i]     = "joint_a" + std::to_string(i);
         joint_msg.position[i] = array[i];
     }
+    joint_msg.header.stamp = rclcpp::Time();
     return joint_msg;
 }
 
