@@ -19,10 +19,16 @@ make install
 Finally, our new plugin must be added into SOFA's search path.
 We can do it using a single symbolic link creation:
 ```
-ln -s $SOFA_BUILD_DIRECTORY/ROS2plugin/install $SOFA_BUILD_DIRECTORY/sofa/install/plugins/ROS2plugin
+ln -s $SOFA_BUILD_DIRECTORY/ROS2plugin/install $SOFA_ROOT/plugins/ROS2plugin
 ```
 
 #### Troubleshoot
+
+Please be sure to source the ROS2 workspace.
+If your installation is system-wide as described in [ROS2 Install Instructions](https://docs.ros.org/en/foxy/Installation/Ubuntu-Install-Debians.html):
+```
+source /opt/ros/foxy/setup.bash
+```
 
 If your SOFA installation is not yet in your library path, you can either export it:
 ```
@@ -46,16 +52,17 @@ The usual SOFA project workspace is structured as it follows:
 ```
 .
 ├── src                             ~ [alias SOFA_WORK_DIRECTORY]
-│   ├── sofa
-│   ├── sofaconfig
-│   │
-│   │   ... (other plugins)
-│   │
-│   └── ros2plugin
+│   ├── sofa
+│   ├── sofaconfig
+│   │
+│   │   ... (other plugins)
+│   │
+│   └── ros2plugin
 ├── build                           ~ [alias SOFA_BUILD_DIRECTORY]
-│   ├── sofa
-│   │
-│   │   ... (other out-of-tree builds)
-│   │
-│   └── ros2plugin
+│   ├── sofa
+│   │   │
+│   │   └── install                 ~ [alias SOFA_ROOT]
+│   │   ... (other out-of-tree builds)
+│   │
+│   └── ros2plugin
 ```
