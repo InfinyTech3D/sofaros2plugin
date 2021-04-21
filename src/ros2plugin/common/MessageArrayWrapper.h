@@ -21,39 +21,43 @@ public:
     static inline DataTypes toSofa(const ROS2_MSG& /*ros_msg*/, const helper::vector<int>& /*indexes*/)
     {
         msg_info("ROS2Plugin") << "in function toSofa: Types informed at template are unknown";
+        return DataTypes();
     }
     static inline ROS2_MSG toROS(const DataTypes& /*sofa_type*/, const helper::vector<int>& /*indexes*/)
     {
         msg_info("ROS2Plugin") << "in function toROS: Types informed at template are unknown";
     }
+    template <class ARRAY>
+    static bool isIndexValid(const ARRAY& array, const helper::vector<int>& indexes)
+    {
+        unsigned max_index = (*std::max_element(indexes.begin(), indexes.end()));
+        return (!array.empty() || max_index < array.size());  // true if not empty and index is below array size
+    }
 };
 
 /**  Array Wrapppers  **************************************************************************************************
  *      SOFA         <===>          ROS2
- *      helper::vector<Rigid>      PoseArray
+ *      PoseArray                 PoseArray
  */
 template <>
-inline void MessageArrayWrapper<helper::vector<Rigid>, PoseArrayMsg>::draw(const sofa::core::visual::VisualParams* vparams,
-                                                                           const helper::vector<Rigid>& vec3d, const double& scale,
-                                                                           const helper::vector<int>& indexes)
+inline void MessageArrayWrapper<PoseArray, PoseArrayMsg>::draw(const sofa::core::visual::VisualParams* vparams, const PoseArray& vec3d,
+                                                               const double& scale, const helper::vector<int>& indexes)
 {
-    if (vec3d.size() == 0 || vec3d.size() < (*std::max_element(indexes.begin(), indexes.end()))) return;
+    if (!isIndexValid(vec3d, indexes)) return;
     for (const auto& idx : indexes) MessageWrapper<Rigid, PoseMsg>::draw(vparams, vec3d[idx], scale);
 }
 template <>
-inline helper::vector<Rigid> MessageArrayWrapper<helper::vector<Rigid>, PoseArrayMsg>::toSofa(const PoseArrayMsg& msg,
-                                                                                              const helper::vector<int>& indexes)
+inline PoseArray MessageArrayWrapper<PoseArray, PoseArrayMsg>::toSofa(const PoseArrayMsg& msg, const helper::vector<int>& indexes)
 {
-    if (msg.poses.size() == 0 || msg.poses.size() < (*std::max_element(indexes.begin(), indexes.end()))) return helper::vector<Rigid>();
-    helper::vector<Rigid> returnVec;
+    if (!isIndexValid(msg.poses, indexes)) return PoseArray();
+    PoseArray returnVec;
     for (const auto& idx : indexes) returnVec.push_back(MessageWrapper<Rigid, PoseMsg>::toSofa(msg.poses[idx]));
     return returnVec;
 }
 template <>
-inline PoseArrayMsg MessageArrayWrapper<helper::vector<Rigid>, PoseArrayMsg>::toROS(const helper::vector<Rigid>& vec3d,
-                                                                                    const helper::vector<int>& indexes)
+inline PoseArrayMsg MessageArrayWrapper<PoseArray, PoseArrayMsg>::toROS(const PoseArray& vec3d, const helper::vector<int>& indexes)
 {
-    if (vec3d.size() == 0 || vec3d.size() < (*std::max_element(indexes.begin(), indexes.end()))) return PoseArrayMsg();
+    if (!isIndexValid(vec3d, indexes)) return PoseArrayMsg();
     auto points = PoseArrayMsg();
     for (const auto& idx : indexes)
     {
@@ -65,22 +69,13 @@ inline PoseArrayMsg MessageArrayWrapper<helper::vector<Rigid>, PoseArrayMsg>::to
 
 /**  Array Wrapppers  **************************************************************************************************
  *      SOFA         <===>          ROS2
- *      helper::vector<Vec3d>       TrackerArrayMsg
+ *      PointArray              TrackerArrayMsg
  */
 template <>
-inline void MessageArrayWrapper<helper::vector<Vec3d>, TrackerArrayMsg>::draw(const sofa::core::visual::VisualParams* vparams,
-                                                                              const helper::vector<Vec3d>& vec3d, const double& scale,
-                                                                              const helper::vector<int>& indexes)
+inline PointArray MessageArrayWrapper<PointArray, TrackerArrayMsg>::toSofa(const TrackerArrayMsg& msg, const helper::vector<int>& indexes)
 {
-    if (vec3d.size() == 0 || vec3d.size() < (*std::max_element(indexes.begin(), indexes.end()))) return;
-    //    for (const auto& idx : indexes) MessageWrapper<Vec3d, PoseMsg>::draw(vparams, vec3d[idx], scale);
-}
-template <>
-inline helper::vector<Vec3d> MessageArrayWrapper<helper::vector<Vec3d>, TrackerArrayMsg>::toSofa(const TrackerArrayMsg& msg,
-                                                                                                 const helper::vector<int>& indexes)
-{
-    helper::vector<Vec3d> returnVec;
-    std::map<int, helper::vector<Vec3d> > indexedVectors;
+    PointArray returnVec;
+    std::map<int, PointArray> indexedVectors;
 
     for (unsigned i = 0; i < msg.ids.size(); i++)
     {

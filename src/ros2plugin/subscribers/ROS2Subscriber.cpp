@@ -15,13 +15,6 @@ std::string ROS2Subscriber<double, Float64Msg>::templateName(const ROS2Subscribe
 template class ROS2Subscriber<double, Float64Msg>;
 
 template <>
-std::string ROS2Subscriber<DoubleArray, Float64ArrayMsg>::templateName(const ROS2Subscriber<DoubleArray, Float64ArrayMsg> *)
-{
-    return "RosFloat64Array";
-}
-template class ROS2Subscriber<DoubleArray, Float64ArrayMsg>;
-
-template <>
 std::string ROS2Subscriber<Vec3d, PointMsg>::templateName(const ROS2Subscriber<Vec3d, PointMsg> *)
 {
     return "RosVec3d";
@@ -49,29 +42,12 @@ std::string ROS2Subscriber<DoubleArray, JointStateMsg>::templateName(const ROS2S
 }
 template class ROS2Subscriber<DoubleArray, JointStateMsg>;
 
-template <>
-std::string ROS2Subscriber<helper::vector<Vec3d>, PoseArrayMsg>::templateName(const ROS2Subscriber<helper::vector<Vec3d>, PoseArrayMsg> *)
-{
-    return "RosPointArray";
-}
-template class ROS2Subscriber<helper::vector<Vec3d>, PoseArrayMsg>;
-
-template <>
-std::string ROS2Subscriber<helper::vector<Rigid>, PoseArrayMsg>::templateName(const ROS2Subscriber<helper::vector<Rigid>, PoseArrayMsg> *)
-{
-    return "RosPoseArray";
-}
-template class ROS2Subscriber<helper::vector<Rigid>, PoseArrayMsg>;
-
 static int ROS2SubscriberClass = sofa::core::RegisterObject("")
                                      .add<ROS2Subscriber<double, Float64Msg>>()
-                                     .add<ROS2Subscriber<DoubleArray, Float64ArrayMsg>>()
                                      .add<ROS2Subscriber<Vec3d, PointMsg>>()
                                      .add<ROS2Subscriber<Rigid, PoseMsg>>()
                                      .add<ROS2Subscriber<Rigid, PoseStampedMsg>>()
-                                     .add<ROS2Subscriber<DoubleArray, JointStateMsg>>()
-                                     .add<ROS2Subscriber<helper::vector<Vec3d>, PoseArrayMsg>>()
-                                     .add<ROS2Subscriber<helper::vector<Rigid>, PoseArrayMsg>>();
+                                     .add<ROS2Subscriber<DoubleArray, JointStateMsg>>();
 
 }  // namespace ros2
 }  // namespace sofa

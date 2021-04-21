@@ -14,10 +14,12 @@ public:
     static inline DataTypes toSofa(const ROS2_MSG& /*ros_msg*/)
     {
         msg_info("ROS2Plugin") << "in function toSofa: Types informed at template are unknown";
+        return DataTypes();
     }
     static inline ROS2_MSG toROS(const DataTypes& /*sofa_type*/)
     {
         msg_info("ROS2Plugin") << "in function toROS: Types informed at template are unknown";
+        return ROS2_MSG();
     }
 };
 

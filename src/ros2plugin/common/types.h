@@ -21,14 +21,16 @@ namespace sofa
 namespace ros2
 {
 /** SOFA Types */
-using DoubleArray = helper::vector<double>;
-
 using Vec3d = defaulttype::Vec3Types::Coord;
 using Quat = defaulttype::Quat;
 using Rigid = sofa::defaulttype::Rigid3dTypes::Coord;
 using Transform = sofa::defaulttype::SolidTypes<double>::Transform;
-
 typedef sofa::helper::types::RGBAColor RGBAColor;
+
+using DoubleArray = helper::vector<double>;
+using PointArray = helper::vector<Vec3d>;
+using PoseArray = helper::vector<Rigid>;
+
 
 /** ROS2 Types */
 using Float64Msg = std_msgs::msg::Float64;
@@ -36,14 +38,12 @@ using PointMsg = geometry_msgs::msg::Point;
 using QuatMsg = geometry_msgs::msg::Quaternion;
 using PoseMsg = geometry_msgs::msg::Pose;
 
-using PoseStampedMsg = geometry_msgs::msg::PoseStamped;
-
-using Float64ArrayMsg = std_msgs::msg::Float64MultiArray;
-
 using JointStateMsg = sensor_msgs::msg::JointState;
 
-using PoseArrayMsg = geometry_msgs::msg::PoseArray;
 
+using PoseStampedMsg = geometry_msgs::msg::PoseStamped;
+using Float64ArrayMsg = std_msgs::msg::Float64MultiArray;
+using PoseArrayMsg = geometry_msgs::msg::PoseArray;
 using TrackerArrayMsg = optitrack_msgs::msg::TrackerArray;
 
 }  // namespace ros2
