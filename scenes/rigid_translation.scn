@@ -14,7 +14,7 @@
 
     <!-- Listen to a marker pose to be published -->
     <ROS2Subscriber name="pose_sub"
-                    template="Rigid3d"
+                    template="RosRigid"
                     nodeName="pose_subscriber"
                     topicName="sofa/in/marker_pose"
                     draw="true"/>
@@ -24,7 +24,7 @@
 
     <!-- Publish a translated version of this pose -->
     <ROS2Publisher name="pose_pub"
-                   template="Rigid3d"
+                   template="RosRigid"
                    nodeName="pose_publisher"
                    topicName="sofa/out/marker_pose"
                    input="@TranslationEngine.output_position"

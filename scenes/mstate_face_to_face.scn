@@ -6,10 +6,6 @@
     <RequiredPlugin pluginName="ROS2Plugin"/>
 
     <RequiredPlugin pluginName="ConectPlugin" />
-    <RequiredPlugin pluginName="SofaCUDA" />
-    <RequiredPlugin pluginName="SofaCUDADev" />
-    <RequiredPlugin pluginName="SofaAsyncSolvers" />
-    <RequiredPlugin pluginName="SofaCUDASolvers" />
     <RequiredPlugin pluginName="RegistrationConstraint" />
     <RequiredPlugin pluginName="CollisionAlgorithm" />
     <RequiredPlugin pluginName="SperryPlugin" />
@@ -21,7 +17,8 @@
 
     <!-- Listen to a marker pose to be published -->
     <ROS2SubscriberArray name="pose_sub"
-                    template="PoseArray"
+                    template="RosPoseArray"
+                    initialValue="0 0 0 0 0 0 0"
                     indexes="0"
                     nodeName="pose_subscriber"
                     topicName="/optitrack/rigid_bodies/poses"
@@ -35,13 +32,14 @@
                      translation="0.0 0.0 0.10" rotation="0.0 0.0 0.0"/>
 
     <Node name="FollowPose">
-        <MechanicalObject name="DOFs" template="Rigid3d" showObject="true" showObjectScale="0.01"
+<!--        Draw not working anymore!!! (SOFA.GL bug ?)     -->
+        <MechanicalObject name="DOFs" template="Rigid3d" showObject="false" showObjectScale="0.01"
                           position="@../TranslationEngine.output_position"/>
     </Node>
 
     <!-- Publish a translated version of this pose -->
     <ROS2Publisher name="pose_pub"
-                   template="PoseStamped"
+                   template="RosPoseArray"
                    nodeName="pose_publisher"
                    topicName="sofa/out/marker_pose"
                    input="@TranslationEngine.output_position"
