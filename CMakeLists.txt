@@ -42,11 +42,16 @@ file(GLOB_RECURSE SOURCE_FILES
 add_library(${PROJECT_NAME} SHARED ${CONFIG_FILES} ${HEADER_FILES} ${SOURCE_FILES})
 
 # Dependencies
+# - ROS2 Standard libraries
 include_directories(${rclcpp_INCLUDE_DIRS})
 include_directories(${std_msgs_INCLUDE_DIRS})
 include_directories(${sensor_msgs_INCLUDE_DIRS})
 include_directories(${geometry_msgs_INCLUDE_DIRS})
-include_directories(${optitrack_msgs_INCLUDE_DIRS})
+# - Custom libraries
+if (optitrack_msgs_FOUND)
+    include_directories(${optitrack_msgs_INCLUDE_DIRS})
+endif ()
+
 target_link_libraries(${PROJECT_NAME} PUBLIC
         SofaFramework
         ${rclcpp_LIBRARIES}
@@ -55,6 +60,10 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
         ${geometry_msgs_LIBRARIES}
         ${optitrack_msgs_LIBRARIES}
         )
+
+if (optitrack_msgs_FOUND)
+    target_link_libraries(${PROJECT_NAME} PUBLIC ${optitrack_msgs_LIBRARIES})
+endif ()
 
 ## Change default install prefix
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
