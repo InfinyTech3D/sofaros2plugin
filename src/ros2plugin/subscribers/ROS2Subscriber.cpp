@@ -42,12 +42,21 @@ std::string ROS2Subscriber<DoubleArray, JointStateMsg>::templateName(const ROS2S
 }
 template class ROS2Subscriber<DoubleArray, JointStateMsg>;
 
+template <>
+std::string ROS2Subscriber<CameraInfo, CameraInfoMsg>::templateName(const ROS2Subscriber<CameraInfo, CameraInfoMsg> *)
+{
+    return "RosCameraInfo";
+}
+template class ROS2Subscriber<CameraInfo, CameraInfoMsg>;
+
+
 static int ROS2SubscriberClass = sofa::core::RegisterObject("")
                                      .add<ROS2Subscriber<double, Float64Msg>>()
                                      .add<ROS2Subscriber<Vec3d, PointMsg>>()
                                      .add<ROS2Subscriber<Rigid, PoseMsg>>()
                                      .add<ROS2Subscriber<Rigid, PoseStampedMsg>>()
-                                     .add<ROS2Subscriber<DoubleArray, JointStateMsg>>();
+                                     .add<ROS2Subscriber<DoubleArray, JointStateMsg>>()
+                                     .add<ROS2Subscriber<CameraInfo, CameraInfoMsg>>();
 
 }  // namespace ros2
 }  // namespace sofa

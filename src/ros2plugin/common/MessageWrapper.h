@@ -149,6 +149,30 @@ inline PoseStampedMsg MessageWrapper<Rigid, PoseStampedMsg>::toROS(const Rigid& 
 
 /********************************************************************************************************
  *      SOFA         <===>          ROS2
+ *      CameraInfo                  CameraInfoMsg
+ */
+template <>
+inline void MessageWrapper<CameraInfo, CameraInfoMsg>::draw(const sofa::core::visual::VisualParams* vparams, const CameraInfo& pose, const double& scale) {}
+template <>
+inline CameraInfo MessageWrapper<CameraInfo, CameraInfoMsg>::toSofa(const CameraInfoMsg& msg)
+{
+    defaulttype::Mat3x4d temp;
+    for(unsigned i=0; i<12; i++)
+        temp(i/4,i%4) = msg.p[i];
+    return CameraInfo(temp);
+}
+template <>
+inline CameraInfoMsg MessageWrapper<CameraInfo, CameraInfoMsg>::toROS(const CameraInfo& rigid)
+{
+    auto msg = CameraInfoMsg();
+    for(unsigned i=0; i<12; i++)
+        msg.p[i] = rigid.getMatrix()(i/4,i%4)  ;
+    return msg;
+}
+
+
+/********************************************************************************************************
+ *      SOFA         <===>          ROS2
  *    DoubleArray               JointStateMsg
  * Note: At the moment, only position data is transmitted
  * TODO: Integrate another DataType which accounts for velocity and forces (MechanicalStates ?)

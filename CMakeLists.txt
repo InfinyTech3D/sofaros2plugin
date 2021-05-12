@@ -18,6 +18,7 @@ endif ()
 
 # SOFA packages containing our dependencies
 find_package(SofaFramework REQUIRED) # Needed to use SofaCore, SofaHelper and SofaDefaultType
+find_package(OpenCVPlugin REQUIRED) # Needed to use SofaCore, SofaHelper and SofaDefaultType
 
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
@@ -54,6 +55,7 @@ endif ()
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
         SofaFramework
+        OpenCVPlugin
         ${rclcpp_LIBRARIES}
         ${std_msgs_LIBRARIES}
         ${sensor_msgs_LIBRARIES}
