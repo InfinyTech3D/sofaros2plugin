@@ -79,17 +79,16 @@ inline PointArray MessageArrayWrapper<PointArray, TrackerArrayMsg>::toSofa(const
 
     for (unsigned i = 0; i < msg.ids.size(); i++)
     {
-        indexedVectors[(int)log2(msg.ids[i])].push_back(Vec3d(msg.points[i].x, msg.points[i].y, msg.points[i].z));
+        indexedVectors[(msg.ids[i]>>16)].push_back(Vec3d(msg.points[i].x, msg.points[i].y, msg.points[i].z));
     }
 
-    unsigned acc = 0;
     for (auto i : indexedVectors)
     {
-        if (std::count(indexes.begin(), indexes.end(), acc))
+
+        if (std::count(indexes.begin(), indexes.end(), i.first))
         {
             for (auto j : i.second) returnVec.push_back(j);
         }
-        acc++;
     }
     return returnVec;
 }

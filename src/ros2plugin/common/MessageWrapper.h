@@ -143,7 +143,7 @@ inline PoseStampedMsg MessageWrapper<Rigid, PoseStampedMsg>::toROS(const Rigid& 
 {
     auto msg = PoseStampedMsg();
     msg.pose = MessageWrapper<Rigid, PoseMsg>::toROS(rigid);
-    msg.header.stamp = rclcpp::Time();
+    msg.header.stamp = rclcpp::Time( std::chrono::duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now().time_since_epoch()).count());
     return msg;
 }
 

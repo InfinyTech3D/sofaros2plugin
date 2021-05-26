@@ -35,6 +35,7 @@ public:
 
     sofa::Data<DataTypes> d_input;
     Data<double> d_drawScale;
+    Data<bool> d_canPublish;
     Data<bool> d_draw;
 
     std::shared_ptr<ROS2PublisherNode<ROS2_MSG>> m_ros2node;
