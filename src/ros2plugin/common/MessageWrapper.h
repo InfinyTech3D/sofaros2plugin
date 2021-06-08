@@ -170,6 +170,40 @@ inline CameraInfoMsg MessageWrapper<CameraInfo, CameraInfoMsg>::toROS(const Came
     return msg;
 }
 
+/********************************************************************************************************
+ *      SOFA         <===>          ROS2
+ *      CameraInfo                  CameraInfoMsg
+ */
+template <>
+inline void MessageWrapper<SofaTwist, TwistMsg>::draw(const sofa::core::visual::VisualParams* vparams, const SofaTwist& pose, const double& scale) {}
+template <>
+inline SofaTwist MessageWrapper<SofaTwist, TwistMsg>::toSofa(const TwistMsg& msg)
+{
+    SofaTwist returnVec;
+    returnVec[0] = msg.twist.linear.x;
+    returnVec[1] = msg.twist.linear.y;
+    returnVec[2] = msg.twist.linear.z;
+    returnVec[3] = msg.twist.angular.x;
+    returnVec[4] = msg.twist.angular.y;
+    returnVec[5] = msg.twist.angular.z;
+
+    return returnVec;
+}
+template <>
+inline TwistMsg MessageWrapper<SofaTwist, TwistMsg>::toROS(const SofaTwist& rigid)
+{
+    auto msg = TwistMsg();
+
+    msg.twist.linear.x = rigid[0];
+    msg.twist.linear.y = rigid[1];
+    msg.twist.linear.z = rigid[2];
+    msg.twist.angular.x = rigid[3];
+    msg.twist.angular.y = rigid[4];
+    msg.twist.angular.z = rigid[5];
+
+    return msg;
+}
+
 
 /********************************************************************************************************
  *      SOFA         <===>          ROS2

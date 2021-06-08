@@ -8,6 +8,7 @@
 
 #include <geometry_msgs/msg/point.hpp>
 #include <geometry_msgs/msg/pose.hpp>
+#include <geometry_msgs/msg/twist_stamped.hpp>
 #include <geometry_msgs/msg/transform.hpp>
 #include <geometry_msgs/msg/transform_stamped.hpp>
 #include <geometry_msgs/msg/pose_array.hpp>
@@ -19,6 +20,7 @@
 #include <sensor_msgs/msg/camera_info.hpp>
 #include <std_msgs/msg/float64.hpp>
 #include <std_msgs/msg/float64_multi_array.hpp>
+#include <optitrack_msgs/msg/rigid_array.hpp>
 
 namespace sofa
 {
@@ -35,6 +37,7 @@ using DoubleArray = helper::vector<double>;
 using PointArray = helper::vector<Vec3d>;
 using PoseArray = helper::vector<Rigid>;
 using CameraInfo = opencvplugin::ProjectionMatrixData;
+using SofaTwist = defaulttype::Vec6d;
 
 
 /** ROS2 Types */
@@ -53,6 +56,8 @@ using PoseStampedMsg = geometry_msgs::msg::PoseStamped;
 using Float64ArrayMsg = std_msgs::msg::Float64MultiArray;
 using PoseArrayMsg = geometry_msgs::msg::PoseArray;
 using TrackerArrayMsg = optitrack_msgs::msg::TrackerArray;
+using RigidArrayMsg = optitrack_msgs::msg::RigidArray;
+using TwistMsg = geometry_msgs::msg::TwistStamped;
 
 }  // namespace ros2
 

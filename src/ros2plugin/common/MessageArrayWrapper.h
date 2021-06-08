@@ -93,5 +93,26 @@ inline PointArray MessageArrayWrapper<PointArray, TrackerArrayMsg>::toSofa(const
     return returnVec;
 }
 
+/**  Array Wrapppers  **************************************************************************************************
+ *      SOFA         <===>          ROS2
+ *      PointArray              TrackerArrayMsg
+ */
+template <>
+inline PoseArray MessageArrayWrapper<PoseArray, RigidArrayMsg>::toSofa(const RigidArrayMsg& msg, const helper::vector<int>& indexes)
+{
+    PoseArray returnVec;
+    std::map<int, PointArray> indexedVectors;
+
+    for (unsigned i = 0; i<msg.ids.size();i++)
+    {
+
+        if (std::count(indexes.begin(), indexes.end(),msg.ids[i]))
+        {
+            returnVec.push_back(MessageWrapper<Rigid, PoseMsg>::toSofa(msg.poses[i]));
+        }
+    }
+    return returnVec;
+}
+
 }  // namespace ros2
 }  // namespace sofa

@@ -36,11 +36,19 @@ std::string ROS2SubscriberArray<PointArray, TrackerArrayMsg>::templateName(const
 }
 template class ROS2SubscriberArray<PointArray, TrackerArrayMsg>;
 
+template <>
+std::string ROS2SubscriberArray<PoseArray, RigidArrayMsg>::templateName(const ROS2SubscriberArray<PoseArray, RigidArrayMsg> *)
+{
+    return "RosRigidArray";
+}
+template class ROS2SubscriberArray<PoseArray, RigidArrayMsg>;
+
 static int ROS2SubscriberArrayClass = sofa::core::RegisterObject("")
                                           .add<ROS2SubscriberArray<DoubleArray, Float64ArrayMsg>>()
                                           .add<ROS2Subscriber<PointArray, PoseArrayMsg>>()
                                           .add<ROS2SubscriberArray<PoseArray, PoseArrayMsg>>()
-                                          .add<ROS2SubscriberArray<PointArray, TrackerArrayMsg>>();
+                                          .add<ROS2SubscriberArray<PointArray, TrackerArrayMsg>>()
+                                          .add<ROS2SubscriberArray<PoseArray, RigidArrayMsg>>();
 
 }  // namespace ros2
 }  // namespace sofa
