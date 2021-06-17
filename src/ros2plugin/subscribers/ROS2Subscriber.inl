@@ -8,6 +8,7 @@ template <class DataTypes, class ROS2_MSG>
 ROS2Subscriber<DataTypes, ROS2_MSG>::ROS2Subscriber()
     : d_output(initData(&d_output, DataTypes(), "output", "output"))
     , d_initialValue(initData(&d_initialValue, DataTypes(), "initialValue", "initial value for the output if no topic is found"))
+    , d_scale(initData(&d_scale,1.0, "scale", "Scale to apply to the data. The way it is applied depends on the ToSofa method."))
     , d_drawScale(initData(&d_drawScale, 0.1, "drawScale", "Scale imposed to draw function in SOFA"))
     , d_draw(initData(&d_draw, false, "draw", "If true, position is drawn on screen"))
 {
@@ -26,7 +27,7 @@ void ROS2Subscriber<DataTypes, ROS2_MSG>::handleEvent(sofa::core::objectmodel::E
 {
     if (dynamic_cast<sofa::simulation::AnimateBeginEvent *>(event)) {
         auto msg = m_ros2node->get();
-        d_output.setValue(MessageWrapper<DataTypes, ROS2_MSG>::toSofa(msg));
+        d_output.setValue(MessageWrapper<DataTypes, ROS2_MSG>::toSofa(msg,d_scale.getValue()));
     }
 }
 

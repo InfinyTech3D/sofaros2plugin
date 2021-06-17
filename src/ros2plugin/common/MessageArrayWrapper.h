@@ -18,12 +18,12 @@ public:
                             const helper::vector<int>& /*indexes*/)
     {
     }
-    static inline DataTypes toSofa(const ROS2_MSG& /*ros_msg*/, const helper::vector<int>& /*indexes*/)
+    static inline DataTypes toSofa(const ROS2_MSG& /*ros_msg*/, const helper::vector<int>& /*indexes*/,double scale=1.0)
     {
         msg_info("ROS2Plugin") << "in function toSofa: Types informed at template are unknown";
         return DataTypes();
     }
-    static inline ROS2_MSG toROS(const DataTypes& /*sofa_type*/, const helper::vector<int>& /*indexes*/)
+    static inline ROS2_MSG toROS(const DataTypes& /*sofa_type*/, const helper::vector<int>& /*indexes*/,double scale=1.0)
     {
         msg_info("ROS2Plugin") << "in function toROS: Types informed at template are unknown";
     }
@@ -47,21 +47,21 @@ inline void MessageArrayWrapper<PoseArray, PoseArrayMsg>::draw(const sofa::core:
     for (const auto& idx : indexes) MessageWrapper<Rigid, PoseMsg>::draw(vparams, vec3d[idx], scale);
 }
 template <>
-inline PoseArray MessageArrayWrapper<PoseArray, PoseArrayMsg>::toSofa(const PoseArrayMsg& msg, const helper::vector<int>& indexes)
+inline PoseArray MessageArrayWrapper<PoseArray, PoseArrayMsg>::toSofa(const PoseArrayMsg& msg, const helper::vector<int>& indexes,double scale)
 {
     if (!isIndexValid(msg.poses, indexes)) return PoseArray();
     PoseArray returnVec;
-    for (const auto& idx : indexes) returnVec.push_back(MessageWrapper<Rigid, PoseMsg>::toSofa(msg.poses[idx]));
+    for (const auto& idx : indexes) returnVec.push_back(MessageWrapper<Rigid, PoseMsg>::toSofa(msg.poses[idx],scale));
     return returnVec;
 }
 template <>
-inline PoseArrayMsg MessageArrayWrapper<PoseArray, PoseArrayMsg>::toROS(const PoseArray& vec3d, const helper::vector<int>& indexes)
+inline PoseArrayMsg MessageArrayWrapper<PoseArray, PoseArrayMsg>::toROS(const PoseArray& vec3d, const helper::vector<int>& indexes,double scale)
 {
     if (!isIndexValid(vec3d, indexes)) return PoseArrayMsg();
     auto points = PoseArrayMsg();
     for (const auto& idx : indexes)
     {
-        points.poses.push_back(MessageWrapper<Rigid, PoseMsg>::toROS(vec3d[idx]));
+        points.poses.push_back(MessageWrapper<Rigid, PoseMsg>::toROS(vec3d[idx],scale));
     }
 
     return points;
@@ -72,14 +72,14 @@ inline PoseArrayMsg MessageArrayWrapper<PoseArray, PoseArrayMsg>::toROS(const Po
  *      PointArray              TrackerArrayMsg
  */
 template <>
-inline PointArray MessageArrayWrapper<PointArray, TrackerArrayMsg>::toSofa(const TrackerArrayMsg& msg, const helper::vector<int>& indexes)
+inline PointArray MessageArrayWrapper<PointArray, TrackerArrayMsg>::toSofa(const TrackerArrayMsg& msg, const helper::vector<int>& indexes,double scale)
 {
     PointArray returnVec;
     std::map<int, PointArray> indexedVectors;
 
     for (unsigned i = 0; i < msg.ids.size(); i++)
     {
-        indexedVectors[(msg.ids[i]>>16)].push_back(Vec3d(msg.points[i].x, msg.points[i].y, msg.points[i].z));
+        indexedVectors[(msg.ids[i]>>16)].push_back(Vec3d(msg.points[i].x, msg.points[i].y, msg.points[i].z)*scale);
     }
 
     for (auto i : indexedVectors)
@@ -98,7 +98,7 @@ inline PointArray MessageArrayWrapper<PointArray, TrackerArrayMsg>::toSofa(const
  *      PointArray              TrackerArrayMsg
  */
 template <>
-inline PoseArray MessageArrayWrapper<PoseArray, RigidArrayMsg>::toSofa(const RigidArrayMsg& msg, const helper::vector<int>& indexes)
+inline PoseArray MessageArrayWrapper<PoseArray, RigidArrayMsg>::toSofa(const RigidArrayMsg& msg, const helper::vector<int>& indexes,double scale)
 {
     PoseArray returnVec;
     std::map<int, PointArray> indexedVectors;
@@ -108,7 +108,7 @@ inline PoseArray MessageArrayWrapper<PoseArray, RigidArrayMsg>::toSofa(const Rig
 
         if (std::count(indexes.begin(), indexes.end(),msg.ids[i]))
         {
-            returnVec.push_back(MessageWrapper<Rigid, PoseMsg>::toSofa(msg.poses[i]));
+            returnVec.push_back(MessageWrapper<Rigid, PoseMsg>::toSofa(msg.poses[i],scale));
         }
     }
     return returnVec;

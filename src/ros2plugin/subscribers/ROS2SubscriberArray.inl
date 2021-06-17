@@ -16,7 +16,7 @@ void ROS2SubscriberArray<DataTypes, ROS2_MSG>::handleEvent(sofa::core::objectmod
 {
     if (dynamic_cast<sofa::simulation::AnimateBeginEvent *>(event)) {
         auto msg = this->m_ros2node->get();
-        this->d_output.setValue(MessageArrayWrapper<DataTypes, ROS2_MSG>::toSofa(msg, d_indexes.getValue()));
+        this->d_output.setValue(MessageArrayWrapper<DataTypes, ROS2_MSG>::toSofa(msg, d_indexes.getValue(),this->d_scale.getValue()));
     }
 }
 
