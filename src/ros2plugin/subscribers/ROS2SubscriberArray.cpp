@@ -15,12 +15,6 @@ std::string ROS2SubscriberArray<DoubleArray, Float64ArrayMsg>::templateName(cons
 }
 template class ROS2SubscriberArray<DoubleArray, Float64ArrayMsg>;
 
-template <>
-std::string ROS2Subscriber<PointArray, PoseArrayMsg>::templateName(const ROS2Subscriber<PointArray, PoseArrayMsg> *)
-{
-    return "RosPointArray";
-}
-template class ROS2Subscriber<PointArray, PoseArrayMsg>;
 
 template <>
 std::string ROS2SubscriberArray<PoseArray, PoseArrayMsg>::templateName(const ROS2SubscriberArray<PoseArray, PoseArrayMsg> *)
@@ -45,7 +39,6 @@ template class ROS2SubscriberArray<PoseArray, RigidArrayMsg>;
 
 static int ROS2SubscriberArrayClass = sofa::core::RegisterObject("")
                                           .add<ROS2SubscriberArray<DoubleArray, Float64ArrayMsg>>()
-                                          .add<ROS2Subscriber<PointArray, PoseArrayMsg>>()
                                           .add<ROS2SubscriberArray<PoseArray, PoseArrayMsg>>()
                                           .add<ROS2SubscriberArray<PointArray, TrackerArrayMsg>>()
                                           .add<ROS2SubscriberArray<PoseArray, RigidArrayMsg>>();
