@@ -13,7 +13,9 @@
 #include <geometry_msgs/msg/transform_stamped.hpp>
 #include <geometry_msgs/msg/pose_array.hpp>
 #include <geometry_msgs/msg/pose_stamped.hpp>
+#include <geometry_msgs/msg/wrench_stamped.hpp>
 #include <optitrack_msgs/msg/tracker_array.hpp>
+#include <optitrack_msgs/msg/sphere_array.hpp>
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/joint_state.hpp>
 #include <sensor_msgs/msg/point_cloud.hpp>
@@ -28,6 +30,7 @@ namespace ros2
 {
 /** SOFA Types */
 using Vec3d = defaulttype::Vec3Types::Coord;
+using Vec6d = defaulttype::Vec6d;
 using Quat = defaulttype::Quat;
 using Rigid = sofa::defaulttype::Rigid3dTypes::Coord;
 using Transform = sofa::defaulttype::SolidTypes<double>::Transform;
@@ -38,6 +41,7 @@ using PointArray = helper::vector<Vec3d>;
 using PoseArray = helper::vector<Rigid>;
 using CameraInfo = opencvplugin::ProjectionMatrixData;
 using SofaTwist = defaulttype::Vec6d;
+using SofaSphere = defaulttype::Vec4d;
 
 
 /** ROS2 Types */
@@ -47,17 +51,19 @@ using QuatMsg = geometry_msgs::msg::Quaternion;
 using PoseMsg = geometry_msgs::msg::Pose;
 using TransformMsg = geometry_msgs::msg::Transform;
 using TransformStampedMsg = geometry_msgs::msg::TransformStamped;
+using WrenchMsg = geometry_msgs::msg::WrenchStamped;
+
 using CameraInfoMsg = sensor_msgs::msg::CameraInfo;
 
+
 using JointStateMsg = sensor_msgs::msg::JointState;
-
-
 using PoseStampedMsg = geometry_msgs::msg::PoseStamped;
 using Float64ArrayMsg = std_msgs::msg::Float64MultiArray;
 using PoseArrayMsg = geometry_msgs::msg::PoseArray;
 using TrackerArrayMsg = optitrack_msgs::msg::TrackerArray;
 using RigidArrayMsg = optitrack_msgs::msg::RigidArray;
 using TwistMsg = geometry_msgs::msg::TwistStamped;
+using SphereArrayMsg = optitrack_msgs::msg::SphereArray;
 
 }  // namespace ros2
 

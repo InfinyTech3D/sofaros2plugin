@@ -63,12 +63,20 @@ std::string ROS2Subscriber<helper::vector<Vec3d>, PoseArrayMsg>::templateName(co
 }
 template class ROS2Subscriber<helper::vector<Vec3d>, PoseArrayMsg>;
 
+template <>
+std::string ROS2Subscriber<Vec6d, WrenchMsg>::templateName(const ROS2Subscriber<Vec6d, WrenchMsg> *)
+{
+    return "RosWrench";
+}
+template class ROS2Subscriber<Vec6d, WrenchMsg>;
+
 
 
 
     static int ROS2SubscriberClass = sofa::core::RegisterObject("")
                                      .add<ROS2Subscriber<double, Float64Msg>>()
                                      .add<ROS2Subscriber<Vec3d, PointMsg>>()
+                                     .add<ROS2Subscriber<Vec6d, WrenchMsg>>()
                                      .add<ROS2Subscriber<Rigid, PoseMsg>>()
                                      .add<ROS2Subscriber<Rigid, PoseStampedMsg>>()
                                      .add<ROS2Subscriber<DoubleArray, JointStateMsg>>()
