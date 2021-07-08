@@ -19,7 +19,7 @@ class ROS2SubscriberArray : public ROS2Subscriber<DataTypes, ROS2_MSG>
 public:
     SOFA_CLASS(SOFA_TEMPLATE2(ROS2SubscriberArray, DataTypes, ROS2_MSG), SOFA_TEMPLATE2(ROS2Subscriber, DataTypes, ROS2_MSG));
 
-    Data<helper::vector<int>> d_indexes;
+    Data<sofa::type::vector<int>> d_indexes;
 
     explicit ROS2SubscriberArray();
     virtual ~ROS2SubscriberArray() = default;

@@ -57,11 +57,11 @@ std::string ROS2Subscriber<SofaTwist, TwistMsg>::templateName(const ROS2Subscrib
 template class ROS2Subscriber<SofaTwist, TwistMsg>;
 
 template <>
-std::string ROS2Subscriber<helper::vector<Vec3d>, PoseArrayMsg>::templateName(const ROS2Subscriber<helper::vector<Vec3d>, PoseArrayMsg> *)
+std::string ROS2Subscriber<sofa::type::vector<Vec3d>, PoseArrayMsg>::templateName(const ROS2Subscriber<sofa::type::vector<Vec3d>, PoseArrayMsg> *)
 {
     return "RosPoseArray";
 }
-template class ROS2Subscriber<helper::vector<Vec3d>, PoseArrayMsg>;
+template class ROS2Subscriber<sofa::type::vector<Vec3d>, PoseArrayMsg>;
 
 template <>
 std::string ROS2Subscriber<Vec6d, WrenchMsg>::templateName(const ROS2Subscriber<Vec6d, WrenchMsg> *)
@@ -81,7 +81,7 @@ template class ROS2Subscriber<Vec6d, WrenchMsg>;
                                      .add<ROS2Subscriber<Rigid, PoseStampedMsg>>()
                                      .add<ROS2Subscriber<DoubleArray, JointStateMsg>>()
                                      .add<ROS2Subscriber<CameraInfo, CameraInfoMsg>>()
-                                     .add<ROS2Subscriber<helper::vector<Vec3d>, PoseArrayMsg>>()
+                                     .add<ROS2Subscriber<sofa::type::vector<Vec3d>, PoseArrayMsg>>()
                                      .add<ROS2Subscriber<SofaTwist,TwistMsg>>();
 
 }  // namespace ros2

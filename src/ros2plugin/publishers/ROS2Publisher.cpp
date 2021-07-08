@@ -50,25 +50,25 @@ std::string ROS2Publisher<DoubleArray, JointStateMsg>::templateName(const ROS2Pu
 template class ROS2Publisher<DoubleArray, JointStateMsg>;
 
 template <>
-std::string ROS2Publisher<helper::vector<Vec3d>, PoseArrayMsg>::templateName(const ROS2Publisher<helper::vector<Vec3d>, PoseArrayMsg> *)
+std::string ROS2Publisher<sofa::type::vector<Vec3d>, PoseArrayMsg>::templateName(const ROS2Publisher<sofa::type::vector<Vec3d>, PoseArrayMsg> *)
 {
     return "RosPointArray";
 }
-template class ROS2Publisher<helper::vector<Vec3d>, PoseArrayMsg>;
+template class ROS2Publisher<sofa::type::vector<Vec3d>, PoseArrayMsg>;
 
 template <>
-std::string ROS2Publisher<helper::vector<Rigid>, PoseArrayMsg>::templateName(const ROS2Publisher<helper::vector<Rigid>, PoseArrayMsg> *)
+std::string ROS2Publisher<sofa::type::vector<Rigid>, PoseArrayMsg>::templateName(const ROS2Publisher<sofa::type::vector<Rigid>, PoseArrayMsg> *)
 {
     return "RosPoseArray";
 }
-template class ROS2Publisher<helper::vector<Rigid>, PoseArrayMsg>;
+template class ROS2Publisher<sofa::type::vector<Rigid>, PoseArrayMsg>;
 
 template <>
-std::string ROS2Publisher<helper::vector<SofaSphere>, SphereArrayMsg>::templateName(const ROS2Publisher<helper::vector<SofaSphere>, SphereArrayMsg> *)
+std::string ROS2Publisher<sofa::type::vector<SofaSphere>, SphereArrayMsg>::templateName(const ROS2Publisher<sofa::type::vector<SofaSphere>, SphereArrayMsg> *)
 {
     return "RosSphereArray";
 }
-template class ROS2Publisher<helper::vector<SofaSphere>, SphereArrayMsg>;
+template class ROS2Publisher<sofa::type::vector<SofaSphere>, SphereArrayMsg>;
 
 static int ROS2PublisherClass = sofa::core::RegisterObject("")
                                     .add<ROS2Publisher<double, Float64Msg>>()
@@ -77,9 +77,9 @@ static int ROS2PublisherClass = sofa::core::RegisterObject("")
                                     .add<ROS2Publisher<Rigid, PoseMsg>>()
                                     .add<ROS2Publisher<Rigid, PoseStampedMsg>>()
                                     .add<ROS2Publisher<DoubleArray, JointStateMsg>>()
-                                    .add<ROS2Publisher<helper::vector<Vec3d>, PoseArrayMsg>>()
-                                    .add<ROS2Publisher<helper::vector<SofaSphere>, SphereArrayMsg>>()
-                                    .add<ROS2Publisher<helper::vector<Rigid>, PoseArrayMsg>>();
+                                    .add<ROS2Publisher<sofa::type::vector<Vec3d>, PoseArrayMsg>>()
+                                    .add<ROS2Publisher<sofa::type::vector<SofaSphere>, SphereArrayMsg>>()
+                                    .add<ROS2Publisher<sofa::type::vector<Rigid>, PoseArrayMsg>>();
 
 }  // namespace ros2
 }  // namespace sofa

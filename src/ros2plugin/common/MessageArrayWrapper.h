@@ -15,20 +15,20 @@ class MessageArrayWrapper
 {
 public:
     static inline void draw(const sofa::core::visual::VisualParams* /*vparams*/, const DataTypes& /*sofa_type*/, const double& /*scale*/,
-                            const helper::vector<int>& /*indexes*/)
+                            const sofa::type::vector<int>& /*indexes*/)
     {
     }
-    static inline DataTypes toSofa(const ROS2_MSG& /*ros_msg*/, const helper::vector<int>& /*indexes*/,double scale=1.0)
+    static inline DataTypes toSofa(const ROS2_MSG& /*ros_msg*/, const sofa::type::vector<int>& /*indexes*/,double scale=1.0)
     {
         msg_info("ROS2Plugin") << "in function toSofa: Types informed at template are unknown";
         return DataTypes();
     }
-    static inline ROS2_MSG toROS(const DataTypes& /*sofa_type*/, const helper::vector<int>& /*indexes*/,double scale=1.0)
+    static inline ROS2_MSG toROS(const DataTypes& /*sofa_type*/, const sofa::type::vector<int>& /*indexes*/,double scale=1.0)
     {
         msg_info("ROS2Plugin") << "in function toROS: Types informed at template are unknown";
     }
     template <class ARRAY>
-    static bool isIndexValid(const ARRAY& array, const helper::vector<int>& indexes)
+    static bool isIndexValid(const ARRAY& array, const sofa::type::vector<int>& indexes)
     {
         unsigned max_index = (*std::max_element(indexes.begin(), indexes.end()));
         return (!array.empty() || max_index < array.size());  // true if not empty and index is below array size
@@ -41,13 +41,13 @@ public:
  */
 template <>
 inline void MessageArrayWrapper<PoseArray, PoseArrayMsg>::draw(const sofa::core::visual::VisualParams* vparams, const PoseArray& vec3d,
-                                                               const double& scale, const helper::vector<int>& indexes)
+                                                               const double& scale, const sofa::type::vector<int>& indexes)
 {
     if (!isIndexValid(vec3d, indexes)) return;
     for (const auto& idx : indexes) MessageWrapper<Rigid, PoseMsg>::draw(vparams, vec3d[idx], scale);
 }
 template <>
-inline PoseArray MessageArrayWrapper<PoseArray, PoseArrayMsg>::toSofa(const PoseArrayMsg& msg, const helper::vector<int>& indexes,double scale)
+inline PoseArray MessageArrayWrapper<PoseArray, PoseArrayMsg>::toSofa(const PoseArrayMsg& msg, const sofa::type::vector<int>& indexes,double scale)
 {
     if (!isIndexValid(msg.poses, indexes)) return PoseArray();
     PoseArray returnVec;
@@ -55,7 +55,7 @@ inline PoseArray MessageArrayWrapper<PoseArray, PoseArrayMsg>::toSofa(const Pose
     return returnVec;
 }
 template <>
-inline PoseArrayMsg MessageArrayWrapper<PoseArray, PoseArrayMsg>::toROS(const PoseArray& vec3d, const helper::vector<int>& indexes,double scale)
+inline PoseArrayMsg MessageArrayWrapper<PoseArray, PoseArrayMsg>::toROS(const PoseArray& vec3d, const sofa::type::vector<int>& indexes,double scale)
 {
     if (!isIndexValid(vec3d, indexes)) return PoseArrayMsg();
     auto points = PoseArrayMsg();
@@ -72,7 +72,7 @@ inline PoseArrayMsg MessageArrayWrapper<PoseArray, PoseArrayMsg>::toROS(const Po
  *      PointArray              TrackerArrayMsg
  */
 template <>
-inline PointArray MessageArrayWrapper<PointArray, TrackerArrayMsg>::toSofa(const TrackerArrayMsg& msg, const helper::vector<int>& indexes,double scale)
+inline PointArray MessageArrayWrapper<PointArray, TrackerArrayMsg>::toSofa(const TrackerArrayMsg& msg, const sofa::type::vector<int>& indexes,double scale)
 {
     PointArray returnVec;
     std::map<int, PointArray> indexedVectors;
@@ -98,7 +98,7 @@ inline PointArray MessageArrayWrapper<PointArray, TrackerArrayMsg>::toSofa(const
  *      PointArray              TrackerArrayMsg
  */
 template <>
-inline PoseArray MessageArrayWrapper<PoseArray, RigidArrayMsg>::toSofa(const RigidArrayMsg& msg, const helper::vector<int>& indexes,double scale)
+inline PoseArray MessageArrayWrapper<PoseArray, RigidArrayMsg>::toSofa(const RigidArrayMsg& msg, const sofa::type::vector<int>& indexes,double scale)
 {
     PoseArray returnVec;
     std::map<int, PointArray> indexedVectors;

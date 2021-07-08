@@ -30,18 +30,18 @@ namespace ros2
 {
 /** SOFA Types */
 using Vec3d = defaulttype::Vec3Types::Coord;
-using Vec6d = defaulttype::Vec6d;
-using Quat = defaulttype::Quat;
+using Vec6d = type::Vec6d;
+using Quat = type::Quat;
 using Rigid = sofa::defaulttype::Rigid3dTypes::Coord;
 using Transform = sofa::defaulttype::SolidTypes<double>::Transform;
-typedef sofa::helper::types::RGBAColor RGBAColor;
+typedef sofa::type::RGBAColor RGBAColor;
 
-using DoubleArray = helper::vector<double>;
-using PointArray = helper::vector<Vec3d>;
-using PoseArray = helper::vector<Rigid>;
+using DoubleArray = sofa::type::vector<double>;
+using PointArray = sofa::type::vector<Vec3d>;
+using PoseArray = sofa::type::vector<Rigid>;
 using CameraInfo = opencvplugin::ProjectionMatrixData;
-using SofaTwist = defaulttype::Vec6d;
-using SofaSphere = defaulttype::Vec4d;
+using SofaTwist = type::Vec6d;
+using SofaSphere = type::Vec4d;
 
 
 /** ROS2 Types */

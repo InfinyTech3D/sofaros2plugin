@@ -202,7 +202,7 @@ inline void MessageWrapper<CameraInfo, CameraInfoMsg>::draw(const sofa::core::vi
 template <>
 inline CameraInfo MessageWrapper<CameraInfo, CameraInfoMsg>::toSofa(const CameraInfoMsg& msg,double scale)
 {
-    defaulttype::Mat3x4d temp;
+    type::Mat3x4d temp;
     for(unsigned i=0; i<12; i++)
         temp(i/4,i%4) = msg.p[i];
     return CameraInfo(temp);
@@ -279,18 +279,18 @@ inline JointStateMsg MessageWrapper<DoubleArray, JointStateMsg>::toROS(const Dou
 
 /********************************************************************************************************
  *      SOFA         <===>          ROS2
- *      helper::vector<Vec3d>       PointArrayMsg
+ *      sofa::type::vector<Vec3d>       PointArrayMsg
  */
 template <>
-inline void MessageWrapper<helper::vector<Vec3d>, PoseArrayMsg>::draw(const sofa::core::visual::VisualParams* vparams,
-                                                                      const helper::vector<Vec3d>& vec3d, const double& scale)
+inline void MessageWrapper<sofa::type::vector<Vec3d>, PoseArrayMsg>::draw(const sofa::core::visual::VisualParams* vparams,
+                                                                      const sofa::type::vector<Vec3d>& vec3d, const double& scale)
 {
     for (unsigned i = 0; i < vec3d.size(); i++) vparams->drawTool()->drawSphere(vec3d[i], scale, RGBAColor(1, 1, 1, 1));
 }
 template <>
-inline helper::vector<Vec3d> MessageWrapper<helper::vector<Vec3d>, PoseArrayMsg>::toSofa(const PoseArrayMsg& points,double scale)
+inline sofa::type::vector<Vec3d> MessageWrapper<sofa::type::vector<Vec3d>, PoseArrayMsg>::toSofa(const PoseArrayMsg& points,double scale)
 {
-    helper::vector<Vec3d> returnVec;
+    sofa::type::vector<Vec3d> returnVec;
 
     for (unsigned i = 0; i < points.poses.size(); i++)
         returnVec.push_back(Vec3d(points.poses[i].position.x, points.poses[i].position.y, points.poses[i].position.z)*scale);
@@ -298,7 +298,7 @@ inline helper::vector<Vec3d> MessageWrapper<helper::vector<Vec3d>, PoseArrayMsg>
     return returnVec;
 }
 template <>
-inline PoseArrayMsg MessageWrapper<helper::vector<Vec3d>, PoseArrayMsg>::toROS(const helper::vector<Vec3d>& vec3d,double scale)
+inline PoseArrayMsg MessageWrapper<sofa::type::vector<Vec3d>, PoseArrayMsg>::toROS(const sofa::type::vector<Vec3d>& vec3d,double scale)
 {
     auto points = PoseArrayMsg();
 
@@ -314,25 +314,25 @@ inline PoseArrayMsg MessageWrapper<helper::vector<Vec3d>, PoseArrayMsg>::toROS(c
 
 /********************************************************************************************************
  *      SOFA         <===>          ROS2
- *      helper::vector<Rigid>      PoseArray
+ *      sofa::type::vector<Rigid>      PoseArray
  */
 template <>
-inline void MessageWrapper<helper::vector<Rigid>, PoseArrayMsg>::draw(const sofa::core::visual::VisualParams* vparams,
-                                                                      const helper::vector<Rigid>& vec3d, const double& scale)
+inline void MessageWrapper<sofa::type::vector<Rigid>, PoseArrayMsg>::draw(const sofa::core::visual::VisualParams* vparams,
+                                                                      const sofa::type::vector<Rigid>& vec3d, const double& scale)
 {
     for (unsigned i = 0; i < vec3d.size(); i++) MessageWrapper<Rigid, PoseMsg>::draw(vparams, vec3d[i], scale);
 }
 template <>
-inline helper::vector<Rigid> MessageWrapper<helper::vector<Rigid>, PoseArrayMsg>::toSofa(const PoseArrayMsg& msg,double scale)
+inline sofa::type::vector<Rigid> MessageWrapper<sofa::type::vector<Rigid>, PoseArrayMsg>::toSofa(const PoseArrayMsg& msg,double scale)
 {
-    helper::vector<Rigid> returnVec;
+    sofa::type::vector<Rigid> returnVec;
 
     for (unsigned i = 0; i < msg.poses.size(); i++) returnVec.push_back(MessageWrapper<Rigid, PoseMsg>::toSofa(msg.poses[i],scale));
 
     return returnVec;
 }
 template <>
-inline PoseArrayMsg MessageWrapper<helper::vector<Rigid>, PoseArrayMsg>::toROS(const helper::vector<Rigid>& vec3d,double scale)
+inline PoseArrayMsg MessageWrapper<sofa::type::vector<Rigid>, PoseArrayMsg>::toROS(const sofa::type::vector<Rigid>& vec3d,double scale)
 {
     auto points = PoseArrayMsg();
 
@@ -346,17 +346,17 @@ inline PoseArrayMsg MessageWrapper<helper::vector<Rigid>, PoseArrayMsg>::toROS(c
 
 /********************************************************************************************************
  *      SOFA         <===>          ROS2
- *      helper::vector<SofaSphere>      SphereArrayMsg
+ *      sofa::type::vector<SofaSphere>      SphereArrayMsg
  */
 template <>
-inline void MessageWrapper<helper::vector<SofaSphere>, SphereArrayMsg>::draw(const sofa::core::visual::VisualParams* vparams,
-                                                                      const helper::vector<SofaSphere>& vec3d, const double& scale)
+inline void MessageWrapper<sofa::type::vector<SofaSphere>, SphereArrayMsg>::draw(const sofa::core::visual::VisualParams* vparams,
+                                                                      const sofa::type::vector<SofaSphere>& vec3d, const double& scale)
 {}
 
 template <>
-inline helper::vector<SofaSphere> MessageWrapper<helper::vector<SofaSphere>, SphereArrayMsg>::toSofa(const SphereArrayMsg& msg,double scale)
+inline sofa::type::vector<SofaSphere> MessageWrapper<sofa::type::vector<SofaSphere>, SphereArrayMsg>::toSofa(const SphereArrayMsg& msg,double scale)
 {
-    helper::vector<SofaSphere> returnVec;
+    sofa::type::vector<SofaSphere> returnVec;
 
     for(unsigned i=0; i<msg.centers.size(); i++)
     {
@@ -366,7 +366,7 @@ inline helper::vector<SofaSphere> MessageWrapper<helper::vector<SofaSphere>, Sph
 }
 
 template <>
-inline SphereArrayMsg MessageWrapper<helper::vector<SofaSphere>, SphereArrayMsg>::toROS(const helper::vector<SofaSphere>& spheres,double scale)
+inline SphereArrayMsg MessageWrapper<sofa::type::vector<SofaSphere>, SphereArrayMsg>::toROS(const sofa::type::vector<SofaSphere>& spheres,double scale)
 {
     SphereArrayMsg points = SphereArrayMsg();
     geometry_msgs::msg::Point32 temp;
