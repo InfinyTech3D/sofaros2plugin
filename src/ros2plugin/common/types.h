@@ -31,7 +31,7 @@ namespace ros2
 /** SOFA Types */
 using Vec3d = defaulttype::Vec3Types::Coord;
 using Vec6d = type::Vec6d;
-using Quat = type::Quat;
+using Quat = type::Quatd;
 using Rigid = sofa::defaulttype::Rigid3dTypes::Coord;
 using Transform = sofa::defaulttype::SolidTypes<double>::Transform;
 typedef sofa::type::RGBAColor RGBAColor;
