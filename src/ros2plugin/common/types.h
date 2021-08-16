@@ -19,10 +19,12 @@
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/joint_state.hpp>
 #include <sensor_msgs/msg/point_cloud.hpp>
+#include <sensor_msgs/msg/image.hpp>
 #include <sensor_msgs/msg/camera_info.hpp>
 #include <std_msgs/msg/float64.hpp>
 #include <std_msgs/msg/float64_multi_array.hpp>
 #include <optitrack_msgs/msg/rigid_array.hpp>
+#include <sofa/opencvplugin/BaseOpenCVData.h>
 
 namespace sofa
 {
@@ -43,6 +45,8 @@ using CameraInfo = opencvplugin::ProjectionMatrixData;
 using SofaTwist = type::Vec6d;
 using SofaSphere = type::Vec4d;
 
+using SofaImage = sofa::opencvplugin::ImageData;
+
 
 /** ROS2 Types */
 using Float64Msg = std_msgs::msg::Float64;
@@ -54,7 +58,7 @@ using TransformStampedMsg = geometry_msgs::msg::TransformStamped;
 using WrenchMsg = geometry_msgs::msg::WrenchStamped;
 
 using CameraInfoMsg = sensor_msgs::msg::CameraInfo;
-
+using ImageMsg = sensor_msgs::msg::Image;
 
 using JointStateMsg = sensor_msgs::msg::JointState;
 using PoseStampedMsg = geometry_msgs::msg::PoseStamped;

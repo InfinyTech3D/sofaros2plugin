@@ -25,6 +25,7 @@ find_package(std_msgs REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(optitrack_msgs REQUIRED)
+find_package(cv_bridge REQUIRED)
 # Config files (tell SOFA this is a plugin)
 set(CONFIG_FILES
         src/ros2plugin/initROS2Plugin.cpp
@@ -48,10 +49,8 @@ include_directories(${rclcpp_INCLUDE_DIRS})
 include_directories(${std_msgs_INCLUDE_DIRS})
 include_directories(${sensor_msgs_INCLUDE_DIRS})
 include_directories(${geometry_msgs_INCLUDE_DIRS})
-# - Custom libraries
-if (optitrack_msgs_FOUND)
-    include_directories(${optitrack_msgs_INCLUDE_DIRS})
-endif ()
+include_directories(${optitrack_msgs_INCLUDE_DIRS})
+include_directories(${cv_bridge_INCLUDE_DIRS})
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
         SofaFramework
@@ -61,11 +60,8 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
         ${sensor_msgs_LIBRARIES}
         ${geometry_msgs_LIBRARIES}
         ${optitrack_msgs_LIBRARIES}
+        ${cv_bridge_LIBRARIES}
         )
-
-if (optitrack_msgs_FOUND)
-    target_link_libraries(${PROJECT_NAME} PUBLIC ${optitrack_msgs_LIBRARIES})
-endif ()
 
 ## Change default install prefix
 if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)

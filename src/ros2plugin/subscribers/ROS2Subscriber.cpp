@@ -70,10 +70,14 @@ std::string ROS2Subscriber<Vec6d, WrenchMsg>::templateName(const ROS2Subscriber<
 }
 template class ROS2Subscriber<Vec6d, WrenchMsg>;
 
+template <>
+std::string ROS2Subscriber<SofaImage, ImageMsg>::templateName(const ROS2Subscriber<SofaImage, ImageMsg> *)
+{
+    return "RosImage";
+}
+template class ROS2Subscriber<SofaImage, ImageMsg>;
 
-
-
-    static int ROS2SubscriberClass = sofa::core::RegisterObject("")
+static int ROS2SubscriberClass = sofa::core::RegisterObject("")
                                      .add<ROS2Subscriber<double, Float64Msg>>()
                                      .add<ROS2Subscriber<Vec3d, PointMsg>>()
                                      .add<ROS2Subscriber<Vec6d, WrenchMsg>>()
@@ -82,7 +86,8 @@ template class ROS2Subscriber<Vec6d, WrenchMsg>;
                                      .add<ROS2Subscriber<DoubleArray, JointStateMsg>>()
                                      .add<ROS2Subscriber<CameraInfo, CameraInfoMsg>>()
                                      .add<ROS2Subscriber<sofa::type::vector<Vec3d>, PoseArrayMsg>>()
-                                     .add<ROS2Subscriber<SofaTwist,TwistMsg>>();
+                                     .add<ROS2Subscriber<SofaTwist, TwistMsg>>()
+                                     .add<ROS2Subscriber<SofaImage, ImageMsg>>();
 
 }  // namespace ros2
 }  // namespace sofa
