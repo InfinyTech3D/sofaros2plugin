@@ -420,7 +420,7 @@ inline ImageMsg MessageWrapper<SofaImage, ImageMsg>::toROS(const SofaImage& sofa
     cv_image.image = image;
     cv_image.encoding = image.type();
     cv_image.header.stamp = rclcpp::Time();
-    return *cv_image.toImageMsg();
+    return *cv_image.toCompressedImageMsg();
 }
 
 }  // namespace ros2
