@@ -26,6 +26,7 @@ find_package(sensor_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(optitrack_msgs REQUIRED)
 find_package(cv_bridge REQUIRED)
+find_package(image_transport REQUIRED)
 # Config files (tell SOFA this is a plugin)
 set(CONFIG_FILES
         src/ros2plugin/initROS2Plugin.cpp
@@ -51,6 +52,7 @@ include_directories(${sensor_msgs_INCLUDE_DIRS})
 include_directories(${geometry_msgs_INCLUDE_DIRS})
 include_directories(${optitrack_msgs_INCLUDE_DIRS})
 include_directories(${cv_bridge_INCLUDE_DIRS})
+include_directories(${image_transport_INCLUDE_DIRS})
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
         SofaFramework
@@ -61,6 +63,7 @@ target_link_libraries(${PROJECT_NAME} PUBLIC
         ${geometry_msgs_LIBRARIES}
         ${optitrack_msgs_LIBRARIES}
         ${cv_bridge_LIBRARIES}
+        ${image_transport_LIBRARIES}
         )
 
 ## Change default install prefix
