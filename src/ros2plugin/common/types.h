@@ -58,6 +58,7 @@ using TransformStampedMsg = geometry_msgs::msg::TransformStamped;
 using WrenchMsg = geometry_msgs::msg::WrenchStamped;
 
 using CameraInfoMsg = sensor_msgs::msg::CameraInfo;
+using GenericImageMsg = sensor_msgs::msg::Image;
 using ImageMsg = sensor_msgs::msg::CompressedImage;
 
 using JointStateMsg = sensor_msgs::msg::JointState;
