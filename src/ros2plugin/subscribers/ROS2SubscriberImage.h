@@ -29,7 +29,7 @@ public:
     virtual void init() override;
     virtual void handleEvent(sofa::core::objectmodel::Event* event) override;
 
-    virtual SofaImage toSofa(const GenericImageMsg& msg);
+    virtual SofaImage toSofa(const GenericImageMsg::ConstSharedPtr& msg);
 
     virtual bool isEncodingValid();
 

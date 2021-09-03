@@ -26,17 +26,18 @@ void ROS2SubscriberImage::handleEvent(sofa::core::objectmodel::Event* event)
 {
     if (dynamic_cast<sofa::simulation::AnimateBeginEvent*>(event))
     {
-        auto msg = this->m_ros2node->get();
+        GenericImageMsg::ConstSharedPtr msg = this->m_ros2node->get();
         this->d_output.setValue(toSofa(msg));
     }
 }
 
-inline SofaImage ROS2SubscriberImage::toSofa(const GenericImageMsg& msg)
+inline SofaImage ROS2SubscriberImage::toSofa(const GenericImageMsg::ConstSharedPtr& msg)
 {
-    cv_bridge::CvImagePtr cv_ptr;
+    if (!msg) return SofaImage();
+    cv_bridge::CvImageConstPtr cv_ptr;
     try
     {
-        cv_ptr = cv_bridge::toCvCopy(msg, d_encoding.getValue());
+        cv_ptr = cv_bridge::toCvShare(msg, std::string(d_encoding.getValue()));
     }
     catch (cv_bridge::Exception& e)
     {

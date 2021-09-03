@@ -33,13 +33,13 @@ public:
         }
     }
 
-    GenericImageMsg get() const { return m_msg_ptr ? GenericImageMsg(*m_msg_ptr) : GenericImageMsg(); /* could this copy be avoided ? */ }
+    GenericImageMsg::ConstSharedPtr get() const { return m_msg_ptr ? m_msg_ptr : nullptr; /* could this copy be avoided ? */ }
 
     const std::string m_node_name;
     const std::string m_topic_name;
 
 protected:
-    virtual void callback(const sensor_msgs::msg::Image::ConstSharedPtr& msg) { m_msg_ptr = msg; }
+    virtual void callback(const GenericImageMsg::ConstSharedPtr& msg) { m_msg_ptr = msg; }
 
 private:
     image_transport::Subscriber m_subscription;
