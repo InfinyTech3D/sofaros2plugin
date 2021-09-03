@@ -15,20 +15,35 @@ namespace ros2
 class ROS2SubscriberImageNode : public rclcpp::Node
 {
 public:
-    explicit ROS2SubscriberImageNode(const std::string& node_name = "DefaultNodeName", std::string topic_name = "DefaultTopicName") : Node(node_name)
+    explicit ROS2SubscriberImageNode(const std::string& node_name = "DefaultNodeName", std::string topic_name = "DefaultTopicName")
+        : Node(node_name), m_node_name(node_name), m_topic_name(topic_name)
     {
-        m_subscription =
-            image_transport::create_subscription(this, topic_name, std::bind(&ROS2SubscriberImageNode::callback, this, std::placeholders::_1), "raw");
+    }
+
+    void init(std::string encoding, std::string compression)
+    {
+        try
+        {
+            m_subscription = image_transport::create_subscription(
+                this, m_topic_name, std::bind(&ROS2SubscriberImageNode::callback, this, std::placeholders::_1), compression);
+        }
+        catch (const std::exception& ex)
+        {
+            std::cerr << "Image transport exeption: " << ex.what();
+        }
     }
 
     GenericImageMsg get() const { return m_msg_ptr ? GenericImageMsg(*m_msg_ptr) : GenericImageMsg(); /* could this copy be avoided ? */ }
+
+    const std::string m_node_name;
+    const std::string m_topic_name;
 
 protected:
     virtual void callback(const sensor_msgs::msg::Image::ConstSharedPtr& msg) { m_msg_ptr = msg; }
 
 private:
     image_transport::Subscriber m_subscription;
-    sensor_msgs::msg::Image::ConstSharedPtr m_msg_ptr = nullptr;
+    GenericImageMsg::ConstSharedPtr m_msg_ptr = nullptr;
 };
 }  // namespace ros2
 }  // namespace sofa

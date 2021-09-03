@@ -18,6 +18,8 @@ class ROS2SubscriberImage : public ROS2BaseObject<SofaImage, GenericImageMsg>
 public:
     SOFA_CLASS(ROS2SubscriberImage, SOFA_TEMPLATE2(ROS2BaseObject, SofaImage, GenericImageMsg));
 
+    sofa::Data<std::string> d_encoding;
+    sofa::Data<std::string> d_compression;
     sofa::Data<SofaImage> d_output;
     std::shared_ptr<ROS2SubscriberImageNode> m_ros2node;
 
@@ -26,6 +28,12 @@ public:
 
     virtual void init() override;
     virtual void handleEvent(sofa::core::objectmodel::Event* event) override;
+
+    virtual SofaImage toSofa(const GenericImageMsg& msg);
+
+    virtual bool isEncodingValid();
+
+    virtual bool isCompressionValid();
 
     static std::string templateName(const ROS2SubscriberImage* = nullptr) { return "Unknown"; }
 };

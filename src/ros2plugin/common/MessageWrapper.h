@@ -423,39 +423,6 @@ inline ImageMsg MessageWrapper<SofaImage, ImageMsg>::toROS(const SofaImage& sofa
     return *cv_image.toCompressedImageMsg();
 }
 
-/********************************************************************************************************
- *      SOFA         <===>          ROS2
- *      ImageData                  GenericImageMsg
- */
-template <>
-inline void MessageWrapper<SofaImage, GenericImageMsg>::draw(const sofa::core::visual::VisualParams* vparams, const SofaImage& pose, const double& scale)
-{
-}
-template <>
-inline SofaImage MessageWrapper<SofaImage, GenericImageMsg>::toSofa(const GenericImageMsg& msg, double scale)
-{
-    cv_bridge::CvImagePtr cv_ptr;
-    try
-    {
-        cv_ptr = cv_bridge::toCvCopy(msg);
-    }
-    catch (cv_bridge::Exception& e)
-    {
-        msg_error("ROS2Plugin") << "cv_bridge exception: " << e.what();
-        return SofaImage();
-    }
-    return SofaImage(cv_ptr->image);
-}
-template <>
-inline GenericImageMsg MessageWrapper<SofaImage, GenericImageMsg>::toROS(const SofaImage& sofa_type, double scale)
-{
-    cv::Mat image = sofa_type.getImage();
-    cv_bridge::CvImage cv_image;
-    cv_image.image = image;
-    cv_image.encoding = image.type();
-    cv_image.header.stamp = rclcpp::Time();
-    return *cv_image.toImageMsg();
-}
 
 }  // namespace ros2
 }  // namespace sofa
