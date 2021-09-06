@@ -114,5 +114,46 @@ inline PoseArray MessageArrayWrapper<PoseArray, RigidArrayMsg>::toSofa(const Rig
     return returnVec;
 }
 
+/********************************************************************************************************
+ *      SOFA         <===>          ROS2
+ *    DoubleArray               JointStateMsg
+ * Note: At the moment, only position data is transmitted
+ * TODO: Integrate another DataType which accounts for velocity and forces (MechanicalStates ?)
+ */
+template <>
+inline DoubleArrayArray MessageArrayWrapper<DoubleArrayArray, JointStateMsg>::toSofa(const JointStateMsg& joint_msg, const sofa::type::vector<int>& indexes,double scale)
+{
+    if(!indexes.size())
+        return DoubleArrayArray();
+
+    DoubleArrayArray temp;
+
+    for(auto i : indexes)
+    {
+        switch(i)
+        {
+            case 0:
+                temp.push_back(DoubleArray(joint_msg.position.begin(), joint_msg.position.end()));
+                break;
+            case 1:
+                temp.push_back(DoubleArray(joint_msg.velocity.begin(), joint_msg.velocity.end()));
+                break;
+            case 2:
+                temp.push_back(DoubleArray(joint_msg.effort.begin(), joint_msg.effort.end()));
+                break;
+            default:
+                break;
+        }
+
+    }
+
+    return temp;
+}
+template <>
+inline JointStateMsg MessageArrayWrapper<DoubleArrayArray, JointStateMsg>::toROS(const DoubleArrayArray& array, const sofa::type::vector<int>& indexes,double scale)
+{
+    std::cout<<"Method toROS for JointStateMsg to be coded if ever needed"<<std::endl;
+}
+
 }  // namespace ros2
 }  // namespace sofa

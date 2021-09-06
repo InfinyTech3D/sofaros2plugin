@@ -39,6 +39,7 @@ using Transform = sofa::defaulttype::SolidTypes<double>::Transform;
 typedef sofa::type::RGBAColor RGBAColor;
 
 using DoubleArray = sofa::type::vector<double>;
+using DoubleArrayArray = sofa::type::vector<sofa::type::vector<double> >;
 using PointArray = sofa::type::vector<Vec3d>;
 using PoseArray = sofa::type::vector<Rigid>;
 using CameraInfo = opencvplugin::ProjectionMatrixData;

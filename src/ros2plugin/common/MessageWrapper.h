@@ -280,6 +280,8 @@ inline JointStateMsg MessageWrapper<DoubleArray, JointStateMsg>::toROS(const Dou
     return joint_msg;
 }
 
+
+
 /********************************************************************************************************
  *      SOFA         <===>          ROS2
  *      sofa::type::vector<Vec3d>       PointArrayMsg

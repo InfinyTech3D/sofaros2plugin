@@ -37,10 +37,19 @@ std::string ROS2SubscriberArray<PoseArray, RigidArrayMsg>::templateName(const RO
 }
 template class ROS2SubscriberArray<PoseArray, RigidArrayMsg>;
 
+template <>
+std::string ROS2SubscriberArray<DoubleArrayArray, JointStateMsg>::templateName(const ROS2SubscriberArray<DoubleArrayArray, JointStateMsg> *)
+{
+    return "RosJointState";
+}
+template class ROS2SubscriberArray<DoubleArrayArray, JointStateMsg>;
+
+
 static int ROS2SubscriberArrayClass = sofa::core::RegisterObject("")
                                           .add<ROS2SubscriberArray<DoubleArray, Float64ArrayMsg>>()
                                           .add<ROS2SubscriberArray<PoseArray, PoseArrayMsg>>()
                                           .add<ROS2SubscriberArray<PointArray, TrackerArrayMsg>>()
+                                          .add<ROS2SubscriberArray<DoubleArrayArray, JointStateMsg>>()
                                           .add<ROS2SubscriberArray<PoseArray, RigidArrayMsg>>();
 
 }  // namespace ros2
