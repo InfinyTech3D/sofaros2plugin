@@ -5,6 +5,7 @@ namespace sofa
 {
 namespace ros2
 {
+
 ROS2SubscriberImage::ROS2SubscriberImage()
     : d_output(initData(&d_output, SofaImage(), "output", "output"))
     , d_compression(initData(&d_compression, std::string("raw"), "compression", "raw, compressed, theora"))
@@ -78,4 +79,5 @@ bool ROS2SubscriberImage::isEncodingValid()
 }
 
 }  // namespace ros2
+
 }  // end namespace sofa

@@ -87,7 +87,9 @@ static int ROS2SubscriberClass = sofa::core::RegisterObject("")
                                      .add<ROS2Subscriber<CameraInfo, CameraInfoMsg>>()
                                      .add<ROS2Subscriber<sofa::type::vector<Vec3d>, PoseArrayMsg>>()
                                      .add<ROS2Subscriber<SofaTwist, TwistMsg>>()
-                                     .add<ROS2Subscriber<SofaImage, ImageMsg>>();
+                                     .add<ROS2Subscriber<SofaImage, ImageMsg>>()
+;
+
 
 }  // namespace ros2
 }  // namespace sofa

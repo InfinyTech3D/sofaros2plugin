@@ -4,6 +4,8 @@
 #include <sofa/defaulttype/RigidTypes.h>
 #include <sofa/defaulttype/SolidTypes.h>
 #include <sofa/defaulttype/VecTypes.h>
+
+#include <sofa/opencvplugin/BaseOpenCVData.h>
 #include <sofa/opencvplugin/BaseOpenCVData.h>
 
 #include <geometry_msgs/msg/point.hpp>
@@ -24,7 +26,6 @@
 #include <std_msgs/msg/float64.hpp>
 #include <std_msgs/msg/float64_multi_array.hpp>
 #include <optitrack_msgs/msg/rigid_array.hpp>
-#include <sofa/opencvplugin/BaseOpenCVData.h>
 
 namespace sofa
 {
@@ -42,12 +43,11 @@ using DoubleArray = sofa::type::vector<double>;
 using DoubleArrayArray = sofa::type::vector<sofa::type::vector<double> >;
 using PointArray = sofa::type::vector<Vec3d>;
 using PoseArray = sofa::type::vector<Rigid>;
-using CameraInfo = opencvplugin::ProjectionMatrixData;
 using SofaTwist = type::Vec6d;
 using SofaSphere = type::Vec4d;
 
+using CameraInfo = opencvplugin::ProjectionMatrixData;
 using SofaImage = sofa::opencvplugin::ImageData;
-
 
 /** ROS2 Types */
 using Float64Msg = std_msgs::msg::Float64;

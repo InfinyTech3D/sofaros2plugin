@@ -13,6 +13,7 @@ namespace sofa
 {
 namespace ros2
 {
+
 class ROS2SubscriberImage : public ROS2BaseObject<SofaImage, GenericImageMsg>
 {
 public:

@@ -425,6 +425,6 @@ inline ImageMsg MessageWrapper<SofaImage, ImageMsg>::toROS(const SofaImage& sofa
     return *cv_image.toCompressedImageMsg();
 }
 
-
 }  // namespace ros2
+
 }  // namespace sofa
