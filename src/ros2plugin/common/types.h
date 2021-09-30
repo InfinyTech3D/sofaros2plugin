@@ -5,9 +5,6 @@
 #include <sofa/defaulttype/SolidTypes.h>
 #include <sofa/defaulttype/VecTypes.h>
 
-#include <sofa/opencvplugin/BaseOpenCVData.h>
-#include <sofa/opencvplugin/BaseOpenCVData.h>
-
 #include <geometry_msgs/msg/point.hpp>
 #include <geometry_msgs/msg/pose.hpp>
 #include <geometry_msgs/msg/twist_stamped.hpp>
@@ -26,6 +23,9 @@
 #include <std_msgs/msg/float64.hpp>
 #include <std_msgs/msg/float64_multi_array.hpp>
 #include <optitrack_msgs/msg/rigid_array.hpp>
+
+#include <sofa/opencvplugin/BaseOpenCVData.h>
+#include <sofa/opencvplugin/BaseOpenCVData.h>
 
 namespace sofa
 {
