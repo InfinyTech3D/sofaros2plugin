@@ -1,12 +1,18 @@
 cmake_minimum_required(VERSION 3.12)
 project(ros2plugin VERSION 1.0)
 
+
+add_subdirectory(/home/hadrien/travail/sofaconfig/hadrien/sofaplugin/ sofaplugin)
+
 # Set install path to local
 #set(CMAKE_INSTALL_PREFIX "install")
-#set(CMAKE_PREFIX_PATH "/home/hadrien/travail/build-sofa-Desktop-Release with Debug Information/install")
+set(CMAKE_PREFIX_PATH ${SOFA_INSTALL_DIR})
 #set(CMAKE_PREFIX_PATH "/home/hadrien/travail/build-sofa-Desktop-Release with Debug Information/lib" CACHE PATH "Install path prefix, prepended onto install directories." FORCE)
 
-list(APPEND CMAKE_PREFIX_PATH "/home/hadrien/travail/build-sofa-Desktop-Release with Debug Information/install")
+# SOFA packages containing our dependencies
+find_package(SofaFramework REQUIRED) # Needed to use SofaCore, SofaHelper and SofaDefaultType
+find_package(OpenCVPlugin REQUIRED) # Needed to use SofaCore, SofaHelper and SofaDefaultType
+
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
@@ -16,13 +22,8 @@ set(required_dependencies
         "rclcpp"
         "std_msgs"
         "optitrack_msgs"
-        )
+)
 ament_auto_find_build_dependencies(REQUIRED ${required_dependencies})
-
-
-# SOFA packages containing our dependencies
-find_package(SofaFramework REQUIRED) # Needed to use SofaCore, SofaHelper and SofaDefaultType
-find_package(OpenCVPlugin REQUIRED) # Needed to use SofaCore, SofaHelper and SofaDefaultType
 
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
@@ -36,7 +37,8 @@ find_package(cv_bridge REQUIRED)
 # Config files (tell SOFA this is a plugin)
 set(CONFIG_FILES
         src/ros2plugin/initROS2Plugin.cpp
-        )
+)
+
 # Our nice new SOFA Components
 file(GLOB_RECURSE HEADER_FILES
         "src/*.h"
@@ -74,26 +76,11 @@ target_link_libraries(${PROJECT_NAME}
 )
 
 ### Change default install prefix
-#if (CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
-#    set(CMAKE_INSTALL_PREFIX ${CMAKE_BINARY_DIR}/install CACHE PATH "Install path prefix, prepended onto install directories." FORCE)
-#endif ()
+#set(CMAKE_INSTALL_PREFIX ${SOFA_INSTALL_DIR}/plugins/${PROJECT_NAME} CACHE PATH "Install path prefix, prepended onto install directories." FORCE)
+#set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${SOFA_INSTALL_DIR}/lib)
+#set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${SOFA_INSTALL_DIR}/lib)
+#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${SOFA_INSTALL_DIR}/bin)
 
-#set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-#set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
-#set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-
-## Compiler options
-#set(CMAKE_CXX_STANDARD 17)
-#set(CMAKE_CXX_STANDARD_REQUIRED 17)
-#if ("${CMAKE_CXX_COMPILER} ${CMAKE_CXX_COMPILER_ARG1}" MATCHES ".*[cC][lL][aA][nN][gG]")
-#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fcolor-diagnostics")
-#else ()
-#    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fdiagnostics-color")
-#endif ()
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
-
-# Create package Config, Version & Target files.
-# Deploy the headers, resources, scenes & examples.
 sofa_create_package_with_targets(
         PACKAGE_NAME ${PROJECT_NAME}
         PACKAGE_VERSION 0.1
