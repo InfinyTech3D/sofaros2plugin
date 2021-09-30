@@ -1,8 +1,23 @@
 cmake_minimum_required(VERSION 3.12)
 project(ros2plugin VERSION 1.0)
 
+set(OpenGL_GL_PREFERENCE "LEGACY" CACHE STRING "" FORCE)
 
-add_subdirectory(/home/hadrien/travail/sofaconfig/hadrien/sofaplugin/ sofaplugin)
+set(SOFA_WORK_DIR "/home/hadrien/travail")
+set(SOFA_INSTALL_DIR "/home/hadrien/travail/build-sofa-Desktop-Release with Debug Information/install")
+
+list(APPEND CMAKE_PREFIX_PATH ${SOFA_INSTALL_DIR})
+list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR})
+
+macro(add_plugin)
+    add_subdirectory(${SOFA_WORK_DIR}/${ARGV0} "Plugin/${ARGV1}")
+    file(WRITE ${CMAKE_BINARY_DIR}/${ARGV1}Config.cmake)
+endmacro(add_plugin)
+
+
+find_package(SofaFramework REQUIRED)
+add_plugin(sofascheduler SofaScheduler)
+add_plugin(opencvplugin OpenCVPlugin)
 
 # Set install path to local
 #set(CMAKE_INSTALL_PREFIX "install")
