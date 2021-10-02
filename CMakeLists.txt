@@ -3,13 +3,8 @@ project(ros2plugin VERSION 1.0)
 
 set(OpenGL_GL_PREFERENCE "LEGACY" CACHE STRING "" FORCE)
 
-set(SOFA_INSTALL_DIR "/home/hadrien/travail/build-sofa-Desktop-RelWithDebInfo/install/")
+set(SOFA_INSTALL_DIR "$ENV{SOFA_INSTALL}")
 list(APPEND CMAKE_PREFIX_PATH ${SOFA_INSTALL_DIR})
-
-list(APPEND CMAKE_PREFIX_PATH "/home/hadrien/travail/build-hadrienplugin/lib/")
-#list(APPEND CMAKE_PREFIX_PATH ${PLUGIN_INSTALL_DIR})
-#list(APPEND CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR})
-#list(APPEND CMAKE_PREFIX_PATH "/home/hadrien/travail/build-hadrien-Desktop-Release-with-Debug-Information/Plugin/OpenCVPlugin/")
 
 # SOFA packages containing our dependencies
 find_package(SofaFramework REQUIRED) # Needed to use SofaCore, SofaHelper and SofaDefaultType

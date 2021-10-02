@@ -5,7 +5,7 @@
 
 set(PROJECT ros2plugin)
 
-find_package(SofaGeneral REQUIRED)
+find_package(SofaCore REQUIRED)
 find_package(Qt5 COMPONENTS Core Widgets Network REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(Threads REQUIRED)
