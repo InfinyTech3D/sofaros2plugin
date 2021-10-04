@@ -1,15 +1,17 @@
 cmake_minimum_required(VERSION 3.12)
-project(ros2plugin VERSION 1.0)
+project(ros2plugin)
 
-set(OpenGL_GL_PREFERENCE "LEGACY" CACHE STRING "" FORCE)
+list(APPEND CMAKE_PREFIX_PATH ${SOFA_INSTALL_DIRECTORY})
+list(APPEND CMAKE_PREFIX_PATH ${SOFA_PLUGIN_DIRECTORY})
 
-set(SOFA_INSTALL_DIR "$ENV{SOFA_INSTALL}")
-list(APPEND CMAKE_PREFIX_PATH ${SOFA_INSTALL_DIR})
+#set(CMAKE_INSTALL_PREFIX ${SOFA_INSTALL_DIRECTORY}/plugins CACHE PATH "Install path prefix, prepended onto install directories." FORCE)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${SOFA_INSTALL_DIRECTORY}/lib)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${SOFA_INSTALL_DIRECTORY}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${SOFA_INSTALL_DIRECTORY}/bin)
 
 # SOFA packages containing our dependencies
 find_package(SofaFramework REQUIRED) # Needed to use SofaCore, SofaHelper and SofaDefaultType
 find_package(OpenCVPlugin REQUIRED)
-
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
