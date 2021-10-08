@@ -15,6 +15,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${SOFA_INSTALL_DIRECTORY}/bin)
 # SOFA packages containing our dependencies
 find_package(SofaFramework REQUIRED) # Needed to use SofaCore, SofaHelper and SofaDefaultType
 find_package(OpenCVPlugin REQUIRED)
+find_package(image_transport REQUIRED)
+
 
 # find dependencies
 find_package(ament_cmake REQUIRED)
@@ -24,6 +26,7 @@ set(required_dependencies
         "rclcpp"
         "std_msgs"
         "optitrack_msgs"
+        "image_transport"
 )
 ament_auto_find_build_dependencies(REQUIRED ${required_dependencies})
 
@@ -74,7 +77,7 @@ target_link_libraries(${PROJECT_NAME}
 #    ${geometry_msgs_LIBRARIES}
 #    ${optitrack_msgs_LIBRARIES}
     ${cv_bridge_LIBRARIES}
-#    ${image_transport_LIBRARIES}
+    ${image_transport_LIBRARIES}
 )
 
 ### Change default install prefix
