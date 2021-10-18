@@ -80,15 +80,19 @@ inline void MessageWrapper<Vec3d, PointMsg>::draw(const sofa::core::visual::Visu
 template <>
 inline Vec3d MessageWrapper<Vec3d, PointMsg>::toSofa(const PointMsg& point, double scale)
 {
+
     return Vec3d(point.x, point.y, point.z) * scale;
 }
 template <>
 inline PointMsg MessageWrapper<Vec3d, PointMsg>::toROS(const Vec3d& vec3d, double scale)
 {
     auto point = PointMsg();
+
     point.x = vec3d[0] * scale;
     point.y = vec3d[1] * scale;
     point.z = vec3d[2] * scale;
+
+
     return point;
 }
 

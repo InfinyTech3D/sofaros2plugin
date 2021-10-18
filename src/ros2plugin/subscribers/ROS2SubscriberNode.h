@@ -24,14 +24,21 @@ public:
             this->create_subscription<ROS2_MSG>(topic_name, buffer_size, std::bind(&ROS2SubscriberNode::callback, this, std::placeholders::_1));
     }
 
-    ROS2_MSG get() const { return m_msg_ptr.get() ? ROS2_MSG(*(m_msg_ptr.get())) : ROS2_MSG(); /* could this copy be avoided ? */ }
+    ROS2_MSG get() const { return m_msg; }//_ptr.get() ? ROS2_MSG(*(m_msg_ptr.get())) : ROS2_MSG(); /* could this copy be avoided ? */ }
 
 protected:
-    virtual void callback(const typename ROS2_MSG::SharedPtr msg) { m_msg_ptr = msg; }
+    virtual void callback(const typename ROS2_MSG::SharedPtr msg)
+    {
+//        m_msg_ptr.reset();
+//        m_msg_ptr = msg;
+        m_msg = ROS2_MSG(*(msg.get()));
+    }
 
 private:
     typename rclcpp::Subscription<ROS2_MSG>::SharedPtr m_subscription;
-    typename ROS2_MSG::SharedPtr m_msg_ptr;
+//    typename ROS2_MSG::SharedPtr m_msg_ptr;
+    ROS2_MSG m_msg;
+
 };
 }  // namespace ros2
 }  // namespace sofa
