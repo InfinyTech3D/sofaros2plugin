@@ -8,6 +8,7 @@
 #include <sofa/core/objectmodel/DataCallback.h>
 #include <sofa/core/visual/VisualParams.h>
 #include <sofa/simulation/AnimateBeginEvent.h>
+#include <sofa/simulation/AnimateEndEvent.h>
 
 namespace sofa
 {
