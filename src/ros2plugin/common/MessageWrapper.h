@@ -2,6 +2,7 @@
 #include <cv_bridge/cv_bridge.h>
 #include <ros2plugin/common/types.h>
 #include <sofa/core/visual/VisualParams.h>
+#include <ros2_types/SofaJointTrajectoryPoint.h>
 
 namespace sofa
 {
@@ -94,6 +95,48 @@ inline PointMsg MessageWrapper<Vec3d, PointMsg>::toROS(const Vec3d& vec3d, doubl
 
 
     return point;
+}
+
+
+/********************************************************************************************************
+ *      SOFA         <===>          ROS2
+ *      Vec3d                      JointTrajectoryMsg
+ */
+template <>
+inline void MessageWrapper<sofa::type::vector<ros2_types::SofaJointTrajectoryPoint>, JointTrajectoryMsg>::draw(const sofa::core::visual::VisualParams* vparams, const sofa::type::vector<ros2_types::SofaJointTrajectoryPoint>& _input, const double& scale)
+{
+//    vparams->drawTool()->drawSphere(vec3d, scale, RGBAColor(1, 1, 1, 1));
+}
+
+template <>
+inline sofa::type::vector<ros2_types::SofaJointTrajectoryPoint> MessageWrapper<sofa::type::vector<ros2_types::SofaJointTrajectoryPoint>, JointTrajectoryMsg>::toSofa(const JointTrajectoryMsg& point, double scale)
+{
+
+    return sofa::type::vector<ros2_types::SofaJointTrajectoryPoint>();
+}
+template <>
+inline JointTrajectoryMsg MessageWrapper<sofa::type::vector<ros2_types::SofaJointTrajectoryPoint>, JointTrajectoryMsg>::toROS(const sofa::type::vector<ros2_types::SofaJointTrajectoryPoint>& _input, double scale)
+{
+    auto JointTrajectory = JointTrajectoryMsg();
+
+    JointTrajectory.points.resize(_input.size());
+    for(int i=0; i<_input.size(); i++)
+    {
+        auto currPoint = trajectory_msgs::msg::JointTrajectoryPoint();
+        currPoint.positions = _input[i].m_position;
+        currPoint.velocities = _input[i].m_velocity;
+        currPoint.accelerations = _input[i].m_acceleration;
+        currPoint.effort = _input[i].m_effort;
+
+        builtin_interfaces::msg::Duration durationMsg = builtin_interfaces::msg::Duration();
+        durationMsg.set__sec((int) _input[i].m_time);
+        durationMsg.set__nanosec((int) ((_input[i].m_time - (double) durationMsg.sec)*pow(10,9)));
+
+        currPoint.time_from_start = durationMsg;
+        JointTrajectory.points[i] = currPoint;
+    }
+
+    return JointTrajectory;
 }
 
 /********************************************************************************************************

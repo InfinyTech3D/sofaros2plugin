@@ -20,6 +20,8 @@
 #include <sensor_msgs/msg/point_cloud.hpp>
 #include <sensor_msgs/msg/image.hpp>
 #include <sensor_msgs/msg/camera_info.hpp>
+#include <trajectory_msgs/msg/joint_trajectory.hpp>
+#include <trajectory_msgs/msg/joint_trajectory_point.hpp>
 #include <std_msgs/msg/float64.hpp>
 #include <std_msgs/msg/float64_multi_array.hpp>
 #include <optitrack_msgs/msg/rigid_array.hpp>
@@ -63,6 +65,7 @@ using GenericImageMsg = sensor_msgs::msg::Image;
 using ImageMsg = sensor_msgs::msg::CompressedImage;
 
 using JointStateMsg = sensor_msgs::msg::JointState;
+using JointTrajectoryMsg = trajectory_msgs::msg::JointTrajectory;
 using PoseStampedMsg = geometry_msgs::msg::PoseStamped;
 using Float64ArrayMsg = std_msgs::msg::Float64MultiArray;
 using PoseArrayMsg = geometry_msgs::msg::PoseArray;
