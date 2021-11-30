@@ -12,6 +12,9 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${SOFA_INSTALL_DIRECTORY}/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${SOFA_INSTALL_DIRECTORY}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${SOFA_INSTALL_DIRECTORY}/bin)
 
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+
+
 # SOFA packages containing our dependencies
 find_package(SofaFramework REQUIRED) # Needed to use SofaCore, SofaHelper and SofaDefaultType
 find_package(ros2_types REQUIRED)
