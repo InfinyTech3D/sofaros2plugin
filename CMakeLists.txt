@@ -5,6 +5,8 @@ project(ros2plugin)
 #message("${SOFA_PLUGIN_DIRECTORY}")
 list(APPEND CMAKE_PREFIX_PATH ${SOFA_INSTALL_DIRECTORY})
 list(APPEND CMAKE_PREFIX_PATH ${SOFA_INSTALL_DIRECTORY}/lib)
+list(APPEND CMAKE_PREFIX_PATH ${CMAKE_INSTALL_PREFIX})
+
 #list(APPEND CMAKE_PREFIX_PATH ${SOFA_PLUGIN_DIRECTORY})
 
 #set(CMAKE_INSTALL_PREFIX ${SOFA_INSTALL_DIRECTORY}/plugins CACHE PATH "Install path prefix, prepended onto install directories." FORCE)
@@ -17,7 +19,7 @@ set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
 # SOFA packages containing our dependencies
 find_package(SofaFramework REQUIRED) # Needed to use SofaCore, SofaHelper and SofaDefaultType
-find_package(ros2_types REQUIRED)
+
 
 find_package(OpenCVPlugin REQUIRED)
 find_package(image_transport REQUIRED)
@@ -78,7 +80,6 @@ include_directories(${image_transport_INCLUDE_DIRS})
 
 target_link_libraries(${PROJECT_NAME}
     SofaFramework
-    ros2_types
     OpenCVPlugin
     Boost::thread
     ${rclcpp_LIBRARIES}
