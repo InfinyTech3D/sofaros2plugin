@@ -18,7 +18,7 @@ public:
                             const sofa::type::vector<int>& /*indexes*/)
     {
     }
-    static inline DataTypes toSofa(const ROS2_MSG& /*ros_msg*/, const sofa::type::vector<int>& /*indexes*/,double scale=1.0)
+    static inline DataTypes toSofa(const ROS2_MSG& /*ros_msg*/, const sofa::type::vector<int>& /*indexes*/,double /*scale*/=1.0)
     {
         msg_info("ROS2Plugin") << "in function toSofa: Types informed at template are unknown";
         return DataTypes();
@@ -121,7 +121,7 @@ inline PoseArray MessageArrayWrapper<PoseArray, RigidArrayMsg>::toSofa(const Rig
  * TODO: Integrate another DataType which accounts for velocity and forces (MechanicalStates ?)
  */
 template <>
-inline DoubleArrayArray MessageArrayWrapper<DoubleArrayArray, JointStateMsg>::toSofa(const JointStateMsg& joint_msg, const sofa::type::vector<int>& indexes,double scale)
+inline DoubleArrayArray MessageArrayWrapper<DoubleArrayArray, JointStateMsg>::toSofa(const JointStateMsg& joint_msg, const sofa::type::vector<int>& indexes,double /*scale*/)
 {
     if(!indexes.size())
         return DoubleArrayArray();
@@ -150,9 +150,11 @@ inline DoubleArrayArray MessageArrayWrapper<DoubleArrayArray, JointStateMsg>::to
     return temp;
 }
 template <>
-inline JointStateMsg MessageArrayWrapper<DoubleArrayArray, JointStateMsg>::toROS(const DoubleArrayArray& array, const sofa::type::vector<int>& indexes,double scale)
+inline JointStateMsg MessageArrayWrapper<DoubleArrayArray, JointStateMsg>::toROS(const DoubleArrayArray& /*array*/, const sofa::type::vector<int>& /*indexes*/,double /*scale*/)
 {
     std::cout<<"Method toROS for JointStateMsg to be coded if ever needed"<<std::endl;
+    JointStateMsg msg;
+    return msg;
 }
 
 }  // namespace ros2

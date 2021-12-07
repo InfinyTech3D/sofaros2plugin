@@ -19,9 +19,9 @@ class ROS2SubscriberImage : public ROS2BaseObject<SofaImage, GenericImageMsg>
 public:
     SOFA_CLASS(ROS2SubscriberImage, SOFA_TEMPLATE2(ROS2BaseObject, SofaImage, GenericImageMsg));
 
-    sofa::Data<std::string> d_encoding;
-    sofa::Data<std::string> d_compression;
     sofa::Data<SofaImage> d_output;
+    sofa::Data<std::string> d_compression;
+    sofa::Data<std::string> d_encoding;
     std::shared_ptr<ROS2SubscriberImageNode> m_ros2node;
 
     explicit ROS2SubscriberImage();

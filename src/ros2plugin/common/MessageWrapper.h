@@ -13,12 +13,12 @@ class MessageWrapper
 {
 public:
     static inline void draw(const sofa::core::visual::VisualParams* /*vparams*/, const DataTypes& /*sofa_type*/, const double& /*scale*/) {}
-    static inline DataTypes toSofa(const ROS2_MSG& /*ros_msg*/, double scale = 1.0 /*scale*/)
+    static inline DataTypes toSofa(const ROS2_MSG& /*ros_msg*/, double /*scale*/ = 1.0 /*scale*/)
     {
         msg_info("ROS2Plugin") << "in function toSofa: Types informed at template are unknown";
         return DataTypes();
     }
-    static inline ROS2_MSG toROS(const DataTypes& /*sofa_type*/, double scale = 1.0 /*scale*/)
+    static inline ROS2_MSG toROS(const DataTypes& /*sofa_type*/, double /*scale*/ = 1.0 /*scale*/)
     {
         msg_info("ROS2Plugin") << "in function toROS: Types informed at template are unknown";
         return ROS2_MSG();
@@ -104,7 +104,7 @@ inline PointMsg MessageWrapper<Vec3d, PointMsg>::toROS(const Vec3d& vec3d, doubl
  *      Vec6d                      WrenchMsg
  */
 template <>
-inline void MessageWrapper<Vec6d, WrenchMsg>::draw(const sofa::core::visual::VisualParams* vparams, const Vec6d& pointc, const double& scale)
+inline void MessageWrapper<Vec6d, WrenchMsg>::draw(const sofa::core::visual::VisualParams* /*vparams*/, const Vec6d& /*pointc*/, const double& /*scale*/)
 {
 }
 
@@ -139,12 +139,12 @@ inline WrenchMsg MessageWrapper<Vec6d, WrenchMsg>::toROS(const Vec6d& input, dou
  *      Quat                      QuatMsg
  */
 template <>
-inline Quat MessageWrapper<Quat, QuatMsg>::toSofa(const QuatMsg& quat, double scale)
+inline Quat MessageWrapper<Quat, QuatMsg>::toSofa(const QuatMsg& quat, double /*scale*/)
 {
     return Quat(quat.x, quat.y, quat.z, quat.w);
 }
 template <>
-inline QuatMsg MessageWrapper<Quat, QuatMsg>::toROS(const Quat& orientation, double scale)
+inline QuatMsg MessageWrapper<Quat, QuatMsg>::toROS(const Quat& orientation, double /*scale*/)
 {
     auto quat = QuatMsg();
     quat.x = orientation[0];
@@ -206,19 +206,19 @@ inline PoseStampedMsg MessageWrapper<Rigid, PoseStampedMsg>::toROS(const Rigid& 
  *      CameraInfo                  CameraInfoMsg
  */
 template <>
-inline void MessageWrapper<CameraInfo, CameraInfoMsg>::draw(const sofa::core::visual::VisualParams* vparams, const CameraInfo& pose,
-                                                            const double& scale)
+inline void MessageWrapper<CameraInfo, CameraInfoMsg>::draw(const sofa::core::visual::VisualParams* /*vparams*/, const CameraInfo& /*pose*/,
+                                                            const double& /*scale*/)
 {
 }
 template <>
-inline CameraInfo MessageWrapper<CameraInfo, CameraInfoMsg>::toSofa(const CameraInfoMsg& msg, double scale)
+inline CameraInfo MessageWrapper<CameraInfo, CameraInfoMsg>::toSofa(const CameraInfoMsg& msg, double /*scale*/)
 {
     type::Mat3x4d temp;
     for (unsigned i = 0; i < 12; i++) temp(i / 4, i % 4) = msg.p[i];
     return CameraInfo(temp);
 }
 template <>
-inline CameraInfoMsg MessageWrapper<CameraInfo, CameraInfoMsg>::toROS(const CameraInfo& rigid, double scale)
+inline CameraInfoMsg MessageWrapper<CameraInfo, CameraInfoMsg>::toROS(const CameraInfo& rigid, double /*scale*/)
 {
     auto msg = CameraInfoMsg();
     for (unsigned i = 0; i < 12; i++) msg.p[i] = rigid.getMatrix()(i / 4, i % 4);
@@ -230,7 +230,7 @@ inline CameraInfoMsg MessageWrapper<CameraInfo, CameraInfoMsg>::toROS(const Came
  *      CameraInfo                  CameraInfoMsg
  */
 template <>
-inline void MessageWrapper<SofaTwist, TwistMsg>::draw(const sofa::core::visual::VisualParams* vparams, const SofaTwist& pose, const double& scale)
+inline void MessageWrapper<SofaTwist, TwistMsg>::draw(const sofa::core::visual::VisualParams* /*vparams*/, const SofaTwist& /*pose*/, const double& /*scale*/)
 {
 }
 template <>
@@ -268,10 +268,10 @@ inline TwistMsg MessageWrapper<SofaTwist, TwistMsg>::toROS(const SofaTwist& rigi
  * TODO: Integrate another DataType which accounts for velocity and forces (MechanicalStates ?)
  */
 template <>
-inline DoubleArray MessageWrapper<DoubleArray, JointStateMsg>::toSofa(const JointStateMsg& joint_msg, double scale)
+inline DoubleArray MessageWrapper<DoubleArray, JointStateMsg>::toSofa(const JointStateMsg& joint_msg, double /*scale*/)
 {
     std::map<std::string,double> orderedMap;
-    for(int i=0; i<joint_msg.position.size(); i++)
+    for(unsigned i=0; i<joint_msg.position.size(); i++)
         orderedMap[joint_msg.name[i]] = joint_msg.position[i];
 
     DoubleArray out;
@@ -371,8 +371,8 @@ inline PoseArrayMsg MessageWrapper<sofa::type::vector<Rigid>, PoseArrayMsg>::toR
  *      sofa::type::vector<SofaSphere>      SphereArrayMsg
  */
 template <>
-inline void MessageWrapper<sofa::type::vector<SofaSphere>, SphereArrayMsg>::draw(const sofa::core::visual::VisualParams* vparams,
-                                                                                 const sofa::type::vector<SofaSphere>& vec3d, const double& scale)
+inline void MessageWrapper<sofa::type::vector<SofaSphere>, SphereArrayMsg>::draw(const sofa::core::visual::VisualParams* /*vparams*/,
+                                                                                 const sofa::type::vector<SofaSphere>& /*vec3d*/, const double& /*scale*/)
 {
 }
 
@@ -413,11 +413,11 @@ inline SphereArrayMsg MessageWrapper<sofa::type::vector<SofaSphere>, SphereArray
  *      ImageData                  ImageMsg
  */
 template <>
-inline void MessageWrapper<SofaImage, ImageMsg>::draw(const sofa::core::visual::VisualParams* vparams, const SofaImage& pose, const double& scale)
+inline void MessageWrapper<SofaImage, ImageMsg>::draw(const sofa::core::visual::VisualParams* /*vparams*/, const SofaImage& /*pose*/, const double& /*scale*/)
 {
 }
 template <>
-inline SofaImage MessageWrapper<SofaImage, ImageMsg>::toSofa(const ImageMsg& msg, double scale)
+inline SofaImage MessageWrapper<SofaImage, ImageMsg>::toSofa(const ImageMsg& msg, double /*scale*/)
 {
     cv_bridge::CvImagePtr cv_ptr;
     try
@@ -432,7 +432,7 @@ inline SofaImage MessageWrapper<SofaImage, ImageMsg>::toSofa(const ImageMsg& msg
     return SofaImage(cv_ptr->image);
 }
 template <>
-inline ImageMsg MessageWrapper<SofaImage, ImageMsg>::toROS(const SofaImage& sofa_type, double scale)
+inline ImageMsg MessageWrapper<SofaImage, ImageMsg>::toROS(const SofaImage& sofa_type, double /*scale*/)
 {
     cv::Mat image = sofa_type.getImage();
     cv_bridge::CvImage cv_image;

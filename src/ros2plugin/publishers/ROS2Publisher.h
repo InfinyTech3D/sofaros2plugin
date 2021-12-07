@@ -34,8 +34,8 @@ public:
     SOFA_CLASS(SOFA_TEMPLATE2(ROS2Publisher, DataTypes, ROS2_MSG), SOFA_TEMPLATE2(ROS2BaseObject, DataTypes, ROS2_MSG));
 
     sofa::Data<DataTypes> d_input;
-    Data<double> d_scale;
     Data<double> d_drawScale;
+    Data<double> d_scale;
     Data<bool> d_canPublish;
     Data<bool> d_draw;
 

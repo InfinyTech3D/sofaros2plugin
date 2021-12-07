@@ -20,7 +20,7 @@ public:
     {
     }
 
-    void init(std::string encoding, std::string compression)
+    void init(std::string /*encoding*/, std::string compression)
     {
         try
         {
