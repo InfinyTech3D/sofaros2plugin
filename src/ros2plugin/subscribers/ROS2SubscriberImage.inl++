@@ -32,21 +32,21 @@ void ROS2SubscriberImage::handleEvent(sofa::core::objectmodel::Event* event)
     }
 }
 
-inline SofaImage ROS2SubscriberImage::toSofa(const GenericImageMsg::ConstSharedPtr& msg)
-{
-    if (!msg) return SofaImage();
-    cv_bridge::CvImageConstPtr cv_ptr;
-    try
-    {
-        cv_ptr = cv_bridge::toCvShare(msg, std::string(d_encoding.getValue()));
-    }
-    catch (cv_bridge::Exception& e)
-    {
-        msg_error("ROS2Plugin") << "cv_bridge exception: " << e.what();
-        return SofaImage();
-    }
-    return SofaImage(cv_ptr->image);
-}
+//inline SofaImage ROS2SubscriberImage::toSofa(const GenericImageMsg::ConstSharedPtr& msg)
+//{
+//    if (!msg) return SofaImage();
+//    cv_bridge::CvImageConstPtr cv_ptr;
+//    try
+//    {
+//        cv_ptr = cv_bridge::toCvShare(msg, std::string(d_encoding.getValue()));
+//    }
+//    catch (cv_bridge::Exception& e)
+//    {
+//        msg_error("ROS2Plugin") << "cv_bridge exception: " << e.what();
+//        return SofaImage();
+//    }
+//    return SofaImage(cv_ptr->image);
+//}
 
 bool ROS2SubscriberImage::isCompressionValid()
 {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <optitrack_msgs/msg/tracker_array.h>
+//#include <optitrack_msgs/msg/tracker_array.h>
 #include <sofa/defaulttype/RigidTypes.h>
 #include <sofa/defaulttype/SolidTypes.h>
 #include <sofa/defaulttype/VecTypes.h>
@@ -13,20 +13,23 @@
 #include <geometry_msgs/msg/pose_array.hpp>
 #include <geometry_msgs/msg/pose_stamped.hpp>
 #include <geometry_msgs/msg/wrench_stamped.hpp>
-#include <optitrack_msgs/msg/tracker_array.hpp>
-#include <optitrack_msgs/msg/sphere_array.hpp>
+//#include <optitrack_msgs/msg/tracker_array.hpp>
+//#include <optitrack_msgs/msg/sphere_array.hpp>
 #include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/joint_state.hpp>
 #include <sensor_msgs/msg/point_cloud.hpp>
 #include <sensor_msgs/msg/image.hpp>
+#include <sensor_msgs/msg/compressed_image.hpp>
+#include <sensor_msgs/msg/camera_info.hpp>
+//#include "sensor_msgs/Image.h"
 #include <sensor_msgs/msg/camera_info.hpp>
 
 #include <std_msgs/msg/float64.hpp>
 #include <std_msgs/msg/float64_multi_array.hpp>
-#include <optitrack_msgs/msg/rigid_array.hpp>
+//#include <optitrack_msgs/msg/rigid_array.hpp>
 
-#include <sofa/opencvplugin/BaseOpenCVData.h>
-#include <sofa/opencvplugin/BaseOpenCVData.h>
+//#include <sofa/opencvplugin/BaseOpenCVData.h>
+//#include <sofa/opencvplugin/BaseOpenCVData.h>
 
 namespace sofa
 {
@@ -47,8 +50,8 @@ using PoseArray = sofa::type::vector<Rigid>;
 using SofaTwist = type::Vec6d;
 using SofaSphere = type::Vec4d;
 
-using CameraInfo = opencvplugin::ProjectionMatrixData;
-using SofaImage = sofa::opencvplugin::ImageData;
+//using CameraInfo = opencvplugin::ProjectionMatrixData;
+//using SofaImage = sofa::opencvplugin::ImageData;
 
 /** ROS2 Types */
 using Float64Msg = std_msgs::msg::Float64;
@@ -67,10 +70,10 @@ using JointStateMsg = sensor_msgs::msg::JointState;
 using PoseStampedMsg = geometry_msgs::msg::PoseStamped;
 using Float64ArrayMsg = std_msgs::msg::Float64MultiArray;
 using PoseArrayMsg = geometry_msgs::msg::PoseArray;
-using TrackerArrayMsg = optitrack_msgs::msg::TrackerArray;
-using RigidArrayMsg = optitrack_msgs::msg::RigidArray;
+//using TrackerArrayMsg = optitrack_msgs::msg::TrackerArray;
+//using RigidArrayMsg = optitrack_msgs::msg::RigidArray;
 using TwistMsg = geometry_msgs::msg::TwistStamped;
-using SphereArrayMsg = optitrack_msgs::msg::SphereArray;
+//using SphereArrayMsg = optitrack_msgs::msg::SphereArray;
 
 }  // namespace ros2
 

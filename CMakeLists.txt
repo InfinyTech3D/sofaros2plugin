@@ -32,16 +32,16 @@ find_package(ament_cmake_auto REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(Boost COMPONENTS thread REQUIRED)
-#find_package(sensor_msgs REQUIRED)
-#find_package(geometry_msgs REQUIRED)
-find_package(optitrack_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(geometry_msgs REQUIRED)
+#find_package(optitrack_msgs REQUIRED)
 find_package(trajectory_msgs REQUIRED)
-find_package(cv_bridge REQUIRED)
+#find_package(cv_bridge REQUIRED)
 
 set(required_dependencies
         "rclcpp"
         "std_msgs"
-        "optitrack_msgs"
+#        "optitrack_msgs"
         "image_transport"
 )
 ament_auto_find_build_dependencies(REQUIRED ${required_dependencies})
@@ -74,8 +74,8 @@ include_directories(${std_msgs_INCLUDE_DIRS})
 include_directories(${sensor_msgs_INCLUDE_DIRS})
 include_directories(${geometry_msgs_INCLUDE_DIRS})
 include_directories(${trajectory_msgs_INCLUDE_DIRS})
-include_directories(${optitrack_msgs_INCLUDE_DIRS})
-include_directories(${cv_bridge_INCLUDE_DIRS})
+#include_directories(${optitrack_msgs_INCLUDE_DIRS})
+#include_directories(${cv_bridge_INCLUDE_DIRS})
 include_directories(${image_transport_INCLUDE_DIRS})
 
 target_link_libraries(${PROJECT_NAME}
@@ -87,8 +87,8 @@ target_link_libraries(${PROJECT_NAME}
     ${sensor_msgs_LIBRARIES}
     ${geometry_msgs_LIBRARIES}
     ${trajectory_msgs_LIBRARIES}
-    ${optitrack_msgs_LIBRARIES}
-    ${cv_bridge_LIBRARIES}
+#    ${optitrack_msgs_LIBRARIES}
+#    ${cv_bridge_LIBRARIES}
     ${image_transport_LIBRARIES}
 )
 

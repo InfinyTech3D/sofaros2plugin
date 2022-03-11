@@ -49,12 +49,12 @@ std::string ROS2Subscriber<DoubleArray, JointStateMsg>::templateName(const ROS2S
 }
 template class ROS2Subscriber<DoubleArray, JointStateMsg>;
 
-template <>
-std::string ROS2Subscriber<CameraInfo, CameraInfoMsg>::templateName(const ROS2Subscriber<CameraInfo, CameraInfoMsg> *)
-{
-    return "RosCameraInfo";
-}
-template class ROS2Subscriber<CameraInfo, CameraInfoMsg>;
+//template <>
+//std::string ROS2Subscriber<CameraInfo, CameraInfoMsg>::templateName(const ROS2Subscriber<CameraInfo, CameraInfoMsg> *)
+//{
+//    return "RosCameraInfo";
+//}
+//template class ROS2Subscriber<CameraInfo, CameraInfoMsg>;
 
 template <>
 std::string ROS2Subscriber<SofaTwist, TwistMsg>::templateName(const ROS2Subscriber<SofaTwist, TwistMsg> *)
@@ -77,24 +77,24 @@ std::string ROS2Subscriber<Vec6d, WrenchMsg>::templateName(const ROS2Subscriber<
 }
 template class ROS2Subscriber<Vec6d, WrenchMsg>;
 
-template <>
-std::string ROS2Subscriber<SofaImage, ImageMsg>::templateName(const ROS2Subscriber<SofaImage, ImageMsg> *)
-{
-    return "RosImage";
-}
-template class ROS2Subscriber<SofaImage, ImageMsg>;
+//template <>
+//std::string ROS2Subscriber<SofaImage, ImageMsg>::templateName(const ROS2Subscriber<SofaImage, ImageMsg> *)
+//{
+//    return "RosImage";
+//}
+//template class ROS2Subscriber<SofaImage, ImageMsg>;
 
 static int ROS2SubscriberClass = sofa::core::RegisterObject("")
                                      .add<ROS2Subscriber<double, Float64Msg>>()
                                      .add<ROS2Subscriber<Vec3d, PointMsg>>()
                                      .add<ROS2Subscriber<Vec6d, WrenchMsg>>()
-                                     .add<ROS2Subscriber<Rigid, PoseMsg>>()
-                                     .add<ROS2Subscriber<Rigid, PoseStampedMsg>>()
+//                                     .add<ROS2Subscriber<Rigid, PoseMsg>>()
+//                                     .add<ROS2Subscriber<Rigid, PoseStampedMsg>>()
                                      .add<ROS2Subscriber<DoubleArray, JointStateMsg>>()
-                                     .add<ROS2Subscriber<CameraInfo, CameraInfoMsg>>()
+//                                     .add<ROS2Subscriber<CameraInfo, CameraInfoMsg>>()
                                      .add<ROS2Subscriber<sofa::type::vector<Vec3d>, PoseArrayMsg>>()
                                      .add<ROS2Subscriber<SofaTwist, TwistMsg>>()
-                                     .add<ROS2Subscriber<SofaImage, ImageMsg>>()
+//                                     .add<ROS2Subscriber<SofaImage, ImageMsg>>()
                                      .add<ROS2Subscriber<DoubleArray, Float64ArrayMsg>>()
 ;
 

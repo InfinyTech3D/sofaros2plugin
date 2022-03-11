@@ -1,5 +1,5 @@
 #pragma once
-#include <cv_bridge/cv_bridge.h>
+//#include <cv_bridge/cv_bridge.h>
 #include <ros2plugin/common/types.h>
 #include <sofa/core/visual/VisualParams.h>
 #include <sstream>
@@ -205,25 +205,25 @@ inline PoseStampedMsg MessageWrapper<Rigid, PoseStampedMsg>::toROS(const Rigid& 
  *      SOFA         <===>          ROS2
  *      CameraInfo                  CameraInfoMsg
  */
-template <>
-inline void MessageWrapper<CameraInfo, CameraInfoMsg>::draw(const sofa::core::visual::VisualParams* /*vparams*/, const CameraInfo& /*pose*/,
-                                                            const double& /*scale*/)
-{
-}
-template <>
-inline CameraInfo MessageWrapper<CameraInfo, CameraInfoMsg>::toSofa(const CameraInfoMsg& msg, double /*scale*/)
-{
-    type::Mat3x4d temp;
-    for (unsigned i = 0; i < 12; i++) temp(i / 4, i % 4) = msg.p[i];
-    return CameraInfo(temp);
-}
-template <>
-inline CameraInfoMsg MessageWrapper<CameraInfo, CameraInfoMsg>::toROS(const CameraInfo& rigid, double /*scale*/)
-{
-    auto msg = CameraInfoMsg();
-    for (unsigned i = 0; i < 12; i++) msg.p[i] = rigid.getMatrix()(i / 4, i % 4);
-    return msg;
-}
+//template <>
+//inline void MessageWrapper<CameraInfo, CameraInfoMsg>::draw(const sofa::core::visual::VisualParams* /*vparams*/, const CameraInfo& /*pose*/,
+//                                                            const double& /*scale*/)
+//{
+//}
+//template <>
+//inline CameraInfo MessageWrapper<CameraInfo, CameraInfoMsg>::toSofa(const CameraInfoMsg& msg, double /*scale*/)
+//{
+//    type::Mat3x4d temp;
+//    for (unsigned i = 0; i < 12; i++) temp(i / 4, i % 4) = msg.p[i];
+//    return CameraInfo(temp);
+//}
+//template <>
+//inline CameraInfoMsg MessageWrapper<CameraInfo, CameraInfoMsg>::toROS(const CameraInfo& rigid, double /*scale*/)
+//{
+//    auto msg = CameraInfoMsg();
+//    for (unsigned i = 0; i < 12; i++) msg.p[i] = rigid.getMatrix()(i / 4, i % 4);
+//    return msg;
+//}
 
 /********************************************************************************************************
  *      SOFA         <===>          ROS2
@@ -370,77 +370,77 @@ inline PoseArrayMsg MessageWrapper<sofa::type::vector<Rigid>, PoseArrayMsg>::toR
  *      SOFA         <===>          ROS2
  *      sofa::type::vector<SofaSphere>      SphereArrayMsg
  */
-template <>
-inline void MessageWrapper<sofa::type::vector<SofaSphere>, SphereArrayMsg>::draw(const sofa::core::visual::VisualParams* /*vparams*/,
-                                                                                 const sofa::type::vector<SofaSphere>& /*vec3d*/, const double& /*scale*/)
-{
-}
+//template <>
+//inline void MessageWrapper<sofa::type::vector<SofaSphere>, SphereArrayMsg>::draw(const sofa::core::visual::VisualParams* /*vparams*/,
+//                                                                                 const sofa::type::vector<SofaSphere>& /*vec3d*/, const double& /*scale*/)
+//{
+//}
 
-template <>
-inline sofa::type::vector<SofaSphere> MessageWrapper<sofa::type::vector<SofaSphere>, SphereArrayMsg>::toSofa(const SphereArrayMsg& msg, double scale)
-{
-    sofa::type::vector<SofaSphere> returnVec;
+//template <>
+//inline sofa::type::vector<SofaSphere> MessageWrapper<sofa::type::vector<SofaSphere>, SphereArrayMsg>::toSofa(const SphereArrayMsg& msg, double scale)
+//{
+//    sofa::type::vector<SofaSphere> returnVec;
 
-    for (unsigned i = 0; i < msg.centers.size(); i++)
-    {
-        returnVec.push_back(SofaSphere(msg.centers[i].x, msg.centers[i].y, msg.centers[i].z, msg.radius[i]) * scale);
-    }
-    return returnVec;
-}
+//    for (unsigned i = 0; i < msg.centers.size(); i++)
+//    {
+//        returnVec.push_back(SofaSphere(msg.centers[i].x, msg.centers[i].y, msg.centers[i].z, msg.radius[i]) * scale);
+//    }
+//    return returnVec;
+//}
 
-template <>
-inline SphereArrayMsg MessageWrapper<sofa::type::vector<SofaSphere>, SphereArrayMsg>::toROS(const sofa::type::vector<SofaSphere>& spheres,
-                                                                                            double scale)
-{
-    SphereArrayMsg points = SphereArrayMsg();
-    geometry_msgs::msg::Point32 temp;
+//template <>
+//inline SphereArrayMsg MessageWrapper<sofa::type::vector<SofaSphere>, SphereArrayMsg>::toROS(const sofa::type::vector<SofaSphere>& spheres,
+//                                                                                            double scale)
+//{
+//    SphereArrayMsg points = SphereArrayMsg();
+//    geometry_msgs::msg::Point32 temp;
 
-    for (unsigned i = 0; i < spheres.size(); i++)
-    {
-        temp.x = spheres[i][0] * scale;
-        temp.y = spheres[i][1] * scale;
-        temp.z = spheres[i][2] * scale;
-        points.ids.push_back(i);
-        points.centers.push_back(temp);
-        points.radius.push_back(spheres[i][3] * scale);
-    }
+//    for (unsigned i = 0; i < spheres.size(); i++)
+//    {
+//        temp.x = spheres[i][0] * scale;
+//        temp.y = spheres[i][1] * scale;
+//        temp.z = spheres[i][2] * scale;
+//        points.ids.push_back(i);
+//        points.centers.push_back(temp);
+//        points.radius.push_back(spheres[i][3] * scale);
+//    }
 
-    return points;
-}
+//    return points;
+//}
 
 /********************************************************************************************************
  *      SOFA         <===>          ROS2
  *      ImageData                  ImageMsg
  */
-template <>
-inline void MessageWrapper<SofaImage, ImageMsg>::draw(const sofa::core::visual::VisualParams* /*vparams*/, const SofaImage& /*pose*/, const double& /*scale*/)
-{
-}
-template <>
-inline SofaImage MessageWrapper<SofaImage, ImageMsg>::toSofa(const ImageMsg& msg, double /*scale*/)
-{
-    cv_bridge::CvImagePtr cv_ptr;
-    try
-    {
-        cv_ptr = cv_bridge::toCvCopy(msg);
-    }
-    catch (cv_bridge::Exception& e)
-    {
-        msg_error("ROS2Plugin") << "cv_bridge exception: " << e.what();
-        return SofaImage();
-    }
-    return SofaImage(cv_ptr->image);
-}
-template <>
-inline ImageMsg MessageWrapper<SofaImage, ImageMsg>::toROS(const SofaImage& sofa_type, double /*scale*/)
-{
-    cv::Mat image = sofa_type.getImage();
-    cv_bridge::CvImage cv_image;
-    cv_image.image = image;
-    cv_image.encoding = image.type();
-    cv_image.header.stamp = rclcpp::Time();
-    return *cv_image.toCompressedImageMsg();
-}
+//template <>
+//inline void MessageWrapper<SofaImage, ImageMsg>::draw(const sofa::core::visual::VisualParams* /*vparams*/, const SofaImage& /*pose*/, const double& /*scale*/)
+//{
+//}
+//template <>
+//inline SofaImage MessageWrapper<SofaImage, ImageMsg>::toSofa(const ImageMsg& msg, double /*scale*/)
+//{
+//    cv_bridge::CvImagePtr cv_ptr;
+//    try
+//    {
+//        cv_ptr = cv_bridge::toCvCopy(msg);
+//    }
+//    catch (cv_bridge::Exception& e)
+//    {
+//        msg_error("ROS2Plugin") << "cv_bridge exception: " << e.what();
+//        return SofaImage();
+//    }
+//    return SofaImage(cv_ptr->image);
+//}
+//template <>
+//inline ImageMsg MessageWrapper<SofaImage, ImageMsg>::toROS(const SofaImage& sofa_type, double /*scale*/)
+//{
+//    cv::Mat image = sofa_type.getImage();
+//    cv_bridge::CvImage cv_image;
+//    cv_image.image = image;
+//    cv_image.encoding = image.type();
+//    cv_image.header.stamp = rclcpp::Time();
+//    return *cv_image.toCompressedImageMsg();
+//}
 
 }  // namespace ros2
 
