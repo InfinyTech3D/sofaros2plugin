@@ -21,7 +21,7 @@ set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 find_package(SofaFramework REQUIRED) # Needed to use SofaCore, SofaHelper and SofaDefaultType
 
 
-find_package(OpenCVPlugin REQUIRED)
+#find_package(OpenCVPlugin REQUIRED)
 find_package(image_transport REQUIRED)
 
 
@@ -80,7 +80,7 @@ include_directories(${image_transport_INCLUDE_DIRS})
 
 target_link_libraries(${PROJECT_NAME}
     SofaFramework
-    OpenCVPlugin
+    #OpenCVPlugin
     Boost::thread
     ${rclcpp_LIBRARIES}
     ${std_msgs_LIBRARIES}
