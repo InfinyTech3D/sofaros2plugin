@@ -6,97 +6,109 @@ namespace sofa
 {
 namespace ros2
 {
+
+
+/*******ATOMIC******/
+
 /** Define template names for every specialization */
 template <>
-std::string ROS2Subscriber<double, Float64Msg>::templateName(const ROS2Subscriber<double, Float64Msg> *)
+std::string ROS2Subscriber<double, DoubleMsg>::templateName(const ROS2Subscriber<double, DoubleMsg> *)
 {
-    return "RosFloat64";
+	return "RosDouble";
 }
-template class ROS2Subscriber<double, Float64Msg>;
+template class ROS2Subscriber<double, DoubleMsg>;
 
+
+/** Define template names for every specialization */
 template <>
-std::string ROS2Subscriber<Vec3d, PointMsg>::templateName(const ROS2Subscriber<Vec3d, PointMsg> *)
+std::string ROS2Subscriber<int, IntMsg>::templateName(const ROS2Subscriber<int, IntMsg> *)
 {
-    return "RosVec3d";
+	return "RosInt";
 }
-template class ROS2Subscriber<Vec3d, PointMsg>;
+template class ROS2Subscriber<int , IntMsg>;
 
+/** Define template names for every specialization */
 template <>
-std::string ROS2Subscriber<Rigid, PoseMsg>::templateName(const ROS2Subscriber<Rigid, PoseMsg> *)
+std::string ROS2Subscriber<unsigned, UnsignedMsg>::templateName(const ROS2Subscriber<unsigned, UnsignedMsg> *)
 {
-    return "RosRigid";
+	return "RosUnsigned";
 }
-template class ROS2Subscriber<Rigid, PoseMsg>;
+template class ROS2Subscriber<unsigned, UnsignedMsg>;
 
+
+/** Define template names for every specialization */
 template <>
-std::string ROS2Subscriber<Rigid, PoseStampedMsg>::templateName(const ROS2Subscriber<Rigid, PoseStampedMsg> *)
+std::string ROS2Subscriber<Vec3d, Vec3dMsg>::templateName(const ROS2Subscriber<Vec3d, Vec3dMsg> *)
 {
-    return "RosPoseStamped";
+	return "RosVec3d";
 }
-template class ROS2Subscriber<Rigid, PoseStampedMsg>;
+template class ROS2Subscriber<Vec3d , Vec3dMsg>;
 
+/** Define template names for every specialization */
 template <>
-std::string ROS2Subscriber<DoubleArray  , Float64ArrayMsg>::templateName(const ROS2Subscriber<DoubleArray, Float64ArrayMsg> *)
+std::string ROS2Subscriber<Rigid, RigidMsg>::templateName(const ROS2Subscriber<Rigid, RigidMsg> *)
 {
-    return "RosFloat64Array";
+	return "RosRigid";
 }
-template class ROS2Subscriber<DoubleArray, Float64ArrayMsg>;
+template class ROS2Subscriber<Rigid, RigidMsg>;
 
+
+
+
+/*******ARRAY******/
+
+/** Define template names for every specialization */
 template <>
-std::string ROS2Subscriber<DoubleArray, JointStateMsg>::templateName(const ROS2Subscriber<DoubleArray, JointStateMsg> *)
+std::string ROS2Subscriber<DoubleArray , DoubleArrayMsg>::templateName(const ROS2Subscriber<DoubleArray, DoubleArrayMsg> *)
 {
-    return "RosJointState";
+	return "RosDoubleArray";
 }
-template class ROS2Subscriber<DoubleArray, JointStateMsg>;
+template class ROS2Subscriber<DoubleArray, DoubleArrayMsg>;
 
-//template <>
-//std::string ROS2Subscriber<CameraInfo, CameraInfoMsg>::templateName(const ROS2Subscriber<CameraInfo, CameraInfoMsg> *)
-//{
-//    return "RosCameraInfo";
-//}
-//template class ROS2Subscriber<CameraInfo, CameraInfoMsg>;
 
+/** Define template names for every specialization */
 template <>
-std::string ROS2Subscriber<SofaTwist, TwistMsg>::templateName(const ROS2Subscriber<SofaTwist, TwistMsg> *)
+std::string ROS2Subscriber<IntArray, IntArrayMsg>::templateName(const ROS2Subscriber<IntArray, IntArrayMsg> *)
 {
-    return "RosTwist";
+	return "RosIntArray";
 }
-template class ROS2Subscriber<SofaTwist, TwistMsg>;
+template class ROS2Subscriber<IntArray , IntArrayMsg>;
 
+/** Define template names for every specialization */
 template <>
-std::string ROS2Subscriber<sofa::type::vector<Vec3d>, PoseArrayMsg>::templateName(const ROS2Subscriber<sofa::type::vector<Vec3d>, PoseArrayMsg> *)
+std::string ROS2Subscriber<UnsignedArray , UnsignedArrayMsg>::templateName(const ROS2Subscriber<UnsignedArray, UnsignedArrayMsg> *)
 {
-    return "RosPoseArray";
+	return "RosUnsignedArray";
 }
-template class ROS2Subscriber<sofa::type::vector<Vec3d>, PoseArrayMsg>;
+template class ROS2Subscriber<UnsignedArray, UnsignedArrayMsg>;
 
+
+/** Define template names for every specialization */
 template <>
-std::string ROS2Subscriber<Vec6d, WrenchMsg>::templateName(const ROS2Subscriber<Vec6d, WrenchMsg> *)
+std::string ROS2Subscriber<Vec3dArray, Vec3dArrayMsg>::templateName(const ROS2Subscriber<Vec3dArray, Vec3dArrayMsg> *)
 {
-    return "RosWrench";
+	return "RosVec3dArray";
 }
-template class ROS2Subscriber<Vec6d, WrenchMsg>;
+template class ROS2Subscriber<Vec3dArray , Vec3dArrayMsg>;
 
-//template <>
-//std::string ROS2Subscriber<SofaImage, ImageMsg>::templateName(const ROS2Subscriber<SofaImage, ImageMsg> *)
-//{
-//    return "RosImage";
-//}
-//template class ROS2Subscriber<SofaImage, ImageMsg>;
-
-static int ROS2SubscriberClass = sofa::core::RegisterObject("")
-                                     .add<ROS2Subscriber<double, Float64Msg>>()
-                                     .add<ROS2Subscriber<Vec3d, PointMsg>>()
-                                     .add<ROS2Subscriber<Vec6d, WrenchMsg>>()
-//                                     .add<ROS2Subscriber<Rigid, PoseMsg>>()
-//                                     .add<ROS2Subscriber<Rigid, PoseStampedMsg>>()
-                                     .add<ROS2Subscriber<DoubleArray, JointStateMsg>>()
-//                                     .add<ROS2Subscriber<CameraInfo, CameraInfoMsg>>()
-                                     .add<ROS2Subscriber<sofa::type::vector<Vec3d>, PoseArrayMsg>>()
-                                     .add<ROS2Subscriber<SofaTwist, TwistMsg>>()
-//                                     .add<ROS2Subscriber<SofaImage, ImageMsg>>()
-                                     .add<ROS2Subscriber<DoubleArray, Float64ArrayMsg>>()
-;
+/** Define template names for every specialization */
+template <>
+std::string ROS2Subscriber<RigidArray, RigidArrayMsg>::templateName(const ROS2Subscriber<RigidArray, RigidArrayMsg> *)
+{
+	return "RosRigidArray";
+}
+template class ROS2Subscriber<RigidArray, RigidArrayMsg>;
+	static int ROS2SubscriberClass = sofa::core::RegisterObject("")
+                                     .add<ROS2Subscriber<double, DoubleMsg>>()
+                                     .add<ROS2Subscriber<int, IntMsg>>()
+                                     .add<ROS2Subscriber<unsigned, UnsignedMsg>>()
+                                     .add<ROS2Subscriber<Vec3d, Vec3dMsg>>()
+                                     .add<ROS2Subscriber<Rigid, RigidMsg>>()
+                                     .add<ROS2Subscriber<DoubleArray , DoubleArrayMsg>>()
+                                     .add<ROS2Subscriber<IntArray , IntArrayMsg>>()
+                                     .add<ROS2Subscriber<UnsignedArray , UnsignedArrayMsg>>()
+                                     .add<ROS2Subscriber<Vec3dArray , Vec3dArrayMsg>>()
+                                     .add<ROS2Subscriber<RigidArray , RigidArrayMsg>>();
 
 
 }  // namespace ros2

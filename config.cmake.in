@@ -1,0 +1,8 @@
+# CMake package configuration file for the plugin
+
+@PACKAGE_GUARD@
+@PACKAGE_INIT@
+
+find_package(ros2_flow REQUIRED)
+find_package(Boost REQUIRED)
+find_package(Threads REQUIRED)

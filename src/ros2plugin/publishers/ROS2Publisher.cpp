@@ -4,85 +4,112 @@
 
 namespace sofa
 {
-namespace ros2
-{
+	namespace ros2
+	{
+
+
+/*******ATOMIC******/
+
 /** Define template names for every specialization */
 template <>
-std::string ROS2Publisher<double, Float64Msg>::templateName(const ROS2Publisher<double, Float64Msg> *)
+std::string ROS2Publisher<double, DoubleMsg>::templateName(const ROS2Publisher<double, DoubleMsg> *)
 {
-    return "RosFloat64";
+	return "RosDouble";
 }
-template class ROS2Publisher<double, Float64Msg>;
+template class ROS2Publisher<double, DoubleMsg>;
 
+
+/** Define template names for every specialization */
 template <>
-std::string ROS2Publisher<DoubleArray, Float64ArrayMsg>::templateName(const ROS2Publisher<DoubleArray, Float64ArrayMsg> *)
+std::string ROS2Publisher<int, IntMsg>::templateName(const ROS2Publisher<int, IntMsg> *)
 {
-    return "RosFloat64Array";
+	return "RosInt";
 }
-template class ROS2Publisher<DoubleArray, Float64ArrayMsg>;
+template class ROS2Publisher<int , IntMsg>;
 
+/** Define template names for every specialization */
 template <>
-std::string ROS2Publisher<Vec3d, PointMsg>::templateName(const ROS2Publisher<Vec3d, PointMsg> *)
+std::string ROS2Publisher<unsigned, UnsignedMsg>::templateName(const ROS2Publisher<unsigned, UnsignedMsg> *)
 {
-    return "RosVec3d";
+	return "RosUnsigned";
 }
-template class ROS2Publisher<Vec3d, PointMsg>;
+template class ROS2Publisher<unsigned, UnsignedMsg>;
 
+
+/** Define template names for every specialization */
 template <>
-std::string ROS2Publisher<Rigid, PoseMsg>::templateName(const ROS2Publisher<Rigid, PoseMsg> *)
+std::string ROS2Publisher<Vec3d, Vec3dMsg>::templateName(const ROS2Publisher<Vec3d, Vec3dMsg> *)
 {
-    return "RosRigid";
+	return "RosVec3d";
 }
-template class ROS2Publisher<Rigid, PoseMsg>;
+template class ROS2Publisher<Vec3d , Vec3dMsg>;
 
+/** Define template names for every specialization */
 template <>
-std::string ROS2Publisher<Rigid, PoseStampedMsg>::templateName(const ROS2Publisher<Rigid, PoseStampedMsg> *)
+std::string ROS2Publisher<Rigid, RigidMsg>::templateName(const ROS2Publisher<Rigid, RigidMsg> *)
 {
-    return "RosPoseStamped";
+	return "RosRigid";
 }
-template class ROS2Publisher<Rigid, PoseStampedMsg>;
+template class ROS2Publisher<Rigid, RigidMsg>;
 
+
+
+
+/*******ARRAY******/
+
+/** Define template names for every specialization */
 template <>
-std::string ROS2Publisher<DoubleArray, JointStateMsg>::templateName(const ROS2Publisher<DoubleArray, JointStateMsg> *)
+std::string ROS2Publisher<DoubleArray , DoubleArrayMsg>::templateName(const ROS2Publisher<DoubleArray, DoubleArrayMsg> *)
 {
-    return "RosJointState";
+	return "RosDoubleArray";
 }
-template class ROS2Publisher<DoubleArray, JointStateMsg>;
+template class ROS2Publisher<DoubleArray, DoubleArrayMsg>;
 
+
+/** Define template names for every specialization */
 template <>
-std::string ROS2Publisher<sofa::type::vector<Vec3d>, PoseArrayMsg>::templateName(const ROS2Publisher<sofa::type::vector<Vec3d>, PoseArrayMsg> *)
+std::string ROS2Publisher<IntArray, IntArrayMsg>::templateName(const ROS2Publisher<IntArray, IntArrayMsg> *)
 {
-    return "RosPointArray";
+	return "RosIntArray";
 }
-template class ROS2Publisher<sofa::type::vector<Vec3d>, PoseArrayMsg>;
+template class ROS2Publisher<IntArray , IntArrayMsg>;
 
+/** Define template names for every specialization */
 template <>
-std::string ROS2Publisher<sofa::type::vector<Rigid>, PoseArrayMsg>::templateName(const ROS2Publisher<sofa::type::vector<Rigid>, PoseArrayMsg> *)
+std::string ROS2Publisher<UnsignedArray , UnsignedArrayMsg>::templateName(const ROS2Publisher<UnsignedArray, UnsignedArrayMsg> *)
 {
-    return "RosPoseArray";
+	return "RosUnsignedArray";
 }
-template class ROS2Publisher<sofa::type::vector<Rigid>, PoseArrayMsg>;
-
-//template <>
-//std::string ROS2Publisher<sofa::type::vector<SofaSphere>, SphereArrayMsg>::templateName(
-//    const ROS2Publisher<sofa::type::vector<SofaSphere>, SphereArrayMsg> *)
-//{
-//    return "RosSphereArray";
-//}
-//template class ROS2Publisher<sofa::type::vector<SofaSphere>, SphereArrayMsg>;
+template class ROS2Publisher<UnsignedArray, UnsignedArrayMsg>;
 
 
+/** Define template names for every specialization */
+template <>
+std::string ROS2Publisher<Vec3dArray, Vec3dArrayMsg>::templateName(const ROS2Publisher<Vec3dArray, Vec3dArrayMsg> *)
+{
+	return "RosVec3dArray";
+}
+template class ROS2Publisher<Vec3dArray , Vec3dArrayMsg>;
 
+/** Define template names for every specialization */
+template <>
+std::string ROS2Publisher<RigidArray, RigidArrayMsg>::templateName(const ROS2Publisher<RigidArray, RigidArrayMsg> *)
+{
+	return "RosRigidArray";
+}
+template class ROS2Publisher<RigidArray, RigidArrayMsg>;
 static int ROS2PublisherClass = sofa::core::RegisterObject("")
-                                    .add<ROS2Publisher<double, Float64Msg>>()
-                                    .add<ROS2Publisher<DoubleArray, Float64ArrayMsg>>()
-                                    .add<ROS2Publisher<Vec3d, PointMsg>>()
-//                                    .add<ROS2Publisher<Rigid, PoseMsg>>()
-//                                    .add<ROS2Publisher<Rigid, PoseStampedMsg>>()
-                                    .add<ROS2Publisher<DoubleArray, JointStateMsg>>()
-                                    .add<ROS2Publisher<sofa::type::vector<Vec3d>, PoseArrayMsg>>();
-//                                    .add<ROS2Publisher<sofa::type::vector<SofaSphere>, SphereArrayMsg>>()
-//                                    .add<ROS2Publisher<sofa::type::vector<Rigid>, PoseArrayMsg>>();
+		.add<ROS2Publisher<double, DoubleMsg>>()
+		.add<ROS2Publisher<int, IntMsg>>()
+		.add<ROS2Publisher<unsigned, UnsignedMsg>>()
+		.add<ROS2Publisher<Vec3d, Vec3dMsg>>()
+		.add<ROS2Publisher<Rigid, RigidMsg>>()
+		.add<ROS2Publisher<DoubleArray , DoubleArrayMsg>>()
+		.add<ROS2Publisher<IntArray , IntArrayMsg>>()
+		.add<ROS2Publisher<UnsignedArray , UnsignedArrayMsg>>()
+		.add<ROS2Publisher<Vec3dArray , Vec3dArrayMsg>>()
+		.add<ROS2Publisher<RigidArray , RigidArrayMsg>>();
+
 
 }  // namespace ros2
 }  // namespace sofa

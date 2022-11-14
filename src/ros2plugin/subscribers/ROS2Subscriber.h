@@ -35,7 +35,6 @@ public:
 
     sofa::Data<DataTypes> d_output;
     sofa::Data<DataTypes> d_initialValue;
-    Data<double> d_scale;
     Data<double> d_drawScale;
     Data<bool> d_draw;
 

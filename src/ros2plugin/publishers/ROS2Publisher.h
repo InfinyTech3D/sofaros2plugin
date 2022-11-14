@@ -35,7 +35,6 @@ public:
 
     sofa::Data<DataTypes> d_input;
     Data<double> d_drawScale;
-    Data<double> d_scale;
     Data<bool> d_canPublish;
     Data<bool> d_draw;
 
