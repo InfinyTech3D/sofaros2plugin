@@ -6,7 +6,7 @@ add_compile_options(-Wall -Wextra -Wpedantic)
 set(SOFA_INSTALL_DIR "$ENV{SOFA_INSTALL_DIR}" CACHE PATH "Path to install directory")
 
 if ("${SOFA_INSTALL_DIR}" STREQUAL "")
-    message(FATAL_ERROR "Please specify variable SOFA_INSTALL_DIR in cmake")
+    message(FATAL_ERROR "Please specify variable SOFA_INSTALL_DIR in your environnement")
 endif()
 list(APPEND CMAKE_PREFIX_PATH ${SOFA_INSTALL_DIR})
 
@@ -68,25 +68,8 @@ target_link_libraries(${PROJECT_NAME}
 
 ament_target_dependencies(${PROJECT_NAME} rclcpp std_msgs geometry_msgs trajectory_msgs sensor_msgs)
 
-create_package()
-
-### Change default install prefix
-###set(CMAKE_INSTALL_PREFIX ${SOFA_INSTALL_DIR}/plugins/${PROJECT_NAME} CACHE PATH "Install path prefix, prepended onto install directories." FORCE)
-###set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${SOFA_INSTALL_DIR}/lib)
-###set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${SOFA_INSTALL_DIR}/lib)
-###set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${SOFA_INSTALL_DIR}/bin)
 install(TARGETS
         ${PROJECT_NAME}
         DESTINATION lib/${PROJECT_NAME})
 
-# sofa_create_package_with_targets(
-#         PACKAGE_NAME ${PROJECT_NAME}
-#         PACKAGE_VERSION 0.1
-#         TARGETS ${PROJECT_NAME} AUTO_SET_TARGET_PROPERTIES
-#         INCLUDE_SOURCE_DIR "src"
-#         INCLUDE_INSTALL_DIR ${PROJECT_NAME}
-#         RELOCATABLE "plugins"
-# )
 
-# ament_export_dependencies(${required_dependencies})
-# ament_auto_package()
