@@ -25,10 +25,9 @@ public:
     }
 };
 
-/************************** ATOMIC *************************************/
-
-
-/********************************************************************************************************
+/************************************************************/
+/************************** ATOMIC **************************/
+/************************************************************
  *      SOFA         <===>          ROS2
  *     double                    DoubleMsg
  */
@@ -45,7 +44,7 @@ inline DoubleMsg MessageWrapper<double, DoubleMsg>::toROS(const double& sofa_typ
     return ros_msg;
 }
 
-/********************************************************************************************************
+/************************************************************
  *      SOFA         <===>          ROS2
  *     int                    IntMsg
  */
@@ -62,7 +61,7 @@ inline IntMsg MessageWrapper<int, IntMsg>::toROS(const int & sofa_type)
     return ros_msg;
 }
 
-/********************************************************************************************************
+/************************************************************
  *      SOFA         <===>          ROS2
  *     int                    UnsignedMsg
  */
@@ -80,7 +79,7 @@ inline UnsignedMsg MessageWrapper<unsigned, UnsignedMsg>::toROS(const unsigned &
 }
 
 
-/********************************************************************************************************
+/************************************************************
  *      SOFA         <===>          ROS2
  *      Vec3d                      PointMsg
  */
@@ -104,7 +103,7 @@ inline Vec3dMsg MessageWrapper<Vec3d, Vec3dMsg>::toROS(const Vec3d& vec3d)
 }
 
 
-/********************************************************************************************************
+/************************************************************
  *      SOFA         <===>          ROS2
  *      Rigid                      PoseMsg
  */
@@ -129,8 +128,45 @@ inline RigidMsg MessageWrapper<Rigid, RigidMsg>::toROS(const Rigid& rigid)
 	return pose;
 }
 
+/************************************************************
+ *      SOFA         <===>          ROS2
+ *      String                      StringMsg
+ */
+
+template <>
+inline String MessageWrapper<String, StringMsg>::toSofa(const StringMsg& ros_msg)
+{
+	return ros_msg.data;
+}
+template <>
+inline StringMsg MessageWrapper<String, StringMsg>::toROS(const String& sofa_type)
+{
+	auto msg = StringMsg();
+	msg.set__data(sofa_type);
+	return msg;
+}
+
+/************************************************************
+ *      SOFA         <===>          ROS2
+ *      Byte                      ByteMsg
+ */
+
+template <>
+inline Byte MessageWrapper<Byte, ByteMsg>::toSofa(const ByteMsg& ros_msg)
+{
+	return ros_msg.data;
+}
+template <>
+inline ByteMsg MessageWrapper<Byte, ByteMsg>::toROS(const Byte& sofa_type)
+{
+	auto msg = ByteMsg();
+	msg.set__data(sofa_type);
+	return msg;
+}
+
+/************************************************************/
 /****************************** ARRAY ***********************/
-/********************************************************************************************************
+/************************************************************
  *      SOFA         <===>          ROS2
  *     DoubleArray               Float64ArrayMsg
  */
@@ -148,7 +184,7 @@ inline DoubleArrayMsg MessageWrapper<DoubleArray, DoubleArrayMsg>::toROS(const D
     return ros_msg;
 }
 
-/********************************************************************************************************
+/************************************************************
  *      SOFA         <===>          ROS2
  *     DoubleArray               Float64ArrayMsg
  */
@@ -167,7 +203,7 @@ inline IntArrayMsg MessageWrapper<IntArray, IntArrayMsg>::toROS(const IntArray& 
 }
 
 
-/********************************************************************************************************
+/************************************************************
  *      SOFA         <===>          ROS2
  *     DoubleArray               Float64ArrayMsg
  */
@@ -189,7 +225,7 @@ inline UnsignedArrayMsg MessageWrapper<UnsignedArray, UnsignedArrayMsg>::toROS(c
 
 
 
-/********************************************************************************************************
+/************************************************************
  *      SOFA         <===>          ROS2
  *      Vec3dArray       Vec3dArrayMsg
  */
@@ -218,7 +254,7 @@ inline Vec3dArrayMsg MessageWrapper<Vec3dArray, Vec3dArrayMsg>::toROS(const Vec3
     return points;
 }
 
-/********************************************************************************************************
+/************************************************************
  *      SOFA         <===>          ROS2
  *      RigidArray                  RigidArrayMsg
  */
@@ -239,6 +275,32 @@ inline RigidArrayMsg MessageWrapper<RigidArray, RigidArrayMsg>::toROS(const Rigi
     for (unsigned i = 0; i < vec3d.size(); i++)
     {
         points.poses.push_back(MessageWrapper<Rigid, RigidMsg>::toROS(vec3d[i]));
+    }
+
+    return points;
+}
+
+/************************************************************
+ *      SOFA         <===>          ROS2
+ *      ByteArray                  ByteArrayMsg
+ */
+template <>
+inline ByteArray MessageWrapper<ByteArray, ByteArrayMsg>::toSofa(const ByteArrayMsg& msg)
+{
+	ByteArray returnVec;
+
+    for (unsigned i = 0; i < msg.data.size(); i++) returnVec.push_back(msg.data[i]);
+
+    return returnVec;
+}
+template <>
+inline ByteArrayMsg MessageWrapper<ByteArray, ByteArrayMsg>::toROS(const ByteArray& byteArray)
+{
+    auto points = ByteArrayMsg();
+
+    for (unsigned i = 0; i < byteArray.size(); i++)
+    {
+        points.data.push_back(byteArray[i]);
     }
 
     return points;

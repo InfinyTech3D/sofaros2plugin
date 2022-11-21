@@ -38,6 +38,32 @@
                         template="RosVec3d"
                         nodeName="point_subscriber"
                         topicName="sofa/point"/>
+
+        <ROS2Publisher name="string_pub"
+                       template="RosString"
+                       nodeName="point_publisher"
+                       topicName="sofa/string"
+                       canPublish="true"
+                       input=" Hi it\'s me ! "/>
+        <ROS2Subscriber name="string_sub"
+                        template="RosString"
+                        nodeName="point_subscriber"
+                        topicName="sofa/string"/>
+
+
+
+        <ROS2Publisher name="byteArray_pub"
+                       template="RosByteArray"
+                       nodeName="point_publisher"
+                       topicName="sofa/byteArray"
+                       canPublish="true"
+                       input="0 1 2 3 5 4 3 2"/>
+        <ROS2Subscriber name="byteArray_sub"
+                        template="RosByteArray"
+                        nodeName="point_subscriber"
+                        topicName="sofa/byteArray"/>
+
+
         <ROS2Publisher name="point_pub_array"
                        template="RosVec3dArray"
                        nodeName="point_publisher"

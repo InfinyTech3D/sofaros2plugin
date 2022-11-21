@@ -52,6 +52,22 @@ std::string ROS2Subscriber<Rigid, RigidMsg>::templateName(const ROS2Subscriber<R
 }
 template class ROS2Subscriber<Rigid, RigidMsg>;
 
+/** Define template names for every specialization */
+template <>
+std::string ROS2Subscriber<String, StringMsg>::templateName(const ROS2Subscriber<String, StringMsg> *)
+{
+	return "RosString";
+}
+template class ROS2Subscriber<String, StringMsg>;
+
+/** Define template names for every specialization */
+template <>
+std::string ROS2Subscriber<Byte, ByteMsg>::templateName(const ROS2Subscriber<Byte, ByteMsg> *)
+{
+	return "RosByte";
+}
+template class ROS2Subscriber<Byte, ByteMsg>;
+
 
 
 
@@ -97,18 +113,31 @@ std::string ROS2Subscriber<RigidArray, RigidArrayMsg>::templateName(const ROS2Su
 {
 	return "RosRigidArray";
 }
+
+/** Define template names for every specialization */
+template <>
+std::string ROS2Subscriber<ByteArray, ByteArrayMsg>::templateName(const ROS2Subscriber<ByteArray, ByteArrayMsg> *)
+{
+return "RosByteArray";
+}
+template class ROS2Subscriber<ByteArray, ByteArrayMsg>;
+
+
 template class ROS2Subscriber<RigidArray, RigidArrayMsg>;
-	static int ROS2SubscriberClass = sofa::core::RegisterObject("")
-                                     .add<ROS2Subscriber<double, DoubleMsg>>()
-                                     .add<ROS2Subscriber<int, IntMsg>>()
-                                     .add<ROS2Subscriber<unsigned, UnsignedMsg>>()
-                                     .add<ROS2Subscriber<Vec3d, Vec3dMsg>>()
-                                     .add<ROS2Subscriber<Rigid, RigidMsg>>()
-                                     .add<ROS2Subscriber<DoubleArray , DoubleArrayMsg>>()
-                                     .add<ROS2Subscriber<IntArray , IntArrayMsg>>()
-                                     .add<ROS2Subscriber<UnsignedArray , UnsignedArrayMsg>>()
-                                     .add<ROS2Subscriber<Vec3dArray , Vec3dArrayMsg>>()
-                                     .add<ROS2Subscriber<RigidArray , RigidArrayMsg>>();
+static int ROS2SubscriberClass = sofa::core::RegisterObject("")
+.add<ROS2Subscriber<double, DoubleMsg>>()
+.add<ROS2Subscriber<int, IntMsg>>()
+.add<ROS2Subscriber<unsigned, UnsignedMsg>>()
+.add<ROS2Subscriber<Vec3d, Vec3dMsg>>()
+.add<ROS2Subscriber<Rigid, RigidMsg>>()
+.add<ROS2Subscriber<String, StringMsg>>()
+.add<ROS2Subscriber<Byte, ByteMsg>>()
+.add<ROS2Subscriber<DoubleArray , DoubleArrayMsg>>()
+.add<ROS2Subscriber<IntArray , IntArrayMsg>>()
+.add<ROS2Subscriber<UnsignedArray , UnsignedArrayMsg>>()
+.add<ROS2Subscriber<Vec3dArray , Vec3dArrayMsg>>()
+.add<ROS2Subscriber<RigidArray , RigidArrayMsg>>()
+.add<ROS2Subscriber<ByteArray , ByteArrayMsg>>();
 
 
 }  // namespace ros2

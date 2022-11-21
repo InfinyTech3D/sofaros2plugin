@@ -52,6 +52,22 @@ std::string ROS2Publisher<Rigid, RigidMsg>::templateName(const ROS2Publisher<Rig
 }
 template class ROS2Publisher<Rigid, RigidMsg>;
 
+/** Define template names for every specialization */
+template <>
+std::string ROS2Publisher<String, StringMsg>::templateName(const ROS2Publisher<String, StringMsg> *)
+{
+	return "RosString";
+}
+template class ROS2Publisher<String, StringMsg>;
+
+/** Define template names for every specialization */
+template <>
+std::string ROS2Publisher<Byte, ByteMsg>::templateName(const ROS2Publisher<Byte, ByteMsg> *)
+{
+	return "RosByte";
+}
+template class ROS2Publisher<Byte, ByteMsg>;
+
 
 
 
@@ -97,18 +113,31 @@ std::string ROS2Publisher<RigidArray, RigidArrayMsg>::templateName(const ROS2Pub
 {
 	return "RosRigidArray";
 }
-template class ROS2Publisher<RigidArray, RigidArrayMsg>;
+
+/** Define template names for every specialization */
+template <>
+std::string ROS2Publisher<ByteArray, ByteArrayMsg>::templateName(const ROS2Publisher<ByteArray, ByteArrayMsg> *)
+{
+	return "RosByteArray";
+}
+template class ROS2Publisher<ByteArray, ByteArrayMsg>;
+
+
+		template class ROS2Publisher<RigidArray, RigidArrayMsg>;
 static int ROS2PublisherClass = sofa::core::RegisterObject("")
 		.add<ROS2Publisher<double, DoubleMsg>>()
 		.add<ROS2Publisher<int, IntMsg>>()
 		.add<ROS2Publisher<unsigned, UnsignedMsg>>()
 		.add<ROS2Publisher<Vec3d, Vec3dMsg>>()
 		.add<ROS2Publisher<Rigid, RigidMsg>>()
+		.add<ROS2Publisher<String, StringMsg>>()
+		.add<ROS2Publisher<Byte, ByteMsg>>()
 		.add<ROS2Publisher<DoubleArray , DoubleArrayMsg>>()
 		.add<ROS2Publisher<IntArray , IntArrayMsg>>()
 		.add<ROS2Publisher<UnsignedArray , UnsignedArrayMsg>>()
 		.add<ROS2Publisher<Vec3dArray , Vec3dArrayMsg>>()
-		.add<ROS2Publisher<RigidArray , RigidArrayMsg>>();
+		.add<ROS2Publisher<RigidArray , RigidArrayMsg>>()
+		.add<ROS2Publisher<ByteArray , ByteArrayMsg>>();
 
 
 }  // namespace ros2

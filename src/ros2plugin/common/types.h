@@ -16,7 +16,10 @@
 #include <geometry_msgs/msg/quaternion.hpp>
 
 #include <std_msgs/msg/float64.hpp>
+#include <std_msgs/msg/string.hpp>
 #include <std_msgs/msg/int32.hpp>
+#include <std_msgs/msg/byte.hpp>
+#include <std_msgs/msg/byte_multi_array.hpp>
 #include <std_msgs/msg/u_int32.hpp>
 #include <std_msgs/msg/float64_multi_array.hpp>
 #include <std_msgs/msg/u_int32_multi_array.hpp>
@@ -30,14 +33,15 @@ namespace ros2
 using Vec3d = defaulttype::Vec3Types::Coord;
 using Quat = sofa::type::Quatd;
 using Rigid = sofa::defaulttype::Rigid3dTypes::Coord;
-
+using String = std::string;
+using Byte = unsigned char;
 
 using DoubleArray = sofa::type::vector<double>;
 using IntArray = sofa::type::vector<int>;
 using UnsignedArray = sofa::type::vector<unsigned>;
 using Vec3dArray = sofa::type::vector<Vec3d>;
 using RigidArray = sofa::type::vector<Rigid>;
-
+using ByteArray = sofa::type::vector<Byte>;
 
 
 /** ROS2 Types */
@@ -47,6 +51,8 @@ using UnsignedMsg = std_msgs::msg::UInt32;
 using Vec3dMsg = geometry_msgs::msg::Point;
 using RigidMsg = geometry_msgs::msg::Pose;
 using QuatMsg = geometry_msgs::msg::Quaternion;
+using StringMsg = std_msgs::msg::String;
+using ByteMsg = std_msgs::msg::Byte;
 
 
 using DoubleArrayMsg = std_msgs::msg::Float64MultiArray;
@@ -54,6 +60,7 @@ using IntArrayMsg = std_msgs::msg::Int32MultiArray;
 using UnsignedArrayMsg = std_msgs::msg::UInt32MultiArray;
 using Vec3dArrayMsg = sensor_msgs::msg::PointCloud;
 using RigidArrayMsg = geometry_msgs::msg::PoseArray;
+using ByteArrayMsg = std_msgs::msg::ByteMultiArray;
 }  // namespace ros2
 
 }  // namespace sofa
