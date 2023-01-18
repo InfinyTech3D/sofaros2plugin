@@ -48,7 +48,7 @@ public:
     {
 		for (auto node : m_workers)
 		{
-			auto thread = new std::thread([this,node]
+			auto thread = new std::thread([node]
 										  {
 											  rclcpp::executors::StaticSingleThreadedExecutor executor;
 											  executor.add_node(node);
