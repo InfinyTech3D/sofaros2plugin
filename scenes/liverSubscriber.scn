@@ -1,0 +1,26 @@
+<Node name="root" dt="1e-3" gravity="0 0 0">
+
+    <RequiredPlugin pluginName='SofaBoundaryCondition'/>
+    <RequiredPlugin name="ROS2Plugin"/>
+    <RequiredPlugin name="RegistrationConstraint"/>
+
+    <Node name="ROS2">
+        <ROS2Context name="ros2Context"/>
+        <ROS2Subscriber name="point_sub"
+                       template="RosVec3dArray"
+                       nodeName="liver"
+                       topicName="sofa/liverPose" />
+    </Node>
+
+
+    <Node name="Liver">
+        <MeshGmshLoader name="meshLoader" filename="mesh/liver.msh" />
+        <TetrahedronSetTopologyContainer name="topo" src="@meshLoader" />
+        <MechanicalObject name="dofs" src="@meshLoader" />
+        <EngineToTopology position="@../ROS2/point_sub.output" state="@dofs" template="Vec3d" />
+        <Node name="Visu" tags="Visual" gravity="0 -9.81 0">
+            <OglModel  name="VisualModel" src="@../../LiverSurface" />
+            <BarycentricMapping name="visual mapping" input="@../dofs" output="@VisualModel" />
+        </Node>
+    </Node>
+</Node>
