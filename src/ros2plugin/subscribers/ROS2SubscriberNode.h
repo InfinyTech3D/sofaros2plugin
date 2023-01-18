@@ -3,6 +3,7 @@
 #include <ros2plugin/common/types.h>
 #include "atomic"
 #include <mutex>
+#include <rclcpp/qos.hpp>
 
 namespace sofa
 {
@@ -22,8 +23,15 @@ public:
     explicit ROS2SubscriberNode(const std::string &node_name = "DefaultNodeName", std::string topic_name = "DefaultTopicName", size_t buffer_size = 1)
         : Node(node_name)
     {
+
+		rclcpp::QoS qos(buffer_size);
+		qos.best_effort();
+		qos.history(rclcpp::HistoryPolicy::KeepLast);
+		qos.lifespan(rclcpp::Duration(1,0));
+		qos.durability(rclcpp::DurabilityPolicy::Volatile);
         m_subscription =
-            this->create_subscription<ROS2_MSG>(topic_name, buffer_size, std::bind(&ROS2SubscriberNode::callback, this, std::placeholders::_1));
+            this->create_subscription<ROS2_MSG>(topic_name, qos, std::bind(&ROS2SubscriberNode::callback, this, std::placeholders::_1));
+
     }
 
     ROS2_MSG get()
@@ -37,6 +45,7 @@ public:
 protected:
     virtual void callback(const typename ROS2_MSG::SharedPtr msg)
     {
+//		std::cout<<"Callback"<<std::endl;
         const std::lock_guard<std::mutex> lock(msg_mutex);
         m_msg = ROS2_MSG(*(msg.get()));
     }

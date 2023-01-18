@@ -46,12 +46,16 @@ public:
 
     void bwdInit() override
     {
-        auto thread = std::thread([this] {
-            rclcpp::executors::MultiThreadedExecutor executor;
-            for (auto node : m_workers) executor.add_node(node);
-            executor.spin();
-        });
-        thread.detach();
+		for (auto node : m_workers)
+		{
+			auto thread = new std::thread([this,node]
+										  {
+											  rclcpp::executors::StaticSingleThreadedExecutor executor;
+											  executor.add_node(node);
+											  executor.spin();
+										  });
+			thread->detach();
+		}
     }
 
     void cleanup() override { rclcpp::shutdown(); }
