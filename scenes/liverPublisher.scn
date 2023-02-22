@@ -4,7 +4,7 @@
     <RequiredPlugin name="ROS2Plugin"/>
     <RequiredPlugin name="SperryPlugin"/>
 
-<!--    <Sequencer frequency="40" />-->
+    <Sequencer frequency="40" />
 
     <EulerImplicitSolver name="ODEsolver" rayleighStiffness="0.1" rayleighMass="0.1"/>
     <CGLinearSolver iterations="100" tolerance="1e-5" threshold="1e-5"/>
