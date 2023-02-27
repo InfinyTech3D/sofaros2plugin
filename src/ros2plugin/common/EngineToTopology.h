@@ -11,11 +11,12 @@
 #include <sofa/core/objectmodel/KeypressedEvent.h>
 #include <sofa/core/objectmodel/KeyreleasedEvent.h>
 
-#include <SofaBaseTopology/PointSetTopologyContainer.h>
-#include <SofaBaseTopology/PointSetTopologyModifier.h>
+#include <sofa/component/topology/container/dynamic/PointSetTopologyContainer.h>
+#include <sofa/component/topology/container/dynamic/PointSetTopologyModifier.h>
+
 #include <sofa/core/topology/TopologyChange.h>
 #include <sofa/core/topology/TopologyData.h>
-#include <SofaBaseTopology/GridTopology.h>
+#include <sofa/component/topology/container/grid/GridTopology.h>
 #include <sofa/core/topology/TopologicalMapping.h>
 
 #include <sofa/core/visual/VisualParams.h>
@@ -33,8 +34,8 @@ public :
     typedef typename DataTypes::Coord Coord;
     typedef typename DataTypes::VecCoord VecCoord;
 
-    typedef sofa::component::topology::PointSetTopologyContainer PointTopologyContainer;
-    typedef sofa::component::topology::PointSetTopologyModifier PointTopologyModifier;
+    typedef sofa::component::topology::container::dynamic::PointSetTopologyContainer PointTopologyContainer;
+    typedef sofa::component::topology::container::dynamic::PointSetTopologyModifier PointTopologyModifier;
 
     SOFA_CLASS(SOFA_TEMPLATE(EngineToTopology, DataTypes), core::objectmodel::BaseObject);
 

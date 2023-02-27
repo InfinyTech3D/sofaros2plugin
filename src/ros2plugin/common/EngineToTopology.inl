@@ -4,10 +4,10 @@
 #include <sofa/core/visual/VisualParams.h>
 #include <sofa/type/Quat.h>
 #include <sofa/core/ObjectFactory.h>
-#include <SofaOpenglVisual/OglModel.h>
+//#include <sofa/gl/component/rendering3d/OglModel.h>
 #include <sofa/simulation/AnimateBeginEvent.h>
-#include <SofaBaseMechanics/MechanicalObject.h>
-#include <SofaConstraint/BilateralInteractionConstraint.h>
+//#include <SofaBaseMechanics/MechanicalObject.h>
+//#include <SofaConstraint/BilateralInteractionConstraint.h>
 #include <Eigen/Dense>
 #include <Eigen/Core>
 #include <Eigen/SVD>
